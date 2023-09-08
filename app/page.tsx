@@ -1,9 +1,10 @@
 import * as React from "react";
+import IslandsMap from "./components/islands_map";
 
 export default function Home() {
   return (
     <div>
-      <h1>Hello World</h1>
+      <IslandsMap />
     </div>
   );
 }
