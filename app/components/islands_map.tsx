@@ -1,23 +1,23 @@
 'use client';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import islandSummaries from "../constants/island_summaries";
 
 const container = {
   width: "100%",
   height: "800px", //FIXME: ウインドウサイズに合わせたい
 };
 
-const position = {
+const defaultPosition = {
   lat: 33.975178,
   lng: 132.619553,
 };
 
-const testIslandPositions = [
-  { lat: 33.975178, lng: 132.619553 },
-  { lat: 33.980306, lng: 132.548509 },
-  { lat: 33.969383, lng: 132.689278 },
-  { lat: 33.883688, lng: 132.673384 },
-  { lat: 33.964277, lng: 132.661154 },
-];
+const islandPositions = islandSummaries.map((islandSummary) => {
+  return {
+    lat: islandSummary.lat,
+    lng: islandSummary.lng,
+  };
+});
 
 export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -30,8 +30,12 @@ export default function IslandsMap() {
     <>
       <div className="wrap">
         <LoadScript googleMapsApiKey={apiKey}>
-          <GoogleMap mapContainerStyle={container} center={position} zoom={11}>
-            {testIslandPositions.map((position, index) => {
+          <GoogleMap
+            mapContainerStyle={container}
+            center={defaultPosition}
+            zoom={11}
+          >
+            {islandPositions.map((position, index) => {
               return (
                 <Marker key={index} position={position} onClick={testFunc} />
               );
