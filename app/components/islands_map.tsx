@@ -19,12 +19,16 @@ const testIslandPosition = {
 export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
+  function testFunc() {
+    console.log("test");
+  }
+
   return apiKey ? (
     <>
       <div className="wrap">
         <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap mapContainerStyle={container} center={position} zoom={11}>
-            <Marker position={testIslandPosition} />
+            <Marker position={testIslandPosition} onClick={testFunc}/>
           </GoogleMap>
         </LoadScript>
       </div>
