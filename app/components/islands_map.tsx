@@ -1,5 +1,5 @@
 'use client';
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 const container = {
   width: "100%",
@@ -11,6 +11,11 @@ const position = {
   lng: 132.619553,
 };
 
+const testIslandPosition = {
+  lat: 33.975178,
+  lng: 132.619553,
+};
+
 export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
@@ -18,11 +23,9 @@ export default function IslandsMap() {
     <>
       <div className="wrap">
         <LoadScript googleMapsApiKey={apiKey}>
-          <GoogleMap
-            mapContainerStyle={container}
-            center={position}
-            zoom={11}
-          ></GoogleMap>
+          <GoogleMap mapContainerStyle={container} center={position} zoom={11}>
+            <Marker position={testIslandPosition} />
+          </GoogleMap>
         </LoadScript>
       </div>
     </>
