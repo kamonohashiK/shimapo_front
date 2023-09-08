@@ -1,5 +1,9 @@
 import { Drawer } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import SidebarText from "./sidebar_text";
+import SidebarIslandInfo from "./sidebar_island_info";
+
+// 動作確認用変数
+const isIslandInfo: Boolean = true;
 
 export default function Sidebar() {
   return (
@@ -17,17 +21,7 @@ export default function Sidebar() {
       variant="permanent"
       anchor="left"
     >
-      <Typography align="center" paragraph margin={"10px"}>
-        <b>Lorem ipsum</b>
-        <br></br>
-        dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-        dolor purus non enim praesent elementum facilisis leo vel. Risus at
-        ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-        quisque non tellus. Convallis convallis tellus id interdum velit laoreet
-        id donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing.
-        Amet nisl
-      </Typography>
+      {isIslandInfo ? <SidebarIslandInfo /> : <SidebarText />}
     </Drawer>
   );
 }
