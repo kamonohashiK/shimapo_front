@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+#content {
+  background-color: white;
+  height: 100vh;
+  text-align: center;
+  margin: 80px 0 40px 0;
+  width: 50%;
+}
