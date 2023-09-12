@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from "./components/header";
 import Sidebar from './components/sidebar';
-import Grid from "@mui/material/Grid";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,14 +20,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <Grid container direction="row" spacing={2}>
-          <Grid item xs={3}>
-            <Sidebar />
-          </Grid>
-          <Grid item xs={9} id="content">
-            {children}
-          </Grid>
-        </Grid>
+        <Sidebar />
+        {children}
       </body>
     </html>
   );
