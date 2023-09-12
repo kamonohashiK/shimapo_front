@@ -1,13 +1,12 @@
 'use client';
 import React from "react";
+import clsx from "clsx";
 import { Button, Typography, Stack, TextField, Container } from "@mui/material";
 import { styled, Box, Theme } from "@mui/system";
 import { Modal } from "@mui/base/Modal";
 
 export default function LoginPage() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const modalOpen = () => setOpen(true);
   const modalClose = () => setOpen(false);
 
@@ -35,12 +34,16 @@ export default function LoginPage() {
             aria-describedby="unstyled-modal-description"
             open={open}
             onClose={modalClose}
+            slots={{ backdrop: StyledBackdrop }}
           >
             <Box sx={style}>
               <Stack spacing={2} margin={3}>
-                <Typography paragraph>有効化メールが送信される旨の文言</Typography>
+                <Button onClick={modalClose}>X</Button>
+                <Typography paragraph>
+                  有効化メールが送信される旨の文言
+                </Typography>
                 <TextField label="Email" />
-                <Button variant="outlined">ログイン</Button>
+                <Button variant="outlined">送信</Button>
               </Stack>
             </Box>
           </StyledModal>
