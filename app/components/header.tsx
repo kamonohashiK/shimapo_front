@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Menu, MenuItem } from "@mui/material";
+import { Link, Menu, MenuItem } from "@mui/material";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -57,8 +57,12 @@ export default function Header() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem >
+              <Link href="/">地図から探す</Link>
+            </MenuItem>
+            <MenuItem >
+              <Link href="/login">ログイン</Link>
+            </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
