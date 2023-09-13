@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Button, Typography, Stack, TextField, Container } from "@mui/material";
 import { styled, Box, Theme } from "@mui/system";
 import { Modal } from "@mui/base/Modal";
+import GoogleAuthButton from "../components/google_auth_button";
 
 export default function LoginPage() {
   const [open, setOpen] = React.useState(false);
@@ -47,7 +48,7 @@ export default function LoginPage() {
               </Stack>
             </Box>
           </StyledModal>
-          <Button variant="outlined">Google</Button>
+          <GoogleAuthButton />
           <Button variant="outlined">Twitter</Button>
           <Button variant="outlined">Facebook</Button>
         </Stack>
