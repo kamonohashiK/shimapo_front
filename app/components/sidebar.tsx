@@ -9,10 +9,9 @@ export default function Sidebar() {
   return (
     <Drawer
       sx={{
-        width: 280,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: 280,
+          width: "30%",
           boxSizing: "border-box",
           zIndex: 1,
           justifyContent: "space-around",
