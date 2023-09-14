@@ -1,4 +1,3 @@
-// redux-toolkitを試しに使ってみる
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface PageState {

@@ -1,7 +1,9 @@
 //components/google_auth_button.tsx
 import firebase_app from "../../firebase/config";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "@firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, UserCredential } from "@firebase/auth";
 import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { setLoginInfo } from "../store/userSlice";
 
 export default function GoogleAuthButton() {
   // Google認証
@@ -16,9 +18,9 @@ export default function GoogleAuthButton() {
         const token = credential.accessToken;
         //console.log(token);
 
-        // TODO: 取得したユーザーの情報(今回はuid,displayName,photoUrlくらい)をstoreに保存
+        // 取得したユーザーの情報(uid,displayName,photoUrl)をstoreに保存
         const user = result.user;
-        console.log(user);
+        setUserState(user.uid, user.displayName, user.photoURL);
       })
       .catch((error) => {
         console.log("Google認証エラー");
@@ -27,6 +29,23 @@ export default function GoogleAuthButton() {
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
+  }
+
+  // storeにユーザー情報を保存
+  const dispatch = useDispatch();
+
+  function setUserState(
+    uid: string,
+    displayName: string | null,
+    photoUrl: string | null
+  ) {
+    dispatch(
+      setLoginInfo({
+        uid: uid,
+        displayName: displayName,
+        photoUrl: photoUrl,
+      })
+    );
   }
 
   return (
