@@ -1,10 +1,11 @@
-'use client';
+"use client";
 import React from "react";
 import clsx from "clsx";
-import { Button, Typography, Stack, TextField, Container } from "@mui/material";
+import { Button, Typography, Stack, TextField, Container, Grid } from "@mui/material";
 import { styled, Box, Theme } from "@mui/system";
 import { Modal } from "@mui/base/Modal";
 import GoogleAuthButton from "../components/google_auth_button";
+import Sidebar from "../components/sidebar";
 
 export default function LoginPage() {
   const [open, setOpen] = React.useState(false);
@@ -12,48 +13,60 @@ export default function LoginPage() {
   const modalClose = () => setOpen(false);
 
   return (
-    <Container className="content" fixed>
-      <Typography variant="h4" color="secondary">
-        Login
-      </Typography>
-      <Stack spacing={2} margin={3} marginLeft={10} className="button-group">
-        <Stack spacing={2} margin={3}>
-          <TextField label="Email" />
-          <TextField label="Password" />
-          <Button variant="outlined">ログイン</Button>
-        </Stack>
-
-        <Typography variant="h4" color="secondary">
-          Sign Up
-        </Typography>
-        <Stack spacing={2} margin={3} className="button-group">
-          <TriggerButton type="button" onClick={modalOpen}>
-            メール
-          </TriggerButton>
-          <StyledModal
-            aria-labelledby="unstyled-modal-title"
-            aria-describedby="unstyled-modal-description"
-            open={open}
-            onClose={modalClose}
-            slots={{ backdrop: StyledBackdrop }}
+    <Grid container direction="row" spacing={2}>
+      <Grid item xs={3}>
+        <Sidebar />
+      </Grid>
+      <Grid item xs={9} id="content">
+        <Container className="content" fixed>
+          <Typography variant="h4" color="secondary">
+            Login
+          </Typography>
+          <Stack
+            spacing={2}
+            margin={3}
+            marginLeft={10}
+            className="button-group"
           >
-            <Box sx={style}>
-              <Stack spacing={2} margin={3}>
-                <Button onClick={modalClose}>X</Button>
-                <Typography paragraph>
-                  有効化メールが送信される旨の文言
-                </Typography>
-                <TextField label="Email" />
-                <Button variant="outlined">送信</Button>
-              </Stack>
-            </Box>
-          </StyledModal>
-          <GoogleAuthButton />
-          <Button variant="outlined">Twitter</Button>
-          <Button variant="outlined">Facebook</Button>
-        </Stack>
-      </Stack>
-    </Container>
+            <Stack spacing={2} margin={3}>
+              <TextField label="Email" />
+              <TextField label="Password" />
+              <Button variant="outlined">ログイン</Button>
+            </Stack>
+
+            <Typography variant="h4" color="secondary">
+              Sign Up
+            </Typography>
+            <Stack spacing={2} margin={3} className="button-group">
+              <TriggerButton type="button" onClick={modalOpen}>
+                メール
+              </TriggerButton>
+              <StyledModal
+                aria-labelledby="unstyled-modal-title"
+                aria-describedby="unstyled-modal-description"
+                open={open}
+                onClose={modalClose}
+                slots={{ backdrop: StyledBackdrop }}
+              >
+                <Box sx={style}>
+                  <Stack spacing={2} margin={3}>
+                    <Button onClick={modalClose}>X</Button>
+                    <Typography paragraph>
+                      有効化メールが送信される旨の文言
+                    </Typography>
+                    <TextField label="Email" />
+                    <Button variant="outlined">送信</Button>
+                  </Stack>
+                </Box>
+              </StyledModal>
+              <GoogleAuthButton />
+              <Button variant="outlined">Twitter</Button>
+              <Button variant="outlined">Facebook</Button>
+            </Stack>
+          </Stack>
+        </Container>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -1,4 +1,5 @@
 //components/google_auth_button.tsx
+"use client";
 import firebase_app from "../../firebase/config";
 import { getAuth, signInWithPopup, GoogleAuthProvider, UserCredential } from "@firebase/auth";
 import { Button } from "@mui/material";

@@ -2,8 +2,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from "./components/header";
-import Sidebar from './components/sidebar';
-import Grid from "@mui/material/Grid";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
 
@@ -21,14 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider store={store}>
           <Header />
-          <Grid container direction="row" spacing={2}>
-            <Grid item xs={3}>
-              <Sidebar />
-            </Grid>
-            <Grid item xs={9} id="content">
-              {children}
-            </Grid>
-          </Grid>
+          {children}
         </Provider>
       </body>
     </html>

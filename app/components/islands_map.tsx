@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import islandSummaries from "../constants/island_summaries";
 import { useAppDispatch } from "../store/hooks";
