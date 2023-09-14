@@ -1,11 +1,12 @@
-'use client';
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Link, Menu, MenuItem } from "@mui/material";
+import { Avatar, Link, Menu, MenuItem } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,6 +18,9 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const avatarUrl = useSelector((state: RootState) => state.user.photoUrl);
+  const displayName = useSelector((state: RootState) => state.user.displayName);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -40,7 +44,11 @@ export default function Header() {
             onClick={handleMenu}
             color="inherit"
           >
-            <Typography>icon</Typography>
+            {displayName && avatarUrl ? (
+              <Avatar alt={displayName} src={avatarUrl} />
+            ) : (
+              <Avatar></Avatar>
+            )}
           </IconButton>
           <Menu
             id="menu-appbar"
@@ -57,10 +65,10 @@ export default function Header() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem >
+            <MenuItem>
               <Link href="/">地図から探す</Link>
             </MenuItem>
-            <MenuItem >
+            <MenuItem>
               <Link href="/login">ログイン</Link>
             </MenuItem>
           </Menu>

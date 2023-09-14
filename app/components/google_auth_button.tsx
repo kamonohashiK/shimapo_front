@@ -9,11 +9,16 @@ export default function GoogleAuthButton() {
     const auth = getAuth(firebase_app);
     signInWithPopup(auth, new GoogleAuthProvider())
       .then((result) => {
-        //TODO: ログイン後の処理
         console.log("Google認証");
         const credential = GoogleAuthProvider.credentialFromResult(result);
+
+        // TODO: アクセストークンをどこかに保存(場所は要検討)
         const token = credential.accessToken;
+        //console.log(token);
+
+        // TODO: 取得したユーザーの情報(今回はuid,displayName,photoUrlくらい)をstoreに保存
         const user = result.user;
+        console.log(user);
       })
       .catch((error) => {
         console.log("Google認証エラー");
