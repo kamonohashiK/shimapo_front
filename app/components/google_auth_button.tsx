@@ -2,7 +2,7 @@
 import firebase_app from "../../firebase/config";
 import { getAuth, signInWithPopup, GoogleAuthProvider, UserCredential } from "@firebase/auth";
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store/hooks";
 import { setLoginInfo } from "../store/userSlice";
 
 export default function GoogleAuthButton() {
@@ -20,7 +20,9 @@ export default function GoogleAuthButton() {
 
         // 取得したユーザーの情報(uid,displayName,photoUrl)をstoreに保存
         const user = result.user;
-        setUserState(user.uid, user.displayName, user.photoURL);
+        const displayName = user.displayName ? user.displayName : "";
+        const photoUrl = user.photoURL ? user.photoURL : "";
+        setUserState(user.uid, displayName, photoUrl);
       })
       .catch((error) => {
         console.log("Google認証エラー");
@@ -32,12 +34,12 @@ export default function GoogleAuthButton() {
   }
 
   // storeにユーザー情報を保存
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function setUserState(
     uid: string,
-    displayName: string | null,
-    photoUrl: string | null
+    displayName: string,
+    photoUrl: string
   ) {
     dispatch(
       setLoginInfo({

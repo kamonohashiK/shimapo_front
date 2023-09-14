@@ -1,12 +1,11 @@
 import { Drawer } from "@mui/material";
 import SidebarText from "./sidebar_text";
 import SidebarIslandInfo from "./sidebar_island_info";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useAppSelector } from "../store/hooks";
 
 export default function Sidebar() {
-  const isIslandInfo = useSelector(
-    (state: RootState) => state.page.isIslandInfo
+  const isIslandInfo = useAppSelector(
+    (state) => state.page.isIslandInfo
   );
 
   return (

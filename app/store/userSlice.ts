@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface UserState {
+interface UserState {
   uid: string;
   displayName: string;
   photoUrl: string;
@@ -16,10 +17,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setLoginInfo: (state, action) => {
-        state.uid = action.payload.uid;
-        state.displayName = action.payload.displayName;
-        state.photoUrl = action.payload.photoUrl;
+    setLoginInfo: (state, action: PayloadAction<UserState>) => {
+      state.uid = action.payload.uid;
+      state.displayName = action.payload.displayName;
+      state.photoUrl = action.payload.photoUrl;
     }
   },
 });

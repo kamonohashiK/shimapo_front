@@ -1,7 +1,7 @@
 'use client';
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import islandSummaries from "../constants/island_summaries";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store/hooks";
 import { setIslandInfo } from "../store/pageSlice";
 
 const container = {
@@ -23,7 +23,7 @@ const islandPositions = islandSummaries.map((islandSummary) => {
 
 export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   function testFunc() {
     dispatch(setIslandInfo());
