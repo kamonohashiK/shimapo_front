@@ -4,7 +4,12 @@ import SidebarText from "./sidebar_text";
 import SidebarIslandInfo from "./sidebar_island_info";
 import { useAppSelector } from "../store/hooks";
 
-export default function Sidebar() {
+interface SidebarProps {
+  title: string;
+  content: string;
+}
+
+export default function Sidebar(props: SidebarProps) {
   const isIslandInfo = useAppSelector((state) => state.page.isIslandInfo);
 
   return (
@@ -21,7 +26,7 @@ export default function Sidebar() {
       variant="permanent"
       anchor="left"
     >
-      {isIslandInfo ? <SidebarIslandInfo /> : <SidebarText />}
+      {isIslandInfo ? <SidebarIslandInfo /> : <SidebarText title={props.title} content={props.content}/>}
     </Drawer>
   );
 }

@@ -12,10 +12,13 @@ export default function LoginPage() {
   const modalOpen = () => setOpen(true);
   const modalClose = () => setOpen(false);
 
+  const sidebarTitle = "ログイン";
+  const sidebarText = "ログインを促す文言";
+
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item xs={3}>
-        <Sidebar />
+        <Sidebar title={sidebarTitle} content={sidebarText} />
       </Grid>
       <Grid item xs={9} id="content">
         <Container className="content" fixed>
