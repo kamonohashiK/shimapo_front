@@ -1,11 +1,14 @@
 import { Drawer } from "@mui/material";
 import SidebarText from "./sidebar_text";
 import SidebarIslandInfo from "./sidebar_island_info";
-
-// 動作確認用変数
-const isIslandInfo: Boolean = true;
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export default function Sidebar() {
+  const isIslandInfo = useSelector(
+    (state: RootState) => state.page.isIslandInfo
+  );
+
   return (
     <Drawer
       sx={{
