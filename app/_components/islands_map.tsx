@@ -1,8 +1,8 @@
 "use client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import islandSummaries from "../constants/island_summaries";
-import { useAppDispatch } from "../store/hooks";
-import { setIslandInfo } from "../store/pageSlice";
+import islandSummaries from "../_constants/island_summaries";
+import { useAppDispatch } from "../_store/hooks";
+import { setIslandInfo } from "../_store/pageSlice";
 
 const container = {
   width: "100%",

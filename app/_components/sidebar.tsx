@@ -2,7 +2,7 @@
 import { Drawer } from "@mui/material";
 import SidebarText from "./sidebar_text";
 import SidebarIslandInfo from "./sidebar_island_info";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector } from "../_store/hooks";
 
 interface SidebarProps {
   title: string;
