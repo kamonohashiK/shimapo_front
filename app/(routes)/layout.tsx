@@ -1,5 +1,5 @@
 "use client";
-import './globals.css'
+import '../_styles/globals.css'
 import { Inter } from 'next/font/google'
 import Header from "../_components/header";
 import { store } from "../_store/store";
