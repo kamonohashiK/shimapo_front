@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { Avatar, Link, Menu, MenuItem } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { RootState } from "../_store/store";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

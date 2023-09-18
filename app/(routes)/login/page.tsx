@@ -4,8 +4,8 @@ import clsx from "clsx";
 import { Button, Typography, Stack, TextField, Container, Grid } from "@mui/material";
 import { styled, Box, Theme } from "@mui/system";
 import { Modal } from "@mui/base/Modal";
-import GoogleAuthButton from "../components/google_auth_button";
-import Sidebar from "../components/sidebar";
+import GoogleAuthButton from "../../_components/auth/google_auth_button";
+import Sidebar from "../../_components/sidebar/sidebar";
 
 export default function LoginPage() {
   const [open, setOpen] = React.useState(false);
