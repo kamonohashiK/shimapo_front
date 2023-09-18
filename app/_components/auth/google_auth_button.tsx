@@ -1,10 +1,10 @@
 "use client";
-import firebase_app from "../../firebase/config";
+import firebase_app from "../../../firebase/config";
 import { getAuth, signInWithPopup, GoogleAuthProvider, UserCredential } from "@firebase/auth";
 import { Button } from "@mui/material";
-import { useAppDispatch } from "../_store/hooks";
-import { setLoginInfo } from "../_store/userSlice";
-import { setAccessToken } from "../_util/auth";
+import { useAppDispatch } from "../../_store/hooks";
+import { setLoginInfo } from "../../_store/userSlice";
+import { setAccessToken } from "../../_util/auth";
 
 export default function GoogleAuthButton() {
   // Google認証

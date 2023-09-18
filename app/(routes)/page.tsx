@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import IslandsMap from "../_components/islands_map";
-import Sidebar from "../_components/sidebar";
+import Sidebar from "../_components/sidebar/sidebar";
 import Grid from "@mui/material/Grid";
 
 export default function Home() {
