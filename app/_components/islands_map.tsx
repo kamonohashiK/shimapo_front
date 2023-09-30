@@ -23,6 +23,7 @@ const islandPositions = islandSummaries.map((islandSummary) => {
     uid: islandSummary.uid,
     lat: islandSummary.lat,
     lng: islandSummary.lng,
+    prefecture: islandSummary.prefecture,
   };
 });
 
@@ -77,6 +78,9 @@ export default function IslandsMap() {
                   key={position.uid}
                   position={position}
                   onClick={() => onClickMarker(position.uid)}
+                  icon={{
+                    url: getIconUrl(position.prefecture),
+                  }}
                 />
               );
             })}
@@ -87,4 +91,39 @@ export default function IslandsMap() {
   ) : (
     <></>
   );
+
+  // 地域に対応したアイコンを返す
+  function getIconUrl(pref: string) {
+    const hokkaidoTohoku = ["北海道", "山形県", "宮城県"];
+    const kanto = ["東京都", "神奈川県", "千葉県"];
+    const chubu = ["愛知県", "静岡県", "三重県", "新潟県", "石川県"];
+    const kinki = ["滋賀県", "兵庫県", "和歌山県"];
+    const chugoku = ["岡山県", "島根県", "広島県", "山口県"];
+    const shikoku = ["香川県", "愛媛県", "高知県", "徳島県"];
+    const kyushu = ["福岡県", "長崎県", "鹿児島県", "熊本県", "宮崎県", "佐賀県", "大分県"];
+
+    switch (true) {
+      case hokkaidoTohoku.includes(pref):
+        return baseUrl("blue");
+      case kanto.includes(pref):
+        return baseUrl("ltblue");
+      case chubu.includes(pref):
+        return baseUrl("green");
+      case kinki.includes(pref):
+        return baseUrl("yellow");
+      case chugoku.includes(pref):
+        return baseUrl("purple");
+      case shikoku.includes(pref):
+        return baseUrl("pink");
+      case kyushu.includes(pref):
+        return baseUrl("orange");
+      default:
+        return baseUrl("red");
+    }
+  }
+
+  // アイコンのベースURLを返す
+  function baseUrl(color: string) {
+    return `https://maps.google.com/mapfiles/ms/micons/${color}-dot.png`;
+  }
 }
