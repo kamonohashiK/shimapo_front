@@ -15,6 +15,9 @@ const defaultPosition = {
   lng: 132.619553,
 };
 
+const defaultZoomLevel = 5;
+const focusedZoomLevel = 14;
+
 const islandPositions = islandSummaries.map((islandSummary) => {
   return {
     uid: islandSummary.uid,
@@ -28,6 +31,7 @@ export default function IslandsMap() {
   const dispatch = useAppDispatch();
 
   const [markerPosition, setMarkerPosition] = React.useState(defaultPosition);
+  const [zoomLevel, setZoomLevel] = React.useState(defaultZoomLevel);
 
   // マーカークリック時の処理
   function onClickMarker(uid: string) {
@@ -54,7 +58,8 @@ export default function IslandsMap() {
       lng: selectedIsland.lng,
     });
 
-    // ズームレベルは11
+    // ズームレベルを固定値に変更
+    setZoomLevel(focusedZoomLevel);
   }
 
   return apiKey ? (
@@ -64,7 +69,7 @@ export default function IslandsMap() {
           <GoogleMap
             mapContainerStyle={container}
             center={markerPosition}
-            zoom={11}
+            zoom={zoomLevel}
           >
             {islandPositions.map((position) => {
               return (
