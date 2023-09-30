@@ -3,6 +3,7 @@ import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import islandSummaries from "../_constants/island_summaries";
 import { useAppDispatch } from "../_store/hooks";
 import { setIslandInfo } from "../_store/pageSlice";
+import React from "react";
 
 const container = {
   width: "100%",
@@ -26,6 +27,8 @@ export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
   const dispatch = useAppDispatch();
 
+  const [markerPosition, setMarkerPosition] = React.useState(defaultPosition);
+
   // マーカークリック時の処理
   function onClickMarker(uid: string) {
     // islandSummariesからuidを元に検索
@@ -44,6 +47,14 @@ export default function IslandsMap() {
         enName: selectedIsland.en_name,
       })
     );
+
+    // クリックしたピンをマップの中心に表示
+    setMarkerPosition({
+      lat: selectedIsland.lat,
+      lng: selectedIsland.lng,
+    });
+
+    // ズームレベルは11
   }
 
   return apiKey ? (
@@ -52,7 +63,7 @@ export default function IslandsMap() {
         <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap
             mapContainerStyle={container}
-            center={defaultPosition}
+            center={markerPosition}
             zoom={11}
           >
             {islandPositions.map((position) => {
