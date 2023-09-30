@@ -16,6 +16,7 @@ const defaultPosition = {
 
 const islandPositions = islandSummaries.map((islandSummary) => {
   return {
+    uid: islandSummary.uid,
     lat: islandSummary.lat,
     lng: islandSummary.lng,
   };
@@ -25,8 +26,24 @@ export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
   const dispatch = useAppDispatch();
 
-  function testFunc() {
-    dispatch(setIslandInfo());
+  // マーカークリック時の処理
+  function onClickMarker(uid: string) {
+    // islandSummariesからuidを元に検索
+    var filtered = islandSummaries.filter((item) => item.uid === uid);
+    var selectedIsland = filtered[0];
+
+    // 検索結果をstateに格納
+    dispatch(
+      setIslandInfo({
+        uid: uid,
+        isIslandInfo: true,
+        name: selectedIsland.name,
+        prefecture: selectedIsland.prefecture,
+        city: selectedIsland.city,
+        kana: selectedIsland.kana,
+        enName: selectedIsland.en_name,
+      })
+    );
   }
 
   return apiKey ? (
@@ -38,9 +55,13 @@ export default function IslandsMap() {
             center={defaultPosition}
             zoom={11}
           >
-            {islandPositions.map((position, index) => {
+            {islandPositions.map((position) => {
               return (
-                <Marker key={index} position={position} onClick={testFunc} />
+                <Marker
+                  key={position.uid}
+                  position={position}
+                  onClick={() => onClickMarker(position.uid)}
+                />
               );
             })}
           </GoogleMap>
