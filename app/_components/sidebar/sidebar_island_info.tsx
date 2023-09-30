@@ -1,4 +1,5 @@
 "use client";
+import { RootState } from "@/app/_store/store";
 import {
   Typography,
   Container,
@@ -11,6 +12,7 @@ import {
   ImageListItem,
   Divider,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const itemData = [
   { img: "https://source.unsplash.com/random", title: "Image" },
@@ -23,12 +25,14 @@ const itemData = [
 const questions = ["質問1", "質問2", "質問3", "質問4", "質問5"];
 
 export default function SidebarIslandInfo() {
+  const islandInfo = useSelector((state: RootState) => state.page);
+
   return (
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: "#cfe8fc", height: "200px" }} />
-      <Typography variant="h4">島名</Typography>
-      <Typography>XX県 YY市</Typography>
-      <Typography>なまえ / Namae</Typography>
+      <Typography variant="h4">{islandInfo.name}</Typography>
+      <Typography>{islandInfo.prefecture} {islandInfo.city}</Typography>
+      <Typography>{islandInfo.kana} / {islandInfo.enName}</Typography>
 
       <ImageList sx={{ width: 300, height: 80 }} cols={2} rowHeight={80}>
         {itemData.map((item) => (
