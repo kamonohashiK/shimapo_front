@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../_store/store";
 import SearchBar from "./search_bar";
 import { usePathname } from "next/navigation";
+import TitleLogo from "./title_logo";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -31,16 +32,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          ></IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            しまぽ
-          </Typography>
+          <TitleLogo />
           { pathname == "/" ? <SearchBar /> : null}
           <IconButton
             size="large"
