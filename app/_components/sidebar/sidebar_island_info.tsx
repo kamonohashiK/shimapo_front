@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import TopImage from "./top_image";
+import ProfileText from "./profile_text";
 
 const topImageUrl = "https://source.unsplash.com/random";
 
@@ -32,9 +33,13 @@ export default function SidebarIslandInfo() {
   return (
     <Container maxWidth="sm">
       <TopImage url={topImageUrl} />
-      <Typography variant="h4">{islandInfo.name}</Typography>
-      <Typography>{islandInfo.prefecture} {islandInfo.city}</Typography>
-      <Typography>{islandInfo.kana} / {islandInfo.enName}</Typography>
+      <ProfileText
+        name={islandInfo.name}
+        prefecture={islandInfo.prefecture}
+        city={islandInfo.city}
+        kana={islandInfo.kana}
+        enName={islandInfo.enName}
+      />
 
       <ImageList sx={{ width: 300, height: 80 }} cols={2} rowHeight={80}>
         {itemData.map((item) => (
