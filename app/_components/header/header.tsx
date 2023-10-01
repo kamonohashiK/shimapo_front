@@ -3,81 +3,21 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import { Avatar, Link, Menu, MenuItem } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../_store/store";
 import SearchBar from "./search_bar";
 import { usePathname } from "next/navigation";
+import TitleLogo from "./title_logo";
+import AvatarMenu from "./avatar_menu";
 
 export default function Header() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const avatarUrl = useSelector((state: RootState) => state.user.photoUrl);
-  const displayName = useSelector((state: RootState) => state.user.displayName);
-
   const pathname = usePathname();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          ></IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            しまぽ
-          </Typography>
+          <TitleLogo />
           { pathname == "/" ? <SearchBar /> : null}
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-          >
-            {displayName && avatarUrl ? (
-              <Avatar alt={displayName} src={avatarUrl} />
-            ) : (
-              <Avatar></Avatar>
-            )}
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem>
-              <Link href="/">地図から探す</Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/login">ログイン</Link>
-            </MenuItem>
-          </Menu>
+          <AvatarMenu />
         </Toolbar>
       </AppBar>
     </Box>
