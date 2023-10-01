@@ -4,6 +4,7 @@ import islandSummaries from "../_constants/island_summaries";
 import { useAppDispatch } from "../_store/hooks";
 import { setIslandInfo } from "../_store/pageSlice";
 import React from "react";
+import Areas from "../_constants/areas";
 
 const container = {
   width: "100%",
@@ -94,29 +95,25 @@ export default function IslandsMap() {
 
   // 地域に対応したアイコンを返す
   function getIconUrl(pref: string) {
-    const hokkaidoTohoku = ["北海道", "山形県", "宮城県"];
-    const kanto = ["東京都", "神奈川県", "千葉県"];
-    const chubu = ["愛知県", "静岡県", "三重県", "新潟県", "石川県"];
-    const kinki = ["滋賀県", "兵庫県", "和歌山県"];
-    const chugoku = ["岡山県", "島根県", "広島県", "山口県"];
-    const shikoku = ["香川県", "愛媛県", "高知県", "徳島県"];
-    const kyushu = ["福岡県", "長崎県", "鹿児島県", "熊本県", "宮崎県", "佐賀県", "大分県"];
+    const area = Areas;
 
     switch (true) {
-      case hokkaidoTohoku.includes(pref):
+      case area["HOKKAIDO_TOHOKU"].includes(pref):
         return baseUrl("blue");
-      case kanto.includes(pref):
+      case area["KANTO"].includes(pref):
         return baseUrl("ltblue");
-      case chubu.includes(pref):
+      case area["CHUBU"].includes(pref):
         return baseUrl("green");
-      case kinki.includes(pref):
+      case area["KINKI"].includes(pref):
         return baseUrl("yellow");
-      case chugoku.includes(pref):
+      case area["CHUGOKU"].includes(pref):
         return baseUrl("purple");
-      case shikoku.includes(pref):
+      case area["SHIKOKU"].includes(pref):
         return baseUrl("pink");
-      case kyushu.includes(pref):
+      case area["KYUSHU"].includes(pref):
         return baseUrl("orange");
+      case area["OKINAWA"].includes(pref):
+        return baseUrl("red");
       default:
         return baseUrl("red");
     }
