@@ -13,7 +13,6 @@ const Input = styled("input")(() => ({
   backgroundColor: "#fff",
   color: "#000",
 }));
-//TODO: 入力内容をクリアするボタンを追加したい
 
 const Listbox = styled("ul")(() => ({
   width: inputWidth,
@@ -47,10 +46,11 @@ export default function SearchBar() {
     getOptionProps,
     groupedOptions,
   } = useAutocomplete({
-    id: "use-autocomplete-demo",
+    id: "search-bar",
     options: searchItems,
+    blurOnSelect: true,
+    clearOnBlur: true,
     getOptionLabel: (option) => option.target,
-    //TODO: 選択後に入力フォームに残り文字列をLabelにしたい
   });
 
   return (
