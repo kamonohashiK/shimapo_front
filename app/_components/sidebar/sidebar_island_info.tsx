@@ -3,7 +3,6 @@ import { RootState } from "@/app/_store/store";
 import {
   Typography,
   Container,
-  Box,
   Accordion,
   AccordionDetails,
   AccordionSummary,
@@ -13,6 +12,9 @@ import {
   Divider,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import TopImage from "./top_image";
+
+const topImageUrl = "https://source.unsplash.com/random";
 
 const itemData = [
   { img: "https://source.unsplash.com/random", title: "Image" },
@@ -29,7 +31,7 @@ export default function SidebarIslandInfo() {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ bgcolor: "#cfe8fc", height: "200px" }} />
+      <TopImage url={topImageUrl} />
       <Typography variant="h4">{islandInfo.name}</Typography>
       <Typography>{islandInfo.prefecture} {islandInfo.city}</Typography>
       <Typography>{islandInfo.kana} / {islandInfo.enName}</Typography>
