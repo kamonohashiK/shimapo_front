@@ -1,19 +1,19 @@
 import { Box } from "@mui/material";
+import Image from "next/image";
 
 interface SidebarTopImageProps {
-    url?: string;
+    url: string;
 }
 
 export default function SidebarTopImage(props: SidebarTopImageProps) {
-    const { url } = props;
-
     return (
         <>
-        {url ? (
-            <img
-                src={url}
+        {props.url != "" ? (
+            <Image
+                src={props.url}
+                height={240}
+                width={360}
                 alt="sidebar top image"
-                style={{ height: "240px", width: "100%" }}
             />
         ) : (
             <Box sx={{ bgcolor: "#cfe8fc", height: "240px" }} />
