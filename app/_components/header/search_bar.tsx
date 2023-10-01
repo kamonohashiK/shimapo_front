@@ -50,6 +50,13 @@ export default function SearchBar() {
     options: searchItems,
     blurOnSelect: true,
     clearOnBlur: true,
+    onChange: (event, value) => {
+      if (value !== null) {
+        console.log(value.uid);
+      } else {
+        alert("error");
+      }
+    },
     getOptionLabel: (option) => option.target,
   });
 
@@ -62,6 +69,7 @@ export default function SearchBar() {
         <Listbox {...getListboxProps()}>
           {(groupedOptions as typeof searchItems).map((option, index) => (
             <li {...getOptionProps({ option, index })} key={option.uid}>
+
               {option.label}
             </li>
           ))}

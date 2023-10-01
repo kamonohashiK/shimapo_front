@@ -5,18 +5,14 @@ import { useAppDispatch } from "../_store/hooks";
 import { setIslandInfo } from "../_store/pageSlice";
 import React from "react";
 import Areas from "../_constants/areas";
+import { useSelector } from "react-redux";
+import { RootState } from "../_store/store";
 
 const container = {
   width: "100%",
   height: "100vh", //FIXME: ウインドウサイズに合わせたい
 };
 
-const defaultPosition = {
-  lat: 36.975178,
-  lng: 135.619553,
-};
-
-const defaultZoomLevel = 5;
 const focusedZoomLevel = 14;
 
 const islandPositions = islandSummaries.map((islandSummary) => {
@@ -31,9 +27,10 @@ const islandPositions = islandSummaries.map((islandSummary) => {
 export default function IslandsMap() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
   const dispatch = useAppDispatch();
+  const mapInfo = useSelector((state: RootState) => state.map);
 
-  const [markerPosition, setMarkerPosition] = React.useState(defaultPosition);
-  const [zoomLevel, setZoomLevel] = React.useState(defaultZoomLevel);
+  const [markerPosition, setMarkerPosition] = React.useState({lat: mapInfo.lat, lng: mapInfo.lng});
+  const [zoomLevel, setZoomLevel] = React.useState(mapInfo.zoomLevel);
 
   // マーカークリック時の処理
   function onClickMarker(uid: string) {
