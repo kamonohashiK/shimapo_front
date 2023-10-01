@@ -7,15 +7,15 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  ImageList,
-  ImageListItem,
   Divider,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import TopImage from "./top_image";
 import ProfileText from "./profile_text";
+import IslandImageList from "./island_image_list";
 
-const topImageUrl = "https://source.unsplash.com/random";
+const topImageUrl =
+  "https://source.unsplash.com/random?w=360&h=240&fit=crop&auto=format";
 
 const itemData = [
   { img: "https://source.unsplash.com/random", title: "Image" },
@@ -40,19 +40,7 @@ export default function SidebarIslandInfo() {
         kana={islandInfo.kana}
         enName={islandInfo.enName}
       />
-
-      <ImageList sx={{ width: 300, height: 80 }} cols={2} rowHeight={80}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <IslandImageList itemData={itemData} />
       {questions.map((question, index) => (
         <Accordion key={index}>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
