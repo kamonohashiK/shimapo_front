@@ -3,24 +3,28 @@ import { useAutocomplete } from "@mui/base/useAutocomplete";
 import { styled } from "@mui/system";
 import { searchItems } from "../../_constants/search_items";
 
-const Label = styled("label")({
-  display: "block",
-});
+const inputWidth = 400;
+const inputPadding = "5px 10px";
 
-const Input = styled("input")(({ theme }) => ({
-  width: 200,
-  backgroundColor: theme.palette.mode === "light" ? "#fff" : "#000",
-  color: theme.palette.mode === "light" ? "#000" : "#fff",
+const Input = styled("input")(() => ({
+  width: inputWidth,
+  height: 36,
+  padding: inputPadding,
+  backgroundColor: "#fff",
+  color: "#000",
 }));
+//TODO: 入力内容をクリアするボタンを追加したい
 
-const Listbox = styled("ul")(({ theme }) => ({
-  width: 200,
+const Listbox = styled("ul")(() => ({
+  width: inputWidth,
   margin: 0,
-  padding: 0,
+  lineHeight: "2em",
+  padding: inputPadding,
   zIndex: 1,
   position: "absolute",
   listStyle: "none",
-  backgroundColor: "#000",
+  color: "black",
+  backgroundColor: "#fff",
   overflow: "auto",
   maxHeight: 200,
   border: "1px solid rgba(0,0,0,.25)",
@@ -38,7 +42,6 @@ const Listbox = styled("ul")(({ theme }) => ({
 export default function SearchBar() {
   const {
     getRootProps,
-    getInputLabelProps,
     getInputProps,
     getListboxProps,
     getOptionProps,
@@ -53,7 +56,6 @@ export default function SearchBar() {
   return (
     <div>
       <div {...getRootProps()}>
-        <Label {...getInputLabelProps()}>useAutocomplete</Label>
         <Input {...getInputProps()} />
       </div>
       {groupedOptions.length > 0 ? (
