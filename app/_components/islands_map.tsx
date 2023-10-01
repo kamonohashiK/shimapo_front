@@ -8,12 +8,12 @@ import Areas from "../_constants/areas";
 
 const container = {
   width: "100%",
-  height: "800px", //FIXME: ウインドウサイズに合わせたい
+  height: "100vh", //FIXME: ウインドウサイズに合わせたい
 };
 
 const defaultPosition = {
-  lat: 33.975178,
-  lng: 132.619553,
+  lat: 36.975178,
+  lng: 135.619553,
 };
 
 const defaultZoomLevel = 5;

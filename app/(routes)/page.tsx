@@ -13,7 +13,7 @@ export default function Home() {
       <Grid item xs={3}>
         <Sidebar title={sidebarTitle} content={sidebarText} />
       </Grid>
-      <Grid item xs={9} id="content">
+      <Grid item xs={9} >
         <IslandsMap />
       </Grid>
     </Grid>
