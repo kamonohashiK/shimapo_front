@@ -7,10 +7,11 @@ import React from "react";
 import Areas from "../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../_store/store";
+import { setMapInfo } from "../_store/mapSlice";
 
 const container = {
   width: "100%",
-  height: "100vh", //FIXME: ウインドウサイズに合わせたい
+  height: "100vh",
 };
 
 const focusedZoomLevel = 14;
@@ -29,16 +30,13 @@ export default function IslandsMap() {
   const dispatch = useAppDispatch();
   const mapInfo = useSelector((state: RootState) => state.map);
 
-  const [markerPosition, setMarkerPosition] = React.useState({lat: mapInfo.lat, lng: mapInfo.lng});
-  const [zoomLevel, setZoomLevel] = React.useState(mapInfo.zoomLevel);
-
   // マーカークリック時の処理
   function onClickMarker(uid: string) {
     // islandSummariesからuidを元に検索
     var filtered = islandSummaries.filter((item) => item.uid === uid);
     var selectedIsland = filtered[0];
 
-    // 検索結果をstateに格納
+    //選択した島の情報をstoreに格納
     dispatch(
       setIslandInfo({
         uid: uid,
@@ -51,14 +49,15 @@ export default function IslandsMap() {
       })
     );
 
-    // クリックしたピンをマップの中心に表示
-    setMarkerPosition({
-      lat: selectedIsland.lat,
-      lng: selectedIsland.lng,
-    });
-
-    // ズームレベルを固定値に変更
-    setZoomLevel(focusedZoomLevel);
+    // マップの状態をstoreに反映
+    dispatch(
+      setMapInfo({
+        uid: uid,
+        lat: selectedIsland.lat,
+        lng: selectedIsland.lng,
+        zoomLevel: focusedZoomLevel,
+      })
+    );
   }
 
   return apiKey ? (
@@ -67,8 +66,8 @@ export default function IslandsMap() {
         <LoadScript googleMapsApiKey={apiKey}>
           <GoogleMap
             mapContainerStyle={container}
-            center={markerPosition}
-            zoom={zoomLevel}
+            center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
+            zoom={ mapInfo.zoomLevel }
           >
             {islandPositions.map((position) => {
               return (

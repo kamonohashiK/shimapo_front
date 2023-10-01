@@ -18,9 +18,16 @@ const initialState: MapState = {
 export const mapSlice = createSlice({
   name: "map",
   initialState,
-  reducers: {},
+  reducers: {
+    setMapInfo: (state, action: PayloadAction<MapState>) => {
+      state.uid = action.payload.uid;
+      state.zoomLevel = action.payload.zoomLevel;
+      state.lat = action.payload.lat;
+      state.lng = action.payload.lng;
+    }
+  },
 });
 
-export const { } = mapSlice.actions;
+export const { setMapInfo } = mapSlice.actions;
 
 export default mapSlice.reducer;
