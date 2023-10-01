@@ -18,6 +18,11 @@ export default function AvatarMenu() {
     const avatarUrl = useSelector((state: RootState) => state.user.photoUrl);
     const displayName = useSelector((state: RootState) => state.user.displayName);
 
+    const menuItems = [
+      { text: "地図から探す", href: "/" },
+      { text: "ログイン", href: "/login" },
+    ];
+
     return (
       <>
         <IconButton
@@ -49,12 +54,11 @@ export default function AvatarMenu() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem>
-            <Link href="/">地図から探す</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link href="/login">ログイン</Link>
-          </MenuItem>
+          {menuItems.map((item) => (
+            <MenuItem key={item.href}>
+              <Link href={item.href}>{item.text}</Link>
+            </MenuItem>
+          ))}
         </Menu>
       </>
     );
