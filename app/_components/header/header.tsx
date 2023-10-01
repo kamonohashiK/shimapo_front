@@ -7,7 +7,9 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { Avatar, Link, Menu, MenuItem } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootState } from "../_store/store";
+import { RootState } from "../../_store/store";
+import SearchBar from "./search_bar";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -23,6 +25,8 @@ export default function Header() {
   const avatarUrl = useSelector((state: RootState) => state.user.photoUrl);
   const displayName = useSelector((state: RootState) => state.user.displayName);
 
+  const pathname = usePathname();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -37,6 +41,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             しまぽ
           </Typography>
+          { pathname == "/" ? <SearchBar /> : null}
           <IconButton
             size="large"
             aria-label="account of current user"
