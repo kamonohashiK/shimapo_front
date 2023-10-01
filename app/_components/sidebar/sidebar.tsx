@@ -17,7 +17,7 @@ export default function Sidebar(props: SidebarProps) {
       sx={{
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: "30%",
+          width: "25.5%",
           boxSizing: "border-box",
           zIndex: 1,
           justifyContent: "space-around",
