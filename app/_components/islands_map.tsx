@@ -12,8 +12,8 @@ const container = {
 };
 
 const defaultPosition = {
-  lat: 33.975178,
-  lng: 132.619553,
+  lat: 36.975178,
+  lng: 135.619553,
 };
 
 const defaultZoomLevel = 5;
