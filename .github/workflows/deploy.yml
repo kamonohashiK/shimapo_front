@@ -14,13 +14,13 @@ jobs:
        uses: actions/setup-node@v3
        with:
          node-version: 16
-         cache: yarn
+         cache: npm
 
-     - name: yarn-install
-       run: yarn install
+     - name: npm-install
+       run: npm i
 
      - name: app-build
-       run: yarn build
+       run: npm run build
 
      - name: deploy-to-firebase
        uses: FirebaseExtended/action-hosting-deploy@v0
