@@ -9,11 +9,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import TopImage from "./top_image";
-import ProfileText from "./profile_text";
 import IslandImageList from "./island_image_list";
 import QuestionList from "./question_list";
 import React from "react";
+import SidebarTop from "./sidebar_top";
 
 const topImageUrl =
   "https://source.unsplash.com/random?w=360&h=240&fit=crop&auto=format";
@@ -90,7 +89,6 @@ function a11yProps(index: number) {
   };
 }
 
-
 export default function SidebarIslandInfo() {
   const islandInfo = useSelector((state: RootState) => state.page);
 
@@ -102,8 +100,8 @@ export default function SidebarIslandInfo() {
 
   return (
     <Container maxWidth="sm">
-      <TopImage url={topImageUrl} />
-      <ProfileText
+      <SidebarTop
+        imageUrl={topImageUrl}
         name={islandInfo.name}
         prefecture={islandInfo.prefecture}
         city={islandInfo.city}
