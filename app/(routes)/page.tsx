@@ -5,7 +5,7 @@ import Sidebar from "../_components/sidebar/sidebar";
 import Grid from "@mui/material/Grid";
 
 export default function Home() {
-  const sidebarTitle = "テスト";
+  const sidebarTitle = "テスト2";
   const sidebarText = "最初のページ";
 
   return (
