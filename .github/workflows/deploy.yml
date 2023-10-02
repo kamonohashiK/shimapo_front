@@ -27,7 +27,7 @@ jobs:
        with:
          repoToken: '${{ secrets.GITHUB_TOKEN }}'
          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SHIMAPO_TEST }}'
-         channelId: live
+         expires: 30d
          projectId: shimapo-test
        env:
         FIREBASE_CLI_EXPERIMENTS: webframeworks
