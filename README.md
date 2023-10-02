@@ -32,6 +32,18 @@ HTTPSで開発サーバを立ち上げるには、以下のコマンドを実行
 yarn dev:proxy
 ```
 
+## Gitについての注意点
+
+このプロジェクトでは、mainブランチ及びdevelopブランチへの直接コミットを禁止しています。変更を行う際は、必ずトピックブランチを作成し、developブランチへのプルリクエストを提出するようにしてください。
+
+また、ローカルレベルで各ブランチへの誤コミットを防止するため、コミット前に対象のブランチ名をチェックするスクリプトを用意しています。
+
+ルートディレクトリで以下のコマンドを実行し、実行権限を与えておいてください。
+
+```bash
+chmod a+x .git/hooks/pre-commit
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
