@@ -1,0 +1,44 @@
+name: Deploy Firebase Hosting
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build-and-deploy:
+    name: Firebase Deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install package
+        run: |
+          cd my-app
+          yarn install --frozen-lockfile
+
+      - name: build Next.js
+        run: |
+          cd my-app
+          yarn build
+
+      - name: export Next.js
+        run: |
+          cd my-app
+          yarn export
+
+      - name: deploy to Firebase Hosting
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
