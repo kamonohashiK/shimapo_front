@@ -14,10 +14,17 @@ jobs:
        uses: actions/setup-node@v3
        with:
          node-version: 16
-         cache: npm
+         cache: yarn
 
-     - name: npm-install
-       run: npm i
+     - name: yarn-install
+       run: yarn install
 
      - name: app-build
-       run: npm run build
+       run: yarn build
+
+     - name: deploy to Firebase Hosting
+       uses: w9jds/firebase-action@master
+       with:
+         args: deploy --only hosting
+       env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
