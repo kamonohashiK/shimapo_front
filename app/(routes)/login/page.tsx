@@ -76,7 +76,7 @@ export default function LoginPage() {
 const Backdrop = React.forwardRef<
   HTMLDivElement,
   { open?: boolean; className: string }
->((props, ref) => {
+>(function Backdrop(props, ref) {
   const { open, className, ...other } = props;
   return (
     <div
