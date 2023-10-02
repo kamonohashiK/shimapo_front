@@ -4,6 +4,10 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  // 暫定的に画像の最適化を無効化
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig
