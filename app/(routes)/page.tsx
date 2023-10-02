@@ -10,10 +10,10 @@ export default function Home() {
 
   return (
     <Grid container direction="row" spacing={2}>
-      <Grid item xs={3}>
+      <Grid item xs={4}>
         <Sidebar title={sidebarTitle} content={sidebarText} />
       </Grid>
-      <Grid item xs={9} >
+      <Grid item xs={8} >
         <IslandsMap />
       </Grid>
     </Grid>

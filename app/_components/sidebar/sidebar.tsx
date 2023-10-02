@@ -11,22 +11,28 @@ interface SidebarProps {
 
 export default function Sidebar(props: SidebarProps) {
   const isIslandInfo = useAppSelector((state) => state.page.isIslandInfo);
+  const justifyContent = isIslandInfo ? "" : "space-around";
 
   return (
     <Drawer
       sx={{
         flexShrink: 0,
         "& .MuiDrawer-paper": {
-          width: "25.5%",
+          width: "34.3%",
+          paddingTop: "4em",
           boxSizing: "border-box",
           zIndex: 1,
-          justifyContent: "space-around",
+          justifyContent: justifyContent,
         },
       }}
       variant="permanent"
       anchor="left"
     >
-      {isIslandInfo ? <SidebarIslandInfo /> : <SidebarText title={props.title} content={props.content}/>}
+      {isIslandInfo ? (
+        <SidebarIslandInfo />
+      ) : (
+        <SidebarText title={props.title} content={props.content} />
+      )}
     </Drawer>
   );
 }

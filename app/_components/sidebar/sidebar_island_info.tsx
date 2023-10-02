@@ -2,7 +2,6 @@
 import { RootState } from "@/app/_store/store";
 import {
   Container,
-  Button,
   Box,
   Tab,
   Tabs,
@@ -26,19 +25,17 @@ const itemData = [
   { img: "https://source.unsplash.com/random", title: "Image" },
   { img: "https://source.unsplash.com/random", title: "Image" },
   { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
-  { img: "https://source.unsplash.com/random", title: "Image" },
 ];
 
 const questions = [
   {
-    question: "この島へのアクセス方法について教えてください。",
-    answerCount: 1,
+    question: "この島のプレイスポットについて教えてください。",
+    answerCount: 0,
+    answers: [],
+  },
+  {
+    question: "この島の食事スポットについて教えてください。",
+    answerCount: 2,
     answers: [
       {
         content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
@@ -46,15 +43,17 @@ const questions = [
         postedBy: "hoge",
         postedByImage: "https://source.unsplash.com/random",
         likes: 10,
-      }
-    ]
+      },
+      {
+        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        postedAt: "2021/10/10 10:10",
+        postedBy: "hoge",
+        postedByImage: "https://source.unsplash.com/random",
+        likes: 10,
+      },
+    ],
   },
-  {
-    question: "この島のプレイスポットについて教えてください。",
-    answerCount: 0,
-    answers: [],
-  }
-]
+];
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -100,34 +99,31 @@ export default function SidebarIslandInfo() {
 
   return (
     <Container maxWidth="sm">
-      <SidebarTop
-        imageUrl={topImageUrl}
-        name={islandInfo.name}
-        prefecture={islandInfo.prefecture}
-        city={islandInfo.city}
-        kana={islandInfo.kana}
-        enName={islandInfo.enName}
-      />
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          centered
-        >
-          <Tab label="画像" {...a11yProps(0)} />
-          <Tab label="質問" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <CustomTabPanel value={value} index={0}>
-        <IslandImageList itemData={itemData} />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <QuestionList questions={questions} />
-        <Button color="primary" variant="outlined" fullWidth>
-          新たに質問する
-        </Button>
-      </CustomTabPanel>
+        <SidebarTop
+          imageUrl={topImageUrl}
+          name={islandInfo.name}
+          prefecture={islandInfo.prefecture}
+          city={islandInfo.city}
+          kana={islandInfo.kana}
+          enName={islandInfo.enName}
+        />
+        <Box>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            centered
+          >
+            <Tab label="画像" {...a11yProps(0)} />
+            <Tab label="質問" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          <IslandImageList itemData={itemData} />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <QuestionList questions={questions} />
+        </CustomTabPanel>
     </Container>
   );
 }

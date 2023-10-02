@@ -17,7 +17,7 @@ export default function SidebarTop(props: SidebarTopProps) {
           <Image
             src={props.imageUrl}
             height={240}
-            width={360}
+            width={440}
             alt="sidebar top image"
           />
         ) : (
