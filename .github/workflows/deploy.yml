@@ -10,6 +10,13 @@ jobs:
      - name: checkout
        uses: actions/checkout@v3
 
+    # secretsから.envファイルを作成
+     - name: create .env file
+       run: |
+        cat > .env <<EOF
+        TEST=${{ secrets.ENV_DEVELOP }}
+        EOF
+
      - name: setup-node
        uses: actions/setup-node@v3
        with:
