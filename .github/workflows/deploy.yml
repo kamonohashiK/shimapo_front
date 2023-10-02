@@ -23,17 +23,17 @@ jobs:
 
       - name: install package
         run: |
-          cd my-app
+          cd shimapo_front
           yarn install --frozen-lockfile
 
       - name: build Next.js
         run: |
-          cd my-app
+          cd shimapo_front
           yarn build
 
       - name: export Next.js
         run: |
-          cd my-app
+          cd shimapo_front
           yarn export
 
       - name: deploy to Firebase Hosting
