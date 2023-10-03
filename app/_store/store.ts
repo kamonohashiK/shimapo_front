@@ -2,12 +2,16 @@ import { configureStore } from "@reduxjs/toolkit";
 import pageReducer from "./pageSlice";
 import userReducer from "./userSlice";
 import mapReducer from "./mapSlice";
+import alertReducer from "./alertSlice";
+import modalReducer from "./modalSlice";
 
 export const store = configureStore({
   reducer: {
     page: pageReducer,
     user: userReducer,
     map: mapReducer,
+    alert: alertReducer,
+    modal: modalReducer,
   },
 });
 
