@@ -1,31 +1,38 @@
 "use client";
 import Sidebar from "@/app/_components/sidebar/sidebar";
-import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled, Alert, AlertTitle, Collapse } from "@mui/material";
-import { set } from "firebase/database";
+import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled, Alert, Collapse, AlertColor } from "@mui/material";
 import React from "react";
 
 export default function DonatePage() {
+    // モーダルの開閉
     const [open, setOpen] = React.useState(false);
-    const [alertOpen, setAlertOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    // アラートの開閉
+    const [alertOpen, setAlertOpen] = React.useState(false);
+    const [alertMessage, setAlertMessage] = React.useState(
+      "寄付を受け付けました！ありがとうございます！"
+    );
+    const [alertSeverity, setAlertSeverity] = React.useState("success");
+
 
   const sidebarTitle = "寄付をする";
   const sidebarText = "寄付を促す文言";
 
   return (
     <Grid container direction="row" spacing={2}>
-      <Grid item xs={3}>
+      <Grid item xs={4}>
         <Sidebar title={sidebarTitle} content={sidebarText} />
       </Grid>
-      <Grid item xs={9} id="content">
+      <Grid item xs={8} id="content">
         <Container className="content" fixed>
-          <Collapse in={alertOpen}>
-            <Alert severity="success">
-              <AlertTitle>Success</AlertTitle>
-              This is a success alert — <strong>check it out!</strong>
+          <Collapse in={alertOpen} sx={{ position: "absolute", width: "63%" }}>
+            <Alert severity={alertSeverity as AlertColor | undefined}>
+                {alertMessage}
             </Alert>
           </Collapse>
+
           <Typography variant="h4" color="secondary">
             Donate
           </Typography>
@@ -105,14 +112,24 @@ export default function DonatePage() {
                 </Typography>
                 <Typography paragraph>お名前：〇〇</Typography>
                 <Typography paragraph>金額：〇〇</Typography>
-                <Button variant="outlined" onClick={() => {
+                <Button
+                  variant="outlined"
+                  onClick={() => {
                     setOpen(false);
+                    // 成功時のアラート
+                    setAlertMessage("寄付を受け付けました！ありがとうございます！");
+                    setAlertSeverity("success");
+                    // エラー時のアラート
+                    //setAlertMessage("寄付の処理中にエラーが発生しました。");
+                    //setAlertSeverity("error");
+
                     setAlertOpen(true);
-                    // 3秒後にアラートを閉じる
+                    // 5秒後にアラートを閉じる
                     setTimeout(() => {
                       setAlertOpen(false);
-                    }, 3000);
-                }}>
+                    }, 5000);
+                  }}
+                >
                   寄付をする
                 </Button>
               </Stack>
