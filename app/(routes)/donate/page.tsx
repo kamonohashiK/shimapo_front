@@ -1,21 +1,19 @@
 "use client";
 import Sidebar from "@/app/_components/sidebar/sidebar";
 import { useAppDispatch } from "@/app/_store/hooks";
-import { RootState } from "@/app/_store/store";
-import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled } from "@mui/material";
+import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, styled } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
 import { setAlert, hideAlert } from "@/app/_store/alertSlice";
+import { showModal, hideModal } from "@/app/_store/modalSlice";
 import HeaderAlert from "@/app/_components/util/header_alert";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 
 export default function DonatePage() {
   // モーダルの開閉
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const modalState = useSelector((state: RootState) => state.modal);
 
   const dispatch = useAppDispatch();
-  const alertInfo = useSelector((state: RootState) => state.alert);
 
   const sidebarTitle = "寄付をする";
   const sidebarText = "寄付を促す文言";
@@ -87,7 +85,11 @@ export default function DonatePage() {
               </RadioGroup>
             </FormControl>
             <div>
-              <Button color="secondary" variant="outlined" onClick={handleOpen}>
+              <Button
+                color="secondary"
+                variant="outlined"
+                onClick={() => dispatch(showModal())}
+              >
                 確認
               </Button>
             </div>
@@ -96,13 +98,13 @@ export default function DonatePage() {
           <StyledModal
             aria-labelledby="unstyled-modal-title"
             aria-describedby="unstyled-modal-description"
-            open={open}
-            onClose={handleClose}
+            open={modalState.isShown}
+            onClose={() => dispatch(hideModal())}
             slots={{ backdrop: StyledBackdrop }}
           >
             <Box sx={style}>
               <Stack spacing={2} margin={3}>
-                <Button onClick={handleClose}>X</Button>
+                <Button onClick={() => dispatch(hideModal())}>X</Button>
                 <Typography paragraph>
                   以下の内容で寄付をします。よろしいですか？
                 </Typography>
@@ -111,7 +113,7 @@ export default function DonatePage() {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    setOpen(false);
+                    dispatch(hideModal());
 
                     // 成功時のアラート
                     dispatch(
