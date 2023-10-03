@@ -21,6 +21,7 @@ export default function AvatarMenu() {
     const menuItems = [
       { text: "地図から探す", href: "/" },
       { text: "ログイン", href: "/login" },
+      { text: "寄付をする", href: "/donate" },
     ];
 
     return (

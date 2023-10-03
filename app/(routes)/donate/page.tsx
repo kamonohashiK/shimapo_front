@@ -1,0 +1,171 @@
+"use client";
+import Sidebar from "@/app/_components/sidebar/sidebar";
+import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled, Alert, AlertTitle, Collapse } from "@mui/material";
+import { set } from "firebase/database";
+import React from "react";
+
+export default function DonatePage() {
+    const [open, setOpen] = React.useState(false);
+    const [alertOpen, setAlertOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+  const sidebarTitle = "寄付をする";
+  const sidebarText = "寄付を促す文言";
+
+  return (
+    <Grid container direction="row" spacing={2}>
+      <Grid item xs={3}>
+        <Sidebar title={sidebarTitle} content={sidebarText} />
+      </Grid>
+      <Grid item xs={9} id="content">
+        <Container className="content" fixed>
+          <Collapse in={alertOpen}>
+            <Alert severity="success">
+              <AlertTitle>Success</AlertTitle>
+              This is a success alert — <strong>check it out!</strong>
+            </Alert>
+          </Collapse>
+          <Typography variant="h4" color="secondary">
+            Donate
+          </Typography>
+
+          <Box
+            component="form"
+            sx={{
+              "& .MuiTextField-root": { m: 1, width: "25ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <div>
+              <TextField
+                label="お名前(ニックネーム可)"
+                required
+                id="name"
+                defaultValue=""
+              />
+            </div>
+            <div>
+              <TextField
+                label="メールアドレス"
+                required
+                id="email"
+                defaultValue=""
+              />
+            </div>
+            <FormControl>
+              <FormLabel id="amount">金額</FormLabel>
+              <RadioGroup
+                row
+                aria-labelledby="amount"
+                name="row-radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="100"
+                  control={<Radio />}
+                  label="￥100"
+                />
+                <FormControlLabel
+                  value="500"
+                  control={<Radio />}
+                  label="￥500"
+                />
+                <FormControlLabel
+                  value="1000"
+                  control={<Radio />}
+                  label="￥1,000"
+                />
+                <FormControlLabel
+                  value="5000"
+                  control={<Radio />}
+                  label="￥5,000"
+                />
+              </RadioGroup>
+            </FormControl>
+            <div>
+              <Button color="secondary" variant="outlined" onClick={handleOpen}>
+                確認
+              </Button>
+            </div>
+          </Box>
+
+          <StyledModal
+            aria-labelledby="unstyled-modal-title"
+            aria-describedby="unstyled-modal-description"
+            open={open}
+            onClose={handleClose}
+            slots={{ backdrop: StyledBackdrop }}
+          >
+            <Box sx={style}>
+              <Stack spacing={2} margin={3}>
+                <Button onClick={handleClose}>X</Button>
+                <Typography paragraph>
+                  以下の内容で寄付をします。よろしいですか？
+                </Typography>
+                <Typography paragraph>お名前：〇〇</Typography>
+                <Typography paragraph>金額：〇〇</Typography>
+                <Button variant="outlined" onClick={() => {
+                    setOpen(false);
+                    setAlertOpen(true);
+                    // 3秒後にアラートを閉じる
+                    setTimeout(() => {
+                      setAlertOpen(false);
+                    }, 3000);
+                }}>
+                  寄付をする
+                </Button>
+              </Stack>
+            </Box>
+          </StyledModal>
+        </Container>
+      </Grid>
+    </Grid>
+  );
+}
+
+const blue = {
+  200: "#99CCF3",
+  400: "#3399FF",
+  500: "#007FFF",
+};
+
+const grey = {
+  50: "#f6f8fa",
+  100: "#eaeef2",
+  200: "#d0d7de",
+  300: "#afb8c1",
+  400: "#8c959f",
+  500: "#6e7781",
+  600: "#57606a",
+  700: "#424a53",
+  800: "#32383f",
+  900: "#24292f",
+};
+
+const StyledModal = styled(Modal)`
+  position: fixed;
+  z-index: 1300;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: -1;
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.5);
+  -webkit-tap-highlight-color: transparent;
+`;
+
+const style = (theme: Theme) => ({
+  width: 400,
+  borderRadius: "12px",
+  padding: "16px 32px 24px 32px",
+  backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
+  boxShadow: `0px 2px 24px ${
+    theme.palette.mode === "dark" ? "#000" : "#383838"
+  }`,
+});
