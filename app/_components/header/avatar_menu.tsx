@@ -1,5 +1,6 @@
 import { RootState } from "@/app/_store/store";
-import { IconButton, Avatar, Menu, MenuItem } from "@mui/material";
+import { IconButton, Avatar, Menu, MenuItem, ListItemIcon } from "@mui/material";
+import { Launch } from "@mui/icons-material";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -19,9 +20,13 @@ export default function AvatarMenu() {
     const displayName = useSelector((state: RootState) => state.user.displayName);
 
     const menuItems = [
-      { text: "地図から探す", href: "/" },
-      { text: "ログイン", href: "/login" },
-      { text: "寄付をする", href: "/donate" },
+      { text: "地図から探す", href: "/", external: false },
+      { text: "ログイン", href: "/login", external: false },
+      {
+        text: "寄付をする",
+        href: process.env.NEXT_PUBLIC_STRIPE_DONATION_URL || "",
+        external: true,
+      },
     ];
 
     return (
@@ -55,9 +60,20 @@ export default function AvatarMenu() {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          {menuItems.map((item) => (
-            <MenuItem key={item.href}>
-              <Link href={item.href}>{item.text}</Link>
+          {menuItems.map((item, index) => (
+            <MenuItem
+              key={index}
+              onClick={handleClose}
+              component={item.external ? "a" : Link}
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+            >
+              {item.text}
+              {item.external && (
+                <ListItemIcon>
+                  <Launch fontSize="small" />
+                </ListItemIcon>
+              )}
             </MenuItem>
           ))}
         </Menu>
