@@ -2,10 +2,11 @@
 import Sidebar from "@/app/_components/sidebar/sidebar";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { RootState } from "@/app/_store/store";
-import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled, Alert, Collapse, AlertColor } from "@mui/material";
+import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 import { setAlert, hideAlert } from "@/app/_store/alertSlice";
+import HeaderAlert from "@/app/_components/util/header_alert";
 
 export default function DonatePage() {
   // モーダルの開閉
@@ -26,11 +27,7 @@ export default function DonatePage() {
       </Grid>
       <Grid item xs={8} id="content">
         <Container className="content" fixed>
-          <Collapse in={alertInfo.isShown} sx={{ position: "absolute", width: "63%" }}>
-            <Alert severity={alertInfo.severity}>
-                {alertInfo.message}
-            </Alert>
-          </Collapse>
+          <HeaderAlert />
 
           <Typography variant="h4" color="secondary">
             Donate
@@ -188,12 +185,10 @@ const StyledBackdrop = styled(Backdrop)`
   -webkit-tap-highlight-color: transparent;
 `;
 
-const style = (theme: Theme) => ({
+const style = () => ({
   width: 400,
   borderRadius: "12px",
   padding: "16px 32px 24px 32px",
-  backgroundColor: theme.palette.mode === "dark" ? "#0A1929" : "white",
-  boxShadow: `0px 2px 24px ${
-    theme.palette.mode === "dark" ? "#000" : "#383838"
-  }`,
+  backgroundColor: "white",
+  boxShadow: `0px 2px 24px ${"#383838"}`,
 });
