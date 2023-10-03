@@ -1,21 +1,20 @@
 "use client";
 import Sidebar from "@/app/_components/sidebar/sidebar";
+import { useAppDispatch } from "@/app/_store/hooks";
+import { RootState } from "@/app/_store/store";
 import { Grid, Typography, Container, TextField, Box, Radio, FormControl, RadioGroup, FormControlLabel, FormLabel, Button, Modal, Backdrop, Stack, Theme, styled, Alert, Collapse, AlertColor } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import { setAlert, hideAlert } from "@/app/_store/alertSlice";
 
 export default function DonatePage() {
-    // モーダルの開閉
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+  // モーダルの開閉
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    // アラートの開閉
-    const [alertOpen, setAlertOpen] = React.useState(false);
-    const [alertMessage, setAlertMessage] = React.useState(
-      "寄付を受け付けました！ありがとうございます！"
-    );
-    const [alertSeverity, setAlertSeverity] = React.useState("success");
-
+  const dispatch = useAppDispatch();
+  const alertInfo = useSelector((state: RootState) => state.alert);
 
   const sidebarTitle = "寄付をする";
   const sidebarText = "寄付を促す文言";
@@ -27,9 +26,9 @@ export default function DonatePage() {
       </Grid>
       <Grid item xs={8} id="content">
         <Container className="content" fixed>
-          <Collapse in={alertOpen} sx={{ position: "absolute", width: "63%" }}>
-            <Alert severity={alertSeverity as AlertColor | undefined}>
-                {alertMessage}
+          <Collapse in={alertInfo.isShown} sx={{ position: "absolute", width: "63%" }}>
+            <Alert severity={alertInfo.severity}>
+                {alertInfo.message}
             </Alert>
           </Collapse>
 
@@ -116,17 +115,29 @@ export default function DonatePage() {
                   variant="outlined"
                   onClick={() => {
                     setOpen(false);
-                    // 成功時のアラート
-                    setAlertMessage("寄付を受け付けました！ありがとうございます！");
-                    setAlertSeverity("success");
-                    // エラー時のアラート
-                    //setAlertMessage("寄付の処理中にエラーが発生しました。");
-                    //setAlertSeverity("error");
 
-                    setAlertOpen(true);
+                    // 成功時のアラート
+                    dispatch(
+                      setAlert({
+                        message: "寄付を受け付けました！ありがとうございます！",
+                        severity: "success",
+                        isShown: true,
+                      })
+                    );
+                    // エラー時のアラート
+                    /**
+                    dispatch(
+                      setAlert({
+                        message: "寄付の受付処理中にエラーが発生しました。",
+                        severity: "error",
+                        isShown: true,
+                      })
+                    );
+                     */
+
                     // 5秒後にアラートを閉じる
                     setTimeout(() => {
-                      setAlertOpen(false);
+                      dispatch(hideAlert());
                     }, 5000);
                   }}
                 >
