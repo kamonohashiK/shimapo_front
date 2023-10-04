@@ -1,6 +1,4 @@
 "use client";
-import { fetchApiTest } from "@/app/_api/test";
-import { Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
 interface SidebarTextProps {
@@ -16,9 +14,6 @@ export default function SidebarText(props: SidebarTextProps) {
         <br></br>
         {props.content}
       </Typography>
-      <Button color="primary" variant="outlined" onClick={fetchApiTest}>
-        APIテスト
-      </Button>
     </>
   );
 }
