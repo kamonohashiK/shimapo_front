@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface ModalState {
   isShown: boolean;
-  type: "A" | "B" | "";
+  type: string;
 }
 
 const initialState: ModalState = {

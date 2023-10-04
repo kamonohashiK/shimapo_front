@@ -1,3 +1,4 @@
+import modalTypes from "@/app/_constants/modal_types";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { showModal } from "@/app/_store/modalSlice";
 import {
@@ -76,7 +77,7 @@ export default function QuestionList(props: QuestionListProps) {
         color="primary"
         variant="outlined"
         fullWidth
-        onClick={() => dispatch(showModal({ isShown: true, type: "B" }))}
+        onClick={() => dispatch(showModal({ isShown: true, type: modalTypes.NEW_QUESTION_FORM }))}
       >
         新たに質問する
       </Button>

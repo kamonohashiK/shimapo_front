@@ -5,6 +5,7 @@ import { Box, Stack, Button, Typography, styled, Modal, Backdrop } from "@mui/ma
 import { useSelector } from "react-redux";
 import ImageUploadForm from "../modal_contents/img_upload_form";
 import NewQuestionForm from "../modal_contents/new_question_form";
+import modalTypes from "@/app/_constants/modal_types";
 
 export default function CommonModal() {
     const dispatch = useAppDispatch();
@@ -25,9 +26,9 @@ export default function CommonModal() {
             {/* modalState.typeによって表示するコンポーネントを入れ替え */}
             {(() => {
               switch (modalState.type) {
-                case "A":
+                case modalTypes.IMAGE_UPLOAD_FORM:
                   return <ImageUploadForm />;
-                case "B":
+                case modalTypes.NEW_QUESTION_FORM:
                   return <NewQuestionForm />;
                 default:
                   return <Typography paragraph>Error</Typography>;

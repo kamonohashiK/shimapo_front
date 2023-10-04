@@ -1,3 +1,4 @@
+import modalTypes from "@/app/_constants/modal_types";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { showModal } from "@/app/_store/modalSlice";
 import { Button, Divider, ImageList, ImageListItem } from "@mui/material";
@@ -31,7 +32,7 @@ export default function IslandImageList(props: IslandImageListProps) {
         color="primary"
         variant="outlined"
         fullWidth
-        onClick={() => dispatch(showModal({ isShown: true, type: "A" }))}
+        onClick={() => dispatch(showModal({ isShown: true, type: modalTypes.IMAGE_UPLOAD_FORM }))}
       >
         画像を追加
       </Button>
