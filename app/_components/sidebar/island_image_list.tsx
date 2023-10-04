@@ -1,8 +1,8 @@
-import modalTypes from "@/app/_constants/modal_types";
 import { useAppDispatch } from "@/app/_store/hooks";
-import { showModal } from "@/app/_store/modalSlice";
+import { showDialog } from "@/app/_store/dialogSlice";
 import { Button, Divider, ImageList, ImageListItem } from "@mui/material";
 import Image from "next/image";
+import dialogTypes from "@/app/_constants/dialog_types";
 
 interface IslandImageListProps {
   itemData: {
@@ -32,7 +32,11 @@ export default function IslandImageList(props: IslandImageListProps) {
         color="primary"
         variant="outlined"
         fullWidth
-        onClick={() => dispatch(showModal({ isShown: true, type: modalTypes.IMAGE_UPLOAD_FORM }))}
+        onClick={() =>
+          dispatch(
+            showDialog({ isShown: true, type: dialogTypes.IMAGE_UPLOAD_FORM })
+          )
+        }
       >
         画像を追加
       </Button>
