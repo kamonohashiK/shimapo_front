@@ -1,6 +1,6 @@
 name: Deploy to Firebase Hosting on Push
 on:
- push:
+ pull_request:
     branches:
       - develop
 jobs:
