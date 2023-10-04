@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Header from "../_components/header/header";
 import { store } from "../_store/store";
 import { Provider } from "react-redux";
+import CommonModal from '../_components/util/common_modal';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider store={store}>
           <Header />
+          <CommonModal  />
           {children}
         </Provider>
       </body>

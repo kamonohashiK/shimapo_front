@@ -1,19 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface modalState {
+interface ModalState {
   isShown: boolean;
+  type: "A" | "B" | "";
 }
 
-const initialState: modalState = {
+const initialState: ModalState = {
   isShown: false,
+  type: "",
 };
 
 export const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    showModal: (state) => {
+    showModal: (state, action: PayloadAction<ModalState>) => {
       state.isShown = true;
+      state.type = action.payload.type;
     },
     hideModal: (state) => {
       state.isShown = false;

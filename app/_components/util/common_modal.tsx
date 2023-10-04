@@ -1,11 +1,9 @@
-import { setAlert, hideAlert } from "@/app/_store/alertSlice";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { hideModal } from "@/app/_store/modalSlice";
 import { RootState } from "@/app/_store/store";
 import { Box, Stack, Button, Typography, styled, Modal, Backdrop } from "@mui/material";
 import { useSelector } from "react-redux";
 
-//TODO: modalの中身をpropsで渡せるようにする
 export default function CommonModal() {
     const dispatch = useAppDispatch();
     const modalState = useSelector((state: RootState) => state.modal);
@@ -20,44 +18,11 @@ export default function CommonModal() {
       >
         <Box sx={style}>
           <Stack spacing={2} margin={3}>
+            {/* モーダルを閉じるボタンは共通 */}
             <Button onClick={() => dispatch(hideModal())}>X</Button>
             <Typography paragraph>
-              以下の内容で寄付をします。よろしいですか？
+              {modalState.type === "A" ? "A" : "B"}
             </Typography>
-            <Typography paragraph>お名前：〇〇</Typography>
-            <Typography paragraph>金額：〇〇</Typography>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                dispatch(hideModal());
-
-                // 成功時のアラート
-                dispatch(
-                  setAlert({
-                    message: "寄付を受け付けました！ありがとうございます！",
-                    severity: "success",
-                    isShown: true,
-                  })
-                );
-                // エラー時のアラート
-                /**
-                    dispatch(
-                      setAlert({
-                        message: "寄付の受付処理中にエラーが発生しました。",
-                        severity: "error",
-                        isShown: true,
-                      })
-                    );
-                     */
-
-                // 5秒後にアラートを閉じる
-                setTimeout(() => {
-                  dispatch(hideAlert());
-                }, 5000);
-              }}
-            >
-              寄付をする
-            </Button>
           </Stack>
         </Box>
       </StyledModal>
