@@ -3,7 +3,7 @@ import pageReducer from "./pageSlice";
 import userReducer from "./userSlice";
 import mapReducer from "./mapSlice";
 import alertReducer from "./alertSlice";
-import modalReducer from "./modalSlice";
+import dialogReducer from "./dialogSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,7 @@ export const store = configureStore({
     user: userReducer,
     map: mapReducer,
     alert: alertReducer,
-    modal: modalReducer,
+    dialog: dialogReducer,
   },
 });
 

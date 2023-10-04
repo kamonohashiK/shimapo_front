@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Header from "../_components/header/header";
 import { store } from "../_store/store";
 import { Provider } from "react-redux";
+import CommonDialog from '../_components/util/common_dialog';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,10 +20,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider store={store}>
           <Header />
+          <CommonDialog />
           {children}
         </Provider>
       </body>
     </html>
   );
 }
-//FIXME: 地図の下に黒いスペースができてしまう
