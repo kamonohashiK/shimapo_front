@@ -8,13 +8,16 @@ export default function Home() {
   const sidebarTitle = "ようこそ";
   const sidebarText = "最初のページ";
 
+  const googleMapApiKey =
+    process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item xs={4}>
         <Sidebar title={sidebarTitle} content={sidebarText} />
       </Grid>
-      <Grid item xs={8} >
-        <IslandsMap />
+      <Grid item xs={8}>
+        <IslandsMap apiKey={googleMapApiKey} />
       </Grid>
     </Grid>
   );

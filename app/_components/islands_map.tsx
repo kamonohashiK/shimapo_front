@@ -25,8 +25,8 @@ const islandPositions = islandSummaries.map((islandSummary) => {
   };
 });
 
-export default function IslandsMap() {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
+export default function IslandsMap(props: {apiKey: string | undefined}) {
+  const apiKey = props.apiKey
   const dispatch = useAppDispatch();
   const mapInfo = useSelector((state: RootState) => state.map);
 
