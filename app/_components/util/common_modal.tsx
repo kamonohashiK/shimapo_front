@@ -3,6 +3,8 @@ import { hideModal } from "@/app/_store/modalSlice";
 import { RootState } from "@/app/_store/store";
 import { Box, Stack, Button, Typography, styled, Modal, Backdrop } from "@mui/material";
 import { useSelector } from "react-redux";
+import ImageUploadForm from "../modal_contents/img_upload_form";
+import NewQuestionForm from "../modal_contents/new_question_form";
 
 export default function CommonModal() {
     const dispatch = useAppDispatch();
@@ -20,9 +22,17 @@ export default function CommonModal() {
           <Stack spacing={2} margin={3}>
             {/* モーダルを閉じるボタンは共通 */}
             <Button onClick={() => dispatch(hideModal())}>X</Button>
-            <Typography paragraph>
-              {modalState.type === "A" ? "A" : "B"}
-            </Typography>
+            {/* modalState.typeによって表示するコンポーネントを入れ替え */}
+            {(() => {
+              switch (modalState.type) {
+                case "A":
+                  return <ImageUploadForm />;
+                case "B":
+                  return <NewQuestionForm />;
+                default:
+                  return <Typography paragraph>Error</Typography>;
+              }
+            })()}
           </Stack>
         </Box>
       </StyledModal>
