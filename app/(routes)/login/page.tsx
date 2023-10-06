@@ -1,14 +1,8 @@
 "use client";
 import React from "react";
-import {
-  Button,
-  Typography,
-  Stack,
-  TextField,
-  Container,
-  Grid,
-} from "@mui/material";
+import { Typography, Container, Grid } from "@mui/material";
 import Sidebar from "../../_components/sidebar/sidebar";
+import EmailSignupForm from "@/app/_components/form/email_signup";
 
 export default function LoginPage() {
   const sidebarTitle = "ログイン";
@@ -22,22 +16,9 @@ export default function LoginPage() {
       <Grid item xs={9} id="content">
         <Container className="content" fixed>
           <Typography variant="h4" color="secondary">
-            Login
+            Sign Up
           </Typography>
-          <Stack
-            spacing={2}
-            margin={3}
-            marginLeft={10}
-            className="button-group"
-          >
-            <Typography variant="h4" color="secondary">
-              Sign Up
-            </Typography>
-            <Stack spacing={2} margin={3}>
-              <TextField label="Email" />
-              <Button variant="outlined">ログイン</Button>
-            </Stack>
-          </Stack>
+          <EmailSignupForm />
         </Container>
       </Grid>
     </Grid>
