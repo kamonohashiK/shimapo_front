@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux/es/hooks/useDispatch";
 import { hideAlert, setAlert } from "@/app/_store/alertSlice";
-import axios from "axios";
+import { endPoints, postRequest } from "@/app/_api/api";
 
 // 入力フォームの型定義
 type SignupForm = {
@@ -30,33 +30,18 @@ export default function EmailSignupForm() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: SignupForm) => {
-    // TODO: 環境変数からURLを取得するようにする
-    axios
-      .post("http://localhost:18000/api/v1/auth/signup", data)
-      .then((response) => {
-        if (response.status === 200) {
-          // 成功時
-          handleAlert(
-            true,
-            "送信されたメールアドレスに案内メールを送信しました。"
-          );
-        } else {
-          // 失敗時
-          handleAlert(
-            false,
-            "送信時にエラーが発生しました。時間を置いて再度お試しください。"
-          );
-        }
-      })
-      .catch(() => {
-        handleAlert(
-          false,
-          "送信時にエラーが発生しました。時間を置いて再度お試しください。"
-        );
-      });
+  // フォームの送信処理
+  const onSubmit = (data: SignupForm): Promise<void> => {
+    return postRequest(endPoints.AUTH_SIGNUP, data).then((response) => {
+      if (response.status === 200) {
+        handleAlert(true, "登録完了しました。");
+      } else {
+        handleAlert(false, "エラーが発生しました。");
+      }
+    });
   };
 
+  // アラートの表示制御
   function handleAlert(succeed: boolean, message: string) {
     if (succeed) {
       dispatch(
