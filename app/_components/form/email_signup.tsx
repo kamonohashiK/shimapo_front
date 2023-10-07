@@ -38,6 +38,8 @@ export default function EmailSignupForm() {
       } else {
         handleAlert(false, "エラーが発生しました。");
       }
+    }).catch(() => {
+      handleAlert(false, "エラーが発生しました。");
     });
   };
 

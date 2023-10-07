@@ -19,7 +19,7 @@ type Response = {
 
 // GETリクエスト
 export const getRequest = async (url: string): Promise<Response> => {
-  return axios.post(url).then((response) => {
+  return axios.get(url).then((response) => {
     return {
       status: response.status,
       data: response.data,
