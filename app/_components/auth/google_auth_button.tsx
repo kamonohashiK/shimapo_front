@@ -2,28 +2,29 @@
 
 import firebase_app from "@/firebase/config";
 import { Button } from "@mui/material";
-import firebase, { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
+import { useRouter } from 'next/navigation';
+import { useDispatch } from "react-redux";
 
 export default function GoogleAuthButton() {
+  const { push } = useRouter();
 
   function SignInWithGoogle() {
     const auth = getAuth(firebase_app);
     signInWithPopup(auth, new GoogleAuthProvider())
-      .then((result) => {
-        //TODO: ログイン後の処理
-        console.log("Google認証");
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        //const token = credential.accessToken ?? "";
-        const user = result.user;
-        console.log(user);
+      .then(() => {
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            push('/');
+            // TODO: ログイン成功のアラートを表示
+          } else {
+            // TODO: アラートを表示
+          }
+        });
       })
       .catch((error) => {
         console.log("Google認証エラー");
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // TODO: アラートを表示
       });
   }
 

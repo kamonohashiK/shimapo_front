@@ -5,15 +5,25 @@ import Sidebar from "../../_components/sidebar/sidebar";
 import HeaderAlert from "@/app/_components/util/header_alert";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function MyPage() {
     const sidebarTitle = "マイページ";
     const sidebarText = "マイページの説明文";
 
+    const { push } = useRouter();
+
     function logout() {
         const auth = getAuth(firebase_app);
-        auth.signOut();
+        auth.signOut().then(() => {
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+              push("/"); //TODO: ログアウト成功のアラートを表示
+            } else {
+              //TODO: アラートを表示
+            }
+        });
+      });
     }
 
   return (
