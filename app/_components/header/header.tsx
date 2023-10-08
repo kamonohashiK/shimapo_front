@@ -7,6 +7,7 @@ import SearchBar from "./search_bar";
 import { usePathname } from "next/navigation";
 import TitleLogo from "./title_logo";
 import AvatarMenu from "./avatar_menu";
+import HeaderAlert from "./header_alert";
 
 export default function Header() {
   const pathname = usePathname();
@@ -15,8 +16,9 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
+          <HeaderAlert />
           <TitleLogo />
-          { pathname == "/" ? <SearchBar /> : null}
+          {pathname == "/" ? <SearchBar /> : null}
           <AvatarMenu />
         </Toolbar>
       </AppBar>
