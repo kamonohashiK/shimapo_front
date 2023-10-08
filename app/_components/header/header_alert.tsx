@@ -6,7 +6,7 @@ export default function HeaderAlert() {
     const alertInfo = useSelector((state: RootState) => state.alert);
 
     return (
-        <Collapse in={alertInfo.isShown} sx={{ position: "absolute", width: "63%" }}>
+        <Collapse in={alertInfo.isShown} sx={{ position: "absolute" }}>
             <Alert severity={alertInfo.severity}>
                 {alertInfo.message}
             </Alert>

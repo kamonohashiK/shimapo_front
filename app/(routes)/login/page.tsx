@@ -1,7 +1,7 @@
 "use client";
 import { Typography, Container, Grid, Stack } from "@mui/material";
 import Sidebar from "../../_components/sidebar/sidebar";
-import HeaderAlert from "@/app/_components/util/header_alert";
+import HeaderAlert from "@/app/_components/header/header_alert";
 import GoogleAuthButton from "@/app/_components/auth/google_auth_button";
 
 export default function LoginPage() {
@@ -15,7 +15,6 @@ export default function LoginPage() {
       </Grid>
       <Grid item xs={8} id="content">
         <Container className="content" fixed>
-          <HeaderAlert />
           <Typography variant="h4" color="secondary">
             Sign Up
           </Typography>
