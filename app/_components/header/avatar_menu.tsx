@@ -9,7 +9,9 @@ import {
 import { Launch } from "@mui/icons-material";
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { showDialog } from "@/app/_store/dialogSlice";
+import dialogTypes from "@/app/_constants/dialog_types";
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -26,19 +28,26 @@ export default function AvatarMenu() {
   const displayName = useSelector((state: RootState) => state.user.displayName);
   const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
 
+  const dispatch = useDispatch();
+
   const menuItems = [
-    { text: "地図から探す", href: "/", external: false },
     {
-      text: isLoggedIn ? "マイページ" : "ログイン",
-      href: isLoggedIn ? "/mypage" : "/login",
+      text: "マイページ",
+      href: "/mypage",
       external: false,
+      loginOnly: true,
     },
     {
       text: "寄付をする",
       href: process.env.NEXT_PUBLIC_STRIPE_DONATION_URL || "",
       external: true,
+      loginOnly: false,
     },
   ];
+
+  const authModal = () => {
+    dispatch(showDialog({ isShown: true, type: dialogTypes.AUTH_FORM }));
+  };
 
   return (
     <>
@@ -71,7 +80,11 @@ export default function AvatarMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem key="authentication" onClick={authModal}>
+          { isLoggedIn ? "ログアウト" : "ログイン" }
+        </MenuItem>
         {menuItems.map((item, index) => (
+          (isLoggedIn || !item.loginOnly) && // ログアウトしている場合はマイページへのリンクを表示しない
           <MenuItem
             key={index}
             onClick={handleClose}
