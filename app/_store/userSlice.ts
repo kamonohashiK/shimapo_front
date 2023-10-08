@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setLoginInfo: (state, action: PayloadAction<UserState>) => {
-      state.loggedIn = false;
+      state.loggedIn = true;
       state.displayName = action.payload.displayName;
       state.photoUrl = action.payload.photoUrl;
     },
