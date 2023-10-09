@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ImageUploadForm from "../dialog_contents/img_upload_form";
 import NewQuestionForm from "../dialog_contents/new_question_form";
 import dialogTypes from "@/app/_constants/dialog_types";
+import AuthForm from "../dialog_contents/auth_form";
 
 export default function CommonDialog() {
   const dispatch = useAppDispatch();
@@ -44,6 +45,8 @@ export default function CommonDialog() {
               return <ImageUploadForm />;
             case dialogTypes.NEW_QUESTION_FORM:
               return <NewQuestionForm />;
+            case dialogTypes.AUTH_FORM:
+              return <AuthForm />;
             default:
               return <Typography paragraph>Error</Typography>;
           }

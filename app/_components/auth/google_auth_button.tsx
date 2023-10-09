@@ -6,6 +6,7 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
 import { useRouter } from "next/navigation";
 import { hideAlert, setAlert } from "@/app/_store/alertSlice";
 import { useDispatch } from "react-redux";
+import { hideDialog } from "@/app/_store/dialogSlice";
 
 export default function GoogleAuthButton() {
   const { push } = useRouter();
@@ -54,7 +55,10 @@ export default function GoogleAuthButton() {
         setTimeout(() => {
           dispatch(hideAlert());
         }, 5000);
-      });
+      })
+      .finally(() => {
+        dispatch(hideDialog());
+      });;
   }
 
   return (
