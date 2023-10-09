@@ -24,7 +24,7 @@ export default function IslandImageList(props: IslandImageListProps) {
           {props.itemData.map((item, index) => (
             <ImageListItem key={index}>
               <Image
-                src={`${item.img}?w=100&h=60&fit=crop&auto=format`}
+                src={item.img}
                 width={100}
                 height={60}
                 alt={item.title}
