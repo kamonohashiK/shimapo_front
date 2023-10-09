@@ -1,6 +1,6 @@
 import { useAppDispatch } from "@/app/_store/hooks";
 import { showDialog } from "@/app/_store/dialogSlice";
-import { Button, Divider, ImageList, ImageListItem } from "@mui/material";
+import { Button, Divider, ImageList, ImageListItem, Typography } from "@mui/material";
 import Image from "next/image";
 import dialogTypes from "@/app/_constants/dialog_types";
 
@@ -15,18 +15,25 @@ export default function IslandImageList(props: IslandImageListProps) {
   const dispatch = useAppDispatch();
   return (
     <>
-      <ImageList sx={{ width: 380 }} cols={3} rowHeight={80}>
-        {props.itemData.map((item, index) => (
-          <ImageListItem key={index}>
-            <Image
-              src={`${item.img}?w=100&h=60&fit=crop&auto=format`}
-              width={100}
-              height={60}
-              alt={item.title}
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      {props.itemData.length === 0 ? (
+        <Typography variant="body1" align="center">
+          この島の画像はまだありません。
+        </Typography>
+      ) : (
+        <ImageList sx={{ width: 380 }} cols={3} rowHeight={80}>
+          {props.itemData.map((item, index) => (
+            <ImageListItem key={index}>
+              <Image
+                src={item.img}
+                width={100}
+                height={60}
+                alt={item.title}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      )}
+
       <Divider sx={{ my: 2 }} />
       <Button
         color="primary"
