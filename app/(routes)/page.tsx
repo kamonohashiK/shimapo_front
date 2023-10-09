@@ -7,7 +7,6 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { setLoginInfo, unmountLoginInfo } from "../_store/userSlice";
-import { store } from "../_store/store";
 
 export default function Home() {
   const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -21,8 +20,9 @@ export default function Home() {
       if (user) {
         dispatch(
           setLoginInfo({
-            displayName: user.displayName!, photoUrl: user.photoURL!,
-            loggedIn: true
+            displayName: user.displayName!,
+            photoUrl: user.photoURL!,
+            loggedIn: true,
           })
         );
       } else {
