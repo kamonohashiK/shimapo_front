@@ -1,0 +1,43 @@
+name: On pull request to develop branch
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # secretsから.envファイルを作成
+      - name: create .env file
+        run: |
+          cat > .env <<EOF
+          TEST=${{ secrets.ENV_DEVELOP }}
+          EOF
+
+      - name: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: yarn-install
+        run: yarn install
+
+      - name: app-build
+        run: yarn build
+
+      - name: yarn-test
+        run: yarn test
+
+      - name: deploy-to-firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SHIMAPO_TEST }}"
+          expires: 1d
+          projectId: shimapo-test
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
