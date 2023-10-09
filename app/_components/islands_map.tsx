@@ -8,11 +8,14 @@ import Areas from "../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import { setMapInfo } from "../_store/mapSlice";
+import { db } from "@/firebase/config";
+import { doc, getDoc } from "firebase/firestore";
 
 const container = {
   width: "100%",
   height: "100vh",
 };
+
 
 const focusedZoomLevel = 14;
 
@@ -25,13 +28,13 @@ const islandPositions = islandSummaries.map((islandSummary) => {
   };
 });
 
-export default function IslandsMap(props: {apiKey: string | undefined}) {
-  const apiKey = props.apiKey
+export default function IslandsMap(props: { apiKey: string | undefined }) {
+  const apiKey = props.apiKey;
   const dispatch = useAppDispatch();
   const mapInfo = useSelector((state: RootState) => state.map);
 
   // マーカークリック時の処理
-  function onClickMarker(uid: string) {
+  async function onClickMarker(uid: string) {
     // islandSummariesからuidを元に検索
     var filtered = islandSummaries.filter((item) => item.uid === uid);
     var selectedIsland = filtered[0];
@@ -48,6 +51,11 @@ export default function IslandsMap(props: {apiKey: string | undefined}) {
         enName: selectedIsland.en_name,
       })
     );
+
+    // 島の情報をDBから取得
+    const docRef = doc(db, "islands", uid);
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap.data());
 
     // マップの状態をstoreに反映
     dispatch(
@@ -67,7 +75,7 @@ export default function IslandsMap(props: {apiKey: string | undefined}) {
           <GoogleMap
             mapContainerStyle={container}
             center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
-            zoom={ mapInfo.zoomLevel }
+            zoom={mapInfo.zoomLevel}
           >
             {islandPositions.map((position) => {
               return (

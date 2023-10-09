@@ -1121,7 +1121,7 @@ const islandSummaries: IslandSummary[] = [
     city: "広島市",
   },
   {
-    uid: "HRS_ETJ_ETAJIMA/NOUMISHIMA",
+    uid: "HRS_ETJ_ETAJIMA_NOUMISHIMA",
     name: "江田島・能美島",
     kana: "えたじま・のうみじま",
     en_name: "Etajima/Noumishima",
