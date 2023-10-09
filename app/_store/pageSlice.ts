@@ -8,6 +8,9 @@ interface PageState {
     city: string;
     kana: string;
     enName: string;
+    mainImage: string;
+    imageList: any[];
+    questionList: any[];
 }
 
 const initialState: PageState = {
@@ -18,6 +21,9 @@ const initialState: PageState = {
     city: "市区町村名",
     kana: "かな",
     enName: "English Name",
+    mainImage: "",
+    imageList: [],
+    questionList: [],
 }
 
 export const pageSlice = createSlice({
@@ -32,6 +38,9 @@ export const pageSlice = createSlice({
         state.city = action.payload.city;
         state.kana = action.payload.kana;
         state.enName = action.payload.enName;
+        state.mainImage = action.payload.mainImage;
+        state.imageList = action.payload.imageList;
+        state.questionList = action.payload.questionList;
     },
   },
 });

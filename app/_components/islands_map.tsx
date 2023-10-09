@@ -10,12 +10,12 @@ import { RootState } from "../_store/store";
 import { setMapInfo } from "../_store/mapSlice";
 import { db } from "@/firebase/config";
 import { doc, getDoc } from "firebase/firestore";
+import { getIslandInfo } from "../_api/island";
 
 const container = {
   width: "100%",
   height: "100vh",
 };
-
 
 const focusedZoomLevel = 14;
 
@@ -39,6 +39,9 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
     var filtered = islandSummaries.filter((item) => item.uid === uid);
     var selectedIsland = filtered[0];
 
+    // DBから選択した島の情報を取得
+    var dbInfo = await getIslandInfo(uid);
+
     //選択した島の情報をstoreに格納
     dispatch(
       setIslandInfo({
@@ -49,13 +52,11 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
         city: selectedIsland.city,
         kana: selectedIsland.kana,
         enName: selectedIsland.en_name,
+        mainImage: dbInfo.islandInfo?.main_image_url ?? "",
+        imageList: dbInfo.imageList,
+        questionList: dbInfo.questionList,
       })
     );
-
-    // 島の情報をDBから取得
-    const docRef = doc(db, "islands", uid);
-    const docSnap = await getDoc(docRef);
-    console.log(docSnap.data());
 
     // マップの状態をstoreに反映
     dispatch(

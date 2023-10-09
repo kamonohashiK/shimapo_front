@@ -13,17 +13,7 @@ import {
 } from "@mui/material";
 
 interface QuestionListProps {
-  questions: {
-    question: string;
-    answerCount: number;
-    answers: {
-      content: string;
-      postedAt: string;
-      postedBy: string;
-      postedByImage: string;
-      likes: number;
-    }[];
-  }[];
+  questions: any[];
 }
 
 export default function QuestionList(props: QuestionListProps) {
@@ -34,7 +24,7 @@ export default function QuestionList(props: QuestionListProps) {
         <Accordion key={index}>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <Typography variant="subtitle1">
-              {item.question}({item.answerCount})
+              {item.question}({item.answer_count})
             </Typography>
           </AccordionSummary>
           <Divider sx={{ my: 2 }} />
@@ -44,6 +34,7 @@ export default function QuestionList(props: QuestionListProps) {
                 この質問にはまだ回答がありません。
               </Typography>
             ) : (
+              /** TODO: 回答の取得部分の実装まで保留
               item.answers.map((answer, index) => (
                 <>
                   <Stack direction="row">
@@ -65,6 +56,7 @@ export default function QuestionList(props: QuestionListProps) {
                   <Divider sx={{ my: 1 }} />
                 </>
               ))
+               */<></>
             )}
             <Button color="primary" variant="outlined" fullWidth>
               この質問に回答する
