@@ -37,7 +37,7 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SHIMAPO_TEST }}"
-          expires: 1d
+          expires: 5m
           projectId: shimapo-test
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
