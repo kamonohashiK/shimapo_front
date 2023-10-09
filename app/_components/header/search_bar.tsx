@@ -5,7 +5,8 @@ import { searchItems } from "../../_constants/search_items";
 import islandSummaries from "@/app/_constants/island_summaries";
 import { setMapInfo } from "@/app/_store/mapSlice";
 import { useAppDispatch } from "@/app/_store/hooks";
-import { setIslandInfo } from "@/app/_store/pageSlice";
+import { setIslandInfo, showSidebarText } from "@/app/_store/pageSlice";
+import { getIslandInfo } from "@/app/_api/island";
 
 const inputWidth = 400;
 const inputPadding = "5px 10px";
@@ -55,24 +56,41 @@ export default function SearchBar() {
     options: searchItems,
     blurOnSelect: true,
     clearOnBlur: true,
-    onChange: (event, value) => {
+    onChange: async (event, value) => {
       if (value !== null) {
         // islandSummariesからuidを元に検索
         var filtered = islandSummaries.filter((item) => item.uid === value.uid);
         var selectedIsland = filtered[0];
 
+        // DBから選択した島の情報を取得
+        var dbInfo = await getIslandInfo(selectedIsland.uid);
+
         //選択した島の情報をstoreに格納
-        dispatch(
-          setIslandInfo({
-            uid: value.uid,
-            isIslandInfo: true,
-            name: selectedIsland.name,
-            prefecture: selectedIsland.prefecture,
-            city: selectedIsland.city,
-            kana: selectedIsland.kana,
-            enName: selectedIsland.en_name,
-          })
-        );
+        if (dbInfo.result) {
+          dispatch(
+            setIslandInfo({
+              uid: selectedIsland.uid,
+              textHeader: "",
+              textBody: "",
+              isIslandInfo: true,
+              name: selectedIsland.name,
+              prefecture: selectedIsland.prefecture,
+              city: selectedIsland.city,
+              kana: selectedIsland.kana,
+              enName: selectedIsland.en_name,
+              mainImage: dbInfo.islandInfo?.main_image_url ?? "",
+              imageList: dbInfo.imageList,
+              questionList: dbInfo.questionList,
+            })
+          );
+        } else {
+          dispatch(
+            showSidebarText({
+              textHeader: "データ取得に失敗しました。",
+              textBody: "しばらく時間を置いてからお試しください。",
+            })
+          );
+        }
 
         // 検索結果をstoreに格納
         dispatch(
@@ -97,7 +115,6 @@ export default function SearchBar() {
         <Listbox {...getListboxProps()}>
           {(groupedOptions as typeof searchItems).map((option, index) => (
             <li {...getOptionProps({ option, index })} key={option.uid}>
-
               {option.label}
             </li>
           ))}
@@ -106,5 +123,3 @@ export default function SearchBar() {
     </div>
   );
 }
-
-

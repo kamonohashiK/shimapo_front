@@ -4,12 +4,7 @@ import SidebarText from "./sidebar_text";
 import SidebarIslandInfo from "./sidebar_island_info";
 import { useAppSelector } from "../../_store/hooks";
 
-interface SidebarProps {
-  title: string;
-  content: string;
-}
-
-export default function Sidebar(props: SidebarProps) {
+export default function Sidebar() {
   const isIslandInfo = useAppSelector((state) => state.page.isIslandInfo);
   const justifyContent = isIslandInfo ? "" : "space-around";
 
@@ -31,7 +26,7 @@ export default function Sidebar(props: SidebarProps) {
       {isIslandInfo ? (
         <SidebarIslandInfo />
       ) : (
-        <SidebarText title={props.title} content={props.content} />
+        <SidebarText />
       )}
     </Drawer>
   );

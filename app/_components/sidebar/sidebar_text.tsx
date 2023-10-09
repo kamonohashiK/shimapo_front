@@ -1,18 +1,15 @@
 "use client";
+import { useAppSelector } from "@/app/_store/hooks";
 import Typography from "@mui/material/Typography";
 
-interface SidebarTextProps {
-  title: string;
-  content: string;
-}
-
-export default function SidebarText(props: SidebarTextProps) {
+export default function SidebarText() {
+  const pageState = useAppSelector((state) => state.page);
   return (
     <>
       <Typography align="center" paragraph margin={"10px"}>
-        <b>{props.title}</b>
+        <b>{pageState.textHeader}</b>
         <br></br>
-        {props.content}
+        {pageState.textBody}
       </Typography>
     </>
   );

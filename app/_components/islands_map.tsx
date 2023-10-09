@@ -2,14 +2,12 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import islandSummaries from "../_constants/island_summaries";
 import { useAppDispatch } from "../_store/hooks";
-import { setIslandInfo } from "../_store/pageSlice";
+import { setIslandInfo, showSidebarText } from "../_store/pageSlice";
 import React from "react";
 import Areas from "../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import { setMapInfo } from "../_store/mapSlice";
-import { db } from "@/firebase/config";
-import { doc, getDoc } from "firebase/firestore";
 import { getIslandInfo } from "../_api/island";
 
 const container = {
@@ -42,21 +40,32 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
     // DBから選択した島の情報を取得
     var dbInfo = await getIslandInfo(uid);
 
-    //選択した島の情報をstoreに格納
-    dispatch(
-      setIslandInfo({
-        uid: uid,
-        isIslandInfo: true,
-        name: selectedIsland.name,
-        prefecture: selectedIsland.prefecture,
-        city: selectedIsland.city,
-        kana: selectedIsland.kana,
-        enName: selectedIsland.en_name,
-        mainImage: dbInfo.islandInfo?.main_image_url ?? "",
-        imageList: dbInfo.imageList,
-        questionList: dbInfo.questionList,
-      })
-    );
+    if (dbInfo.result) {
+      //選択した島の情報をstoreに格納
+      dispatch(
+        setIslandInfo({
+          uid: uid,
+          textHeader: "",
+          textBody: "",
+          isIslandInfo: true,
+          name: selectedIsland.name,
+          prefecture: selectedIsland.prefecture,
+          city: selectedIsland.city,
+          kana: selectedIsland.kana,
+          enName: selectedIsland.en_name,
+          mainImage: dbInfo.islandInfo?.main_image_url ?? "",
+          imageList: dbInfo.imageList,
+          questionList: dbInfo.questionList,
+        })
+      );
+    } else {
+      dispatch(
+        showSidebarText({
+          textHeader: "データ取得に失敗しました。",
+          textBody: "しばらく時間を置いてからお試しください。",
+        })
+      );
+    }
 
     // マップの状態をstoreに反映
     dispatch(
