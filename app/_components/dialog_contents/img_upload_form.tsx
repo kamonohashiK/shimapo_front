@@ -16,6 +16,7 @@ import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
 import { saveImageUrl } from "@/app/_api/island";
+import { resizeImage } from "@/app/_utils/resize_image";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -62,13 +63,22 @@ export default function ImageUploadForm() {
           // UIDを生成
           const uid = uuidv4();
 
-          // TODO: ここで3種類のタイプをループさせてリサイズ→アップロード→DB保存をさせる
-          const types = ["main", "large", "thumbnail"];
+          // 3種類のタイプをループさせてリサイズ→アップロード→DB保存をさせる
+          const types = [
+            { name: "main", width: 640, height: 360 },
+            { name: "large", width: 1920, height: 1080 },
+            { name: "thumbnail", width: 160, height: 90 },
+          ];
           types.map(async (type) => {
-            const path = `${islandId}/${type}/${uid}`;
-            const imageUrl = await uploadStorage(path, file);
+            const path = `${islandId}/${type.name}/${uid}`;
+            const resizedFile = await resizeImage(
+              file,
+              type.width,
+              type.height
+            );
+            const imageUrl = await uploadStorage(path, resizedFile);
             if (imageUrl != "") {
-              await saveImageUrl(islandId, imageUrl, type);
+              await saveImageUrl(islandId, imageUrl, type.name);
             }
           });
           // TODO: 保存が失敗した場合の処理
