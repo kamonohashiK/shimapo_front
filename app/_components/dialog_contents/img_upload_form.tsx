@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
+import { saveImageUrl } from "@/app/_api/island";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -60,11 +61,16 @@ export default function ImageUploadForm() {
         files.map(async (file) => {
           // UIDを生成
           const uid = uuidv4();
-          var path = `${islandId}/${uid}`;
-          const imageUrl = await uploadStorage(path, file);
-          if (imageUrl != "") {
-            // TODO: DBに画像URLを保存する
-          }
+
+          // TODO: ここで3種類のタイプをループさせてリサイズ→アップロード→DB保存をさせる
+          const types = ["main", "large", "thumbnail"];
+          types.map(async (type) => {
+            const path = `${islandId}/${type}/${uid}`;
+            const imageUrl = await uploadStorage(path, file);
+            if (imageUrl != "") {
+              await saveImageUrl(islandId, imageUrl, type);
+            }
+          });
           // TODO: 保存が失敗した場合の処理
         })
       );

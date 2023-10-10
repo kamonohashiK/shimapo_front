@@ -1,12 +1,18 @@
 import { useAppDispatch } from "@/app/_store/hooks";
 import { showDialog } from "@/app/_store/dialogSlice";
-import { Button, Divider, ImageList, ImageListItem, Typography } from "@mui/material";
+import {
+  Button,
+  Divider,
+  ImageList,
+  ImageListItem,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import dialogTypes from "@/app/_constants/dialog_types";
 
 interface IslandImageListProps {
   itemData: {
-    img: string;
+    url: string;
     title: string;
   }[];
 }
@@ -23,12 +29,7 @@ export default function IslandImageList(props: IslandImageListProps) {
         <ImageList sx={{ width: 380 }} cols={3} rowHeight={80}>
           {props.itemData.map((item, index) => (
             <ImageListItem key={index}>
-              <Image
-                src={item.img}
-                width={100}
-                height={60}
-                alt={item.title}
-              />
+              <Image src={item.url} width={100} height={60} alt={item.title} />
             </ImageListItem>
           ))}
         </ImageList>
