@@ -18,6 +18,13 @@ import AuthForm from "../dialog_contents/auth_form";
 export default function CommonDialog() {
   const dispatch = useAppDispatch();
   const dialogState = useSelector((state: RootState) => state.dialog);
+  const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
+
+  // ログインが必要なアクション
+  const authRequiredActions = [
+    dialogTypes.IMAGE_UPLOAD_FORM,
+    dialogTypes.NEW_QUESTION_FORM,
+  ];
 
   return (
     <Dialog
@@ -40,18 +47,28 @@ export default function CommonDialog() {
       </IconButton>
       <DialogContent>
         {(() => {
-          switch (dialogState.type) {
-            case dialogTypes.IMAGE_UPLOAD_FORM:
-              return <ImageUploadForm />;
-            case dialogTypes.NEW_QUESTION_FORM:
-              return <NewQuestionForm />;
-            case dialogTypes.AUTH_FORM:
-              return <AuthForm />;
-            default:
-              return <Typography paragraph>Error</Typography>;
-          }
+          return authRequiredActions.includes(dialogState.type) &&
+            !isLoggedIn ? (
+            <AuthForm />
+          ) : (
+            getDialogContent(dialogState.type)
+          );
         })()}
       </DialogContent>
     </Dialog>
   );
+}
+
+// dialogTypeに応じて表示するコンテンツを切り替える
+function getDialogContent(dialogType: string) {
+  switch (dialogType) {
+    case dialogTypes.IMAGE_UPLOAD_FORM:
+      return <ImageUploadForm />;
+    case dialogTypes.NEW_QUESTION_FORM:
+      return <NewQuestionForm />;
+    case dialogTypes.AUTH_FORM:
+      return <AuthForm />;
+    default:
+      return <Typography paragraph>Error</Typography>;
+  }
 }

@@ -58,12 +58,12 @@ export default function GoogleAuthButton() {
       })
       .finally(() => {
         dispatch(hideDialog());
-      });;
+      });
   }
 
   return (
     <Button variant="outlined" onClick={SignInWithGoogle}>
-      Google
+      ログイン
     </Button>
   );
 }
