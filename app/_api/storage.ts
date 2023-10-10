@@ -1,17 +1,25 @@
 import firebase_app from "@/firebase/config";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
+// ファイルをストレージに保存して、そのURLを返す
 export const uploadStorage = async (path: string, file: File) => {
   try {
     const storage = getStorage(firebase_app);
     const storageRef = ref(storage, path);
-    const snapshot = await uploadBytes(storageRef, file);
+    await uploadBytes(storageRef, file);
 
-    console.log("アップロード完了", snapshot);
-    // TODO: アップロードしたファイルのURLを返すようにする
-    return { key: snapshot.metadata.name, url: snapshot.metadata.fullPath };
+    const gsReference = ref(
+      storage,
+      `gs://${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}/${path}`
+    );
+    return await getDownloadURL(gsReference)
+      .then((url) => {
+        return url;
+      })
+      .catch(() => {
+        return "";
+      });
   } catch (error) {
-    console.log("アップロード失敗", error);
-    return null;
+    return "";
   }
 };

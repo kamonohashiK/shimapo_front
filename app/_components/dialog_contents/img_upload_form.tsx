@@ -14,6 +14,7 @@ import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -50,22 +51,24 @@ export default function ImageUploadForm() {
   });
 
   // 画像アップロード処理を一時的にここに書いておく
-  const upload = () => {
-    console.log("submit");
-    setCanSubmit(false);
-    setIsUploadinig(true);
+  async function upload() {
     try {
-      // 想定: バケットURL/{islandId}
-      // NOTE: 先にDBへメタデータを保存してIDを得てからアップロードするのが良さそう
+      setCanSubmit(false);
+      setIsUploadinig(true);
 
-      const uploadedUrls: any[] = [];
-      files.forEach(async (file, index) => {
-        var path = `${islandId}/test${index}`;
-        uploadedUrls.push(uploadStorage(path, file));
-      });
+      await Promise.all(
+        files.map(async (file) => {
+          // UIDを生成
+          const uid = uuidv4();
+          var path = `${islandId}/${uid}`;
+          const imageUrl = await uploadStorage(path, file);
+          if (imageUrl != "") {
+            // TODO: DBに画像URLを保存する
+          }
+          // TODO: 保存が失敗した場合の処理
+        })
+      );
 
-      console.log(uploadedUrls);
-      // TODO: アップロードされた画像のURLを取得してDBに保存する
       // TODO: 島のデータを再ロード・storeを更新
 
       setFiles([]);
@@ -79,7 +82,7 @@ export default function ImageUploadForm() {
         setCanSubmit(true);
       }
     }
-  };
+  }
 
   // 画像の削除
   const remove = (index: number) => () => {
