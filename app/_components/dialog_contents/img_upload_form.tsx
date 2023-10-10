@@ -10,12 +10,10 @@ import {
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import { ref } from "@firebase/storage";
-import firebase_app from "@/firebase/config";
-import { getStorage, uploadBytes } from "firebase/storage";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
+import { uploadStorage } from "@/app/_api/storage";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -54,20 +52,21 @@ export default function ImageUploadForm() {
   // 画像アップロード処理を一時的にここに書いておく
   const upload = () => {
     console.log("submit");
+    setCanSubmit(false);
     setIsUploadinig(true);
     try {
-      const storage = getStorage(firebase_app);
       // 想定: バケットURL/{islandId}
       // NOTE: 先にDBへメタデータを保存してIDを得てからアップロードするのが良さそう
 
+      const uploadedUrls: any[] = [];
       files.forEach(async (file, index) => {
-        const storageRef = ref(storage, `${islandId}/test1${index}`);
-        // 画像ファイルをアップロードする
-        const snapshot = await uploadBytes(storageRef, file);
-        console.log("アップロード完了", snapshot);
-
-        // TODO: アップロードされた画像のURLを取得してDBに保存する
+        var path = `${islandId}/test${index}`;
+        uploadedUrls.push(uploadStorage(path, file));
       });
+
+      console.log(uploadedUrls);
+      // TODO: アップロードされた画像のURLを取得してDBに保存する
+      // TODO: 島のデータを再ロード・storeを更新
 
       setFiles([]);
       // TODO: 成功時のAlert表示
@@ -76,6 +75,9 @@ export default function ImageUploadForm() {
       // TODO: 失敗時のAlert表示
     } finally {
       setIsUploadinig(false);
+      if (files.length === 0) {
+        setCanSubmit(true);
+      }
     }
   };
 
