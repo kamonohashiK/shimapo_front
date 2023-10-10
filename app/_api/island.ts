@@ -1,8 +1,17 @@
 // islandsコレクション関連のデータを扱うAPIを定義する
 
 import { db } from "@/firebase/config";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
+// 島の情報を取得
 export async function getIslandInfo(uid: string) {
   try {
     // 島の情報をDBから取得
@@ -11,7 +20,9 @@ export async function getIslandInfo(uid: string) {
 
     // 画像のメタデータを取得
     var imageList: any = [];
-    const images = await getDocs(collection(docRef, "images"));
+    const imageRef = collection(docRef, "images");
+    const q = query(imageRef, where("type", "==", "thumbnail"));
+    const images = await getDocs(q);
     images.forEach((doc) => {
       imageList.push(doc.data());
     });
@@ -31,5 +42,17 @@ export async function getIslandInfo(uid: string) {
     };
   } catch (error) {
     return { result: false };
+  }
+}
+
+// 画像URLを保存
+export async function saveImageUrl(uid: string, url: string, type: string) {
+  try {
+    const collectionRef = collection(db, "islands", uid, "images");
+    addDoc(collectionRef, { url: url, type: type });
+
+    return true;
+  } catch (error) {
+    return false;
   }
 }
