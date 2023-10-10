@@ -20,6 +20,11 @@ interface TextState {
   textBody: string;
 }
 
+interface ReloadState {
+  imageList: any[];
+  questionList: any[];
+}
+
 const initialState: PageState = {
   isIslandInfo: false,
   textHeader: "ようこそ",
@@ -56,9 +61,14 @@ export const pageSlice = createSlice({
       state.textHeader = action.payload.textHeader;
       state.textBody = action.payload.textBody;
     },
+    reloadIslandInfo: (state, action: PayloadAction<ReloadState>) => {
+      state.imageList = action.payload.imageList;
+      state.questionList = action.payload.questionList;
+    },
   },
 });
 
-export const { setIslandInfo, showSidebarText } = pageSlice.actions;
+export const { setIslandInfo, showSidebarText, reloadIslandInfo } =
+  pageSlice.actions;
 
 export default pageSlice.reducer;

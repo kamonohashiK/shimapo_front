@@ -11,21 +11,25 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { RootState } from "@/app/_store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
-import { saveImageUrl } from "@/app/_api/island";
+import { getIslandInfo, saveImageUrl } from "@/app/_api/island";
 import { resizeImage } from "@/app/_utils/resize_image";
+import { setAlert, hideAlert } from "@/app/_store/alertSlice";
+import { reloadIslandInfo } from "@/app/_store/pageSlice";
+import { hideDialog } from "@/app/_store/dialogSlice";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
-  // TODO: File.previewが存在しないエラーの解消
   const [files, setFiles] = React.useState<File[]>([]);
   const [canSubmit, setCanSubmit] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>("");
   const [isUploading, setIsUploadinig] = React.useState<boolean>(false);
   const islandId = useSelector((state: RootState) => state.page.uid);
+
+  const dispatch = useDispatch();
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -85,18 +89,37 @@ export default function ImageUploadForm() {
         })
       );
 
-      // TODO: 島のデータを再ロード・storeを更新
-
-      setFiles([]);
-      // TODO: 成功時のAlert表示
+      dispatch(
+        setAlert({
+          message: "画像をアップロードしました。",
+          severity: "success",
+          isShown: true,
+        })
+      );
+      setTimeout(() => {
+        dispatch(hideAlert());
+      }, 5000);
     } catch (error) {
-      console.log(error);
-      // TODO: 失敗時のAlert表示
+      dispatch(
+        setAlert({
+          message: "画像のアップロードに失敗しました。",
+          severity: "error",
+          isShown: true,
+        })
+      );
+      setTimeout(() => {
+        dispatch(hideAlert());
+      }, 5000);
     } finally {
-      setIsUploadinig(false);
-      if (files.length === 0) {
-        setCanSubmit(true);
-      }
+      dispatch(hideDialog());
+      await getIslandInfo(islandId).then((res) => {
+        dispatch(
+          reloadIslandInfo({
+            imageList: res.imageList,
+            questionList: res.questionList,
+          })
+        );
+      });
     }
   }
 
@@ -151,7 +174,11 @@ export default function ImageUploadForm() {
         <ImageList cols={5}>
           {files.map((file, index) => (
             <ImageListItem key={index}>
-              <img src={file.preview} style={img} alt={file.name} />
+              <img
+                src={URL.createObjectURL(file)}
+                style={img}
+                alt={file.name}
+              />
               <ImageListItemBar
                 position="top"
                 sx={{

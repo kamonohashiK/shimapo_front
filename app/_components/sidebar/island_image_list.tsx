@@ -26,7 +26,7 @@ export default function IslandImageList(props: IslandImageListProps) {
           この島の画像はまだありません。
         </Typography>
       ) : (
-        <ImageList sx={{ width: 380 }} cols={3} rowHeight={80}>
+        <ImageList cols={3} rowHeight={80}>
           {props.itemData.map((item, index) => (
             <ImageListItem key={index}>
               <Image src={item.url} width={100} height={60} alt={item.title} />
