@@ -2,6 +2,12 @@ import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { ref } from "@firebase/storage";
+import firebase_app from "@/firebase/config";
+import { getStorage, uploadBytes } from "firebase/storage";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
+import { set } from "firebase/database";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -9,6 +15,8 @@ export default function ImageUploadForm() {
   const [files, setFiles] = React.useState<File[]>([]);
   const [canSubmit, setCanSubmit] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>("");
+  const [isUploading, setIsUploadinig] = React.useState<boolean>(false);
+  const islandId = useSelector((state: RootState) => state.page.uid);
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -34,6 +42,34 @@ export default function ImageUploadForm() {
       }
     },
   });
+
+  // 画像アップロード処理を一時的にここに書いておく
+  const upload = () => {
+    console.log("submit");
+    setIsUploadinig(true);
+    try {
+      const storage = getStorage(firebase_app);
+      // 想定: バケットURL/{islandId}
+      // NOTE: 先にDBへメタデータを保存してIDを得てからアップロードするのが良さそう
+
+      files.forEach(async (file, index) => {
+        const storageRef = ref(storage, `${islandId}/test1${index}`);
+        // 画像ファイルをアップロードする
+        const snapshot = await uploadBytes(storageRef, file);
+        console.log("アップロード完了", snapshot);
+
+        // TODO: アップロードされた画像のURLを取得してDBに保存する
+      });
+
+      setFiles([]);
+      // TODO: 成功時のAlert表示
+    } catch (error) {
+      console.log(error);
+      // TODO: 失敗時のAlert表示
+    } finally {
+      setIsUploadinig(false);
+    }
+  };
 
   return (
     <Stack spacing={2} margin={2}>
@@ -78,7 +114,11 @@ export default function ImageUploadForm() {
           </div>
         ))}
       </div>
-      <Button variant="outlined" disabled={!canSubmit}>
+      <Button
+        variant="outlined"
+        disabled={!canSubmit || isUploading}
+        onClick={upload}
+      >
         アップロード
       </Button>
     </Stack>
