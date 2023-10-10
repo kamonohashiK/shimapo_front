@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -30,7 +31,9 @@ export async function getIslandInfo(uid: string) {
 
     // 質問を取得
     var questionList: any = [];
-    const questions = await getDocs(collection(docRef, "questions"));
+    const questions = await getDocs(
+      query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
+    );
     questions.forEach((doc) => {
       questionList.push(doc.data());
     });
