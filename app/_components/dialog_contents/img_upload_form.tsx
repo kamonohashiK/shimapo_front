@@ -28,6 +28,7 @@ export default function ImageUploadForm() {
   const [error, setError] = React.useState<string>("");
   const [isUploading, setIsUploadinig] = React.useState<boolean>(false);
   const islandId = useSelector((state: RootState) => state.page.uid);
+  const userId = useSelector((state: RootState) => state.user.userId);
 
   const dispatch = useDispatch();
 
@@ -82,7 +83,7 @@ export default function ImageUploadForm() {
             );
             const imageUrl = await uploadStorage(path, resizedFile);
             if (imageUrl != "") {
-              await saveImageUrl(islandId, imageUrl, type.name);
+              await saveImageUrl(islandId, userId, imageUrl, type.name);
             }
           });
           // TODO: 保存が失敗した場合の処理
