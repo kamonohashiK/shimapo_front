@@ -21,6 +21,7 @@ export default function Home() {
         dispatch(
           setLoginInfo({
             displayName: user.displayName!,
+            userId: user.uid,
             photoUrl: user.photoURL!,
             loggedIn: true,
           })

@@ -2,6 +2,7 @@
 
 import { db } from "@/firebase/config";
 import {
+  Timestamp,
   addDoc,
   collection,
   doc,
@@ -46,10 +47,22 @@ export async function getIslandInfo(uid: string) {
 }
 
 // 画像URLを保存
-export async function saveImageUrl(uid: string, url: string, type: string) {
+export async function saveImageUrl(
+  islandId: string,
+  userId: string,
+  url: string,
+  type: string
+) {
   try {
-    const collectionRef = collection(db, "islands", uid, "images");
-    addDoc(collectionRef, { url: url, type: type });
+    const userRef = doc(db, "user_profiles", userId);
+    const collectionRef = collection(db, "islands", islandId, "images");
+    const timeStamp = Timestamp.fromDate(new Date());
+    await addDoc(collectionRef, {
+      url: url,
+      type: type,
+      posted_at: timeStamp,
+      posted_by: userRef,
+    });
 
     return true;
   } catch (error) {

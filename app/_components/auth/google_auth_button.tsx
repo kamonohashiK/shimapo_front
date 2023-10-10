@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { hideAlert, setAlert } from "@/app/_store/alertSlice";
 import { useDispatch } from "react-redux";
 import { hideDialog } from "@/app/_store/dialogSlice";
+import { CreateUserProfile } from "@/app/_api/user_profile";
 
 export default function GoogleAuthButton() {
   const { push } = useRouter();
@@ -18,6 +19,11 @@ export default function GoogleAuthButton() {
       .then(() => {
         auth.onAuthStateChanged((user) => {
           if (user) {
+            CreateUserProfile({
+              userId: user.uid,
+              name: user.displayName ?? "未設定",
+              image_url: user.photoURL ?? "",
+            });
             dispatch(
               setAlert({
                 message: "ログインに成功しました。",
@@ -58,12 +64,12 @@ export default function GoogleAuthButton() {
       })
       .finally(() => {
         dispatch(hideDialog());
-      });;
+      });
   }
 
   return (
     <Button variant="outlined" onClick={SignInWithGoogle}>
-      Google
+      ログイン
     </Button>
   );
 }
