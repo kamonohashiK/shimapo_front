@@ -1,4 +1,12 @@
-import { Button, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -7,7 +15,7 @@ import firebase_app from "@/firebase/config";
 import { getStorage, uploadBytes } from "firebase/storage";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
-import { set } from "firebase/database";
+import { Cancel } from "@mui/icons-material";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -71,6 +79,15 @@ export default function ImageUploadForm() {
     }
   };
 
+  // 画像の削除
+  const remove = (index: number) => () => {
+    const newFiles = files.filter((_, i) => i !== index);
+    setFiles(newFiles);
+    if (newFiles.length === 0) {
+      setCanSubmit(false);
+    }
+  };
+
   return (
     <Stack spacing={2} margin={2}>
       <div {...getRootProps()}>
@@ -105,15 +122,33 @@ export default function ImageUploadForm() {
           </Button>
         )}
       </div>
-      <Typography paragraph>※画像ファイルのみ・上限5枚</Typography>　
-      <Typography color="error">{error}</Typography>
-      <div className="flex">
-        {files.map((file, index) => (
-          <div key={index}>
-            <img src={file.preview} style={img} alt={file.name} />
-          </div>
-        ))}
-      </div>
+      <Typography color="error">
+        {" "}
+        {error ? error : "※画像ファイルのみ・上限5枚"}
+      </Typography>
+      {files.length > 0 ? (
+        <ImageList cols={5}>
+          {files.map((file, index) => (
+            <ImageListItem key={index}>
+              <img src={file.preview} style={img} alt={file.name} />
+              <ImageListItemBar
+                position="top"
+                sx={{
+                  background:
+                    "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, " +
+                    "rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)",
+                }}
+                actionIcon={
+                  <IconButton sx={{ color: "white" }} onClick={remove(index)}>
+                    <Cancel />
+                  </IconButton>
+                }
+                actionPosition="right"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      ) : null}
       <Button
         variant="outlined"
         disabled={!canSubmit || isUploading}
