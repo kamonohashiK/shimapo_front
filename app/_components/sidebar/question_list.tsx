@@ -56,7 +56,12 @@ export default function QuestionList(props: QuestionListProps) {
               ))
                */ <></>
             )}
-            <Button color="primary" variant="outlined" fullWidth>
+            <Button
+              color="primary"
+              variant="outlined"
+              fullWidth
+              onClick={() => showDialog(dialogTypes.ANSWER_FORM)}
+            >
               この質問に回答する
             </Button>
           </AccordionDetails>

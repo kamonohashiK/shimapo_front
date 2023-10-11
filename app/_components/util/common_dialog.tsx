@@ -13,6 +13,7 @@ import NewQuestionForm from "../dialog_contents/new_question_form";
 import dialogTypes from "@/app/_constants/dialog_types";
 import AuthForm from "../dialog_contents/auth_form";
 import { useDialog } from "@/app/_hooks/dialog";
+import AnswerForm from "../dialog_contents/answer_form";
 
 export default function CommonDialog() {
   const dialogState = useSelector((state: RootState) => state.dialog);
@@ -23,6 +24,7 @@ export default function CommonDialog() {
   const authRequiredActions = [
     dialogTypes.IMAGE_UPLOAD_FORM,
     dialogTypes.NEW_QUESTION_FORM,
+    dialogTypes.ANSWER_FORM,
   ];
 
   return (
@@ -66,6 +68,8 @@ function getDialogContent(dialogType: string) {
       return <ImageUploadForm />;
     case dialogTypes.NEW_QUESTION_FORM:
       return <NewQuestionForm />;
+    case dialogTypes.ANSWER_FORM:
+      return <AnswerForm />;
     case dialogTypes.AUTH_FORM:
       return <AuthForm />;
     default:
