@@ -1,5 +1,5 @@
 import { getIslandInfo } from "@/app/_api/island";
-import { createQuestion } from "@/app/_api/question";
+import { createAnswer } from "@/app/_api/question";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function AnswerForm() {
   // フォームの状態管理 FIXME: もうちょっとスマートに書く方法はありそう
-  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
@@ -44,7 +44,7 @@ export default function AnswerForm() {
   // 回答欄の値が変更されたら実行される関数
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
-    setQuestion(val);
+    setAnswer(val);
 
     if (val.length > 0 && val.length <= upperLimit) {
       setError(false);
@@ -82,13 +82,15 @@ export default function AnswerForm() {
 
     try {
       // TODO: API作成
-      if (await createQuestion(islandId, userId, question)) {
+      if (
+        await createAnswer(userId, islandId, focusedQuestionId, answer, url)
+      ) {
         showAlert("質問に回答しました。", "success");
         await getIslandInfo(islandId).then((res) => {
           dispatch(
             reloadIslandInfo({
               imageList: res.imageList,
-              questionList: res.questionList,
+              questionList: res.questionList ? res.questionList : [],
             })
           );
         });
@@ -118,7 +120,7 @@ export default function AnswerForm() {
           label={upperLimit + "文字以内で入力"}
           multiline
           rows={4}
-          value={question}
+          value={answer}
           onChange={handleQuestionChange}
           error={error}
           helperText={errorText}

@@ -30,13 +30,14 @@ export async function getIslandInfo(uid: string) {
     });
 
     // 質問を取得
-    var questionList: any = [];
     const questions = await getDocs(
       query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
     );
-    questions.forEach((doc) => {
-      questionList.push(doc.data());
-    });
+    // 自身のIDを含めて渡す
+    const questionList = questions.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
     return {
       result: true,

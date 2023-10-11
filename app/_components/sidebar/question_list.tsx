@@ -26,14 +26,14 @@ export default function QuestionList(props: QuestionListProps) {
           <AccordionSummary
             aria-controls="panel1a-content"
             id="panel1a-header"
-            onClick={() =>
+            onClick={() => {
               dispatch(
                 setFocusedQuestion({
                   focusedQuestionId: item.id,
                   focusedQuestion: item.question,
                 })
-              )
-            }
+              );
+            }}
           >
             <Typography variant="subtitle1">
               {item.question}({item.answer_count})
