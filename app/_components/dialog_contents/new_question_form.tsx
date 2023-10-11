@@ -65,7 +65,6 @@ export default function NewQuestionForm() {
         }, 5000);
 
         await getIslandInfo(islandId).then((res) => {
-          console.log(res);
           dispatch(
             reloadIslandInfo({
               imageList: res.imageList,
