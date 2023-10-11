@@ -4,14 +4,15 @@ import firebase_app from "@/firebase/config";
 import { Button } from "@mui/material";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
 import { useRouter } from "next/navigation";
-import { hideAlert, setAlert } from "@/app/_store/alertSlice";
 import { useDispatch } from "react-redux";
 import { hideDialog } from "@/app/_store/dialogSlice";
 import { CreateUserProfile } from "@/app/_api/user_profile";
+import { useAlert } from "@/app/_hooks/alert";
 
 export default function GoogleAuthButton() {
   const { push } = useRouter();
   const dispatch = useDispatch();
+  const { showAlert } = useAlert();
 
   function SignInWithGoogle() {
     const auth = getAuth(firebase_app);
@@ -24,43 +25,21 @@ export default function GoogleAuthButton() {
               name: user.displayName ?? "未設定",
               image_url: user.photoURL ?? "",
             });
-            dispatch(
-              setAlert({
-                message: "ログインに成功しました。",
-                severity: "success",
-                isShown: true,
-              })
-            );
-            setTimeout(() => {
-              dispatch(hideAlert());
-            }, 5000);
+            showAlert("ログインに成功しました。", "success");
             push("/");
           } else {
-            dispatch(
-              setAlert({
-                message:
-                  "ログインに失敗しました。時間をおいて再度お試しください。",
-                severity: "error",
-                isShown: true,
-              })
+            showAlert(
+              "ログインに失敗しました。時間をおいて再度お試しください。",
+              "error"
             );
-            setTimeout(() => {
-              dispatch(hideAlert());
-            }, 5000);
           }
         });
       })
       .catch(() => {
-        dispatch(
-          setAlert({
-            message: "ログインに失敗しました。時間をおいて再度お試しください。",
-            severity: "error",
-            isShown: true,
-          })
+        showAlert(
+          "ログインに失敗しました。時間をおいて再度お試しください。",
+          "error"
         );
-        setTimeout(() => {
-          dispatch(hideAlert());
-        }, 5000);
       })
       .finally(() => {
         dispatch(hideDialog());
