@@ -12,8 +12,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { get } from "http";
-import { getAnswers } from "./question";
+import { convertTimestamp, getAnswers } from "./question";
 
 // 島の情報を取得
 export async function getIslandInfo(uid: string) {
@@ -38,8 +37,13 @@ export async function getIslandInfo(uid: string) {
     // 自身のIDを含めて渡す
     const questionList = questions.docs.map(async (doc) => ({
       id: doc.id,
+      question: doc.data().question,
+      answer_count: doc.data().answer_count,
+      liked_count: doc.data().liked_count,
+      disliked_count: doc.data().disliked_count,
+      is_default: doc.data().is_default,
+      posted_at: convertTimestamp(doc.data().posted_at),
       answers: await getAnswers(uid, doc.id),
-      ...doc.data(),
     }));
 
     return {

@@ -59,9 +59,7 @@ export default function QuestionList(props: QuestionListProps) {
                       {answer.posted_user.name}
                     </Typography>
                   </Stack>
-                  <Typography variant="caption">
-                    TODO:タイムスタンプ処理
-                  </Typography>
+                  <Typography variant="caption">{answer.posted_at}</Typography>
                   <Typography gutterBottom paragraph>
                     {answer.answer}
                   </Typography>

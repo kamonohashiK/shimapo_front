@@ -88,7 +88,11 @@ export async function getAnswers(islandId: string, questionId: string) {
             name: userProfile?.name,
             image_url: userProfile?.image_url,
           },
-          ...doc.data(),
+          answer: doc.data().answer,
+          option_url: doc.data().option_url,
+          liked_count: doc.data().liked_count,
+          disliked_count: doc.data().disliked_count,
+          posted_at: convertTimestamp(doc.data().posted_at),
         };
       })
     );
@@ -104,4 +108,9 @@ async function getUserProfile(userId: string) {
   const profile = await getDoc(profileRef);
 
   return profile.data();
+}
+
+// タイムスタンプを文字列に修正 TODO: この関数は共通化したい
+export function convertTimestamp(t: any) {
+  return t.toDate().toLocaleString("ja-JP");
 }
