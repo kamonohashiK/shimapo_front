@@ -63,6 +63,16 @@ export default function NewQuestionForm() {
         setTimeout(() => {
           dispatch(hideAlert());
         }, 5000);
+
+        await getIslandInfo(islandId).then((res) => {
+          console.log(res);
+          dispatch(
+            reloadIslandInfo({
+              imageList: res.imageList,
+              questionList: res.questionList,
+            })
+          );
+        });
       } else {
         dispatch(
           setAlert({
@@ -88,14 +98,6 @@ export default function NewQuestionForm() {
       }, 5000);
     } finally {
       dispatch(hideDialog());
-      await getIslandInfo(islandId).then((res) => {
-        dispatch(
-          reloadIslandInfo({
-            imageList: res.imageList,
-            questionList: res.questionList,
-          })
-        );
-      });
     }
   }
 
