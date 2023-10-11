@@ -1,4 +1,4 @@
-import { setAlert, hideAlert } from "@/app/_store/alertSlice";
+import { useAlert } from "@/app/_hooks/alert";
 import { hideDialog } from "@/app/_store/dialogSlice";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 
 export default function LogoutButton() {
   const dispatch = useDispatch();
+  const { showAlert } = useAlert();
 
   function logout() {
     const auth = getAuth(firebase_app);
@@ -15,28 +16,12 @@ export default function LogoutButton() {
       .then(() => {
         auth.onAuthStateChanged((user) => {
           if (!user) {
-            dispatch(
-              setAlert({
-                message: "ログアウトしました。",
-                severity: "success",
-                isShown: true,
-              })
-            );
-            setTimeout(() => {
-              dispatch(hideAlert());
-            }, 5000);
+            showAlert("ログアウトしました。", "success");
           } else {
-            dispatch(
-              setAlert({
-                message:
-                  "ログアウトに失敗しました。時間をおいて再度お試しください。",
-                severity: "error",
-                isShown: true,
-              })
+            showAlert(
+              "ログアウトに失敗しました。時間をおいて再度お試しください。",
+              "error"
             );
-            setTimeout(() => {
-              dispatch(hideAlert());
-            }, 5000);
           }
         });
       })

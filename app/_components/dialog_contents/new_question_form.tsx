@@ -1,6 +1,6 @@
 import { getIslandInfo } from "@/app/_api/island";
 import { createQuestion } from "@/app/_api/question";
-import { setAlert, hideAlert } from "@/app/_store/alertSlice";
+import { useAlert } from "@/app/_hooks/alert";
 import { hideDialog } from "@/app/_store/dialogSlice";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
 import { RootState } from "@/app/_store/store";
@@ -25,6 +25,7 @@ export default function NewQuestionForm() {
   const userId = useSelector((state: RootState) => state.user.userId);
 
   const dispatch = useDispatch();
+  const { showAlert } = useAlert();
 
   // 値が変更されたら実行される関数
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,17 +54,7 @@ export default function NewQuestionForm() {
 
     try {
       if (await createQuestion(islandId, userId, question)) {
-        dispatch(
-          setAlert({
-            message: "質問を投稿しました。",
-            severity: "success",
-            isShown: true,
-          })
-        );
-        setTimeout(() => {
-          dispatch(hideAlert());
-        }, 5000);
-
+        showAlert("質問を投稿しました。", "success");
         await getIslandInfo(islandId).then((res) => {
           dispatch(
             reloadIslandInfo({
@@ -73,28 +64,10 @@ export default function NewQuestionForm() {
           );
         });
       } else {
-        dispatch(
-          setAlert({
-            message: "質問の投稿に失敗しました。",
-            severity: "error",
-            isShown: true,
-          })
-        );
-        setTimeout(() => {
-          dispatch(hideAlert());
-        }, 5000);
+        showAlert("質問の投稿に失敗しました。", "error");
       }
     } catch (error) {
-      dispatch(
-        setAlert({
-          message: "質問の投稿に失敗しました。",
-          severity: "error",
-          isShown: true,
-        })
-      );
-      setTimeout(() => {
-        dispatch(hideAlert());
-      }, 5000);
+      showAlert("質問の投稿に失敗しました。", "error");
     } finally {
       dispatch(hideDialog());
     }
