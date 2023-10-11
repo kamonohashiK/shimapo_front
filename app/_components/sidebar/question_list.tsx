@@ -1,6 +1,4 @@
 import dialogTypes from "@/app/_constants/dialog_types";
-import { useAppDispatch } from "@/app/_store/hooks";
-import { showDialog } from "@/app/_store/dialogSlice";
 import {
   Accordion,
   AccordionSummary,
@@ -8,16 +6,16 @@ import {
   AccordionDetails,
   Divider,
   Button,
-  Stack,
-  Avatar,
 } from "@mui/material";
+import { useDialog } from "@/app/_hooks/dialog";
 
 interface QuestionListProps {
   questions: any[];
 }
 
 export default function QuestionList(props: QuestionListProps) {
-  const dispatch = useAppDispatch();
+  const { showDialog } = useDialog();
+
   return (
     <>
       {props.questions.map((item, index) => (
@@ -56,7 +54,7 @@ export default function QuestionList(props: QuestionListProps) {
                   <Divider sx={{ my: 1 }} />
                 </>
               ))
-               */<></>
+               */ <></>
             )}
             <Button color="primary" variant="outlined" fullWidth>
               この質問に回答する
@@ -69,11 +67,7 @@ export default function QuestionList(props: QuestionListProps) {
         color="primary"
         variant="outlined"
         fullWidth
-        onClick={() =>
-          dispatch(
-            showDialog({ isShown: true, type: dialogTypes.NEW_QUESTION_FORM })
-          )
-        }
+        onClick={() => showDialog(dialogTypes.NEW_QUESTION_FORM)}
       >
         新たに質問する
       </Button>
