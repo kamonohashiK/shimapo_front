@@ -29,7 +29,13 @@ export default function AnswerForm() {
 
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
-  //TODO: 質問のIDを取得する
+  const focusedQuestion = useSelector(
+    (state: RootState) => state.page.focusedQuestion
+  );
+  const focusedQuestionId = useSelector(
+    (state: RootState) => state.page.focusedQuestionId
+  );
+  const islandName = useSelector((state: RootState) => state.page.name);
 
   const dispatch = useDispatch();
   const { showAlert } = useAlert();
@@ -102,6 +108,9 @@ export default function AnswerForm() {
 
   return (
     <Stack spacing={2} margin={3}>
+      <Typography variant="h6">
+        {islandName}:{focusedQuestion}
+      </Typography>
       <Typography paragraph>回答を入力してください。</Typography>
       <FormControl sx={{ m: 1, width: "50ch" }}>
         <TextField

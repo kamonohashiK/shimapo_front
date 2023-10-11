@@ -8,6 +8,8 @@ import {
   Button,
 } from "@mui/material";
 import { useDialog } from "@/app/_hooks/dialog";
+import { useDispatch } from "react-redux";
+import { setFocusedQuestion } from "@/app/_store/pageSlice";
 
 interface QuestionListProps {
   questions: any[];
@@ -15,12 +17,24 @@ interface QuestionListProps {
 
 export default function QuestionList(props: QuestionListProps) {
   const { showDialog } = useDialog();
+  const dispatch = useDispatch();
 
   return (
     <>
       {props.questions.map((item, index) => (
         <Accordion key={index}>
-          <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+          <AccordionSummary
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            onClick={() =>
+              dispatch(
+                setFocusedQuestion({
+                  focusedQuestionId: item.id,
+                  focusedQuestion: item.question,
+                })
+              )
+            }
+          >
             <Typography variant="subtitle1">
               {item.question}({item.answer_count})
             </Typography>
