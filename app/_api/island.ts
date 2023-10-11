@@ -12,6 +12,8 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { get } from "http";
+import { getAnswers } from "./question";
 
 // 島の情報を取得
 export async function getIslandInfo(uid: string) {
@@ -34,8 +36,9 @@ export async function getIslandInfo(uid: string) {
       query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
     );
     // 自身のIDを含めて渡す
-    const questionList = questions.docs.map((doc) => ({
+    const questionList = questions.docs.map(async (doc) => ({
       id: doc.id,
+      answers: await getAnswers(uid, doc.id),
       ...doc.data(),
     }));
 
@@ -43,7 +46,7 @@ export async function getIslandInfo(uid: string) {
       result: true,
       islandInfo: docSnap.data(),
       imageList: imageList,
-      questionList: questionList,
+      questionList: await Promise.all(questionList),
     };
   } catch (error) {
     return { result: false };

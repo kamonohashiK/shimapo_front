@@ -7,6 +7,8 @@ import {
   collection,
   increment,
   updateDoc,
+  getDocs,
+  getDoc,
 } from "firebase/firestore";
 
 // 質問を新規作成
@@ -68,4 +70,38 @@ export async function createAnswer(
   } catch (error) {
     return false;
   }
+}
+
+// 回答の一覧を取得
+export async function getAnswers(islandId: string, questionId: string) {
+  try {
+    const questionRef = doc(db, "islands", islandId, "questions", questionId);
+    const answersRef = collection(questionRef, "answers");
+    const answers = await Promise.all(
+      (
+        await getDocs(answersRef)
+      ).docs.map(async (doc) => {
+        const userProfile = await getUserProfile(doc.data().posted_by.id);
+        return {
+          id: doc.id,
+          posted_user: {
+            name: userProfile?.name,
+            image_url: userProfile?.image_url,
+          },
+          ...doc.data(),
+        };
+      })
+    );
+
+    return answers;
+  } catch (error) {
+    return [];
+  }
+}
+
+async function getUserProfile(userId: string) {
+  const profileRef = doc(db, "user_profiles", userId);
+  const profile = await getDoc(profileRef);
+
+  return profile.data();
 }
