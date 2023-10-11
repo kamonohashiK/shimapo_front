@@ -1,5 +1,3 @@
-import { useAppDispatch } from "@/app/_store/hooks";
-import { showDialog } from "@/app/_store/dialogSlice";
 import {
   Button,
   Divider,
@@ -9,6 +7,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import dialogTypes from "@/app/_constants/dialog_types";
+import { useDialog } from "@/app/_hooks/dialog";
 
 interface IslandImageListProps {
   itemData: {
@@ -18,7 +17,8 @@ interface IslandImageListProps {
 }
 
 export default function IslandImageList(props: IslandImageListProps) {
-  const dispatch = useAppDispatch();
+  const { showDialog } = useDialog();
+
   return (
     <>
       {props.itemData.length === 0 ? (
@@ -40,11 +40,7 @@ export default function IslandImageList(props: IslandImageListProps) {
         color="primary"
         variant="outlined"
         fullWidth
-        onClick={() =>
-          dispatch(
-            showDialog({ isShown: true, type: dialogTypes.IMAGE_UPLOAD_FORM })
-          )
-        }
+        onClick={() => showDialog(dialogTypes.IMAGE_UPLOAD_FORM)}
       >
         画像を追加
       </Button>

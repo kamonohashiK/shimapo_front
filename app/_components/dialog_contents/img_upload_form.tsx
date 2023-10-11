@@ -17,9 +17,9 @@ import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
 import { getIslandInfo, saveImageUrl } from "@/app/_api/island";
 import { resizeImage } from "@/app/_utils/resize_image";
-import { setAlert, hideAlert } from "@/app/_store/alertSlice";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
-import { hideDialog } from "@/app/_store/dialogSlice";
+import { useAlert } from "@/app/_hooks/alert";
+import { useDialog } from "@/app/_hooks/dialog";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -31,6 +31,8 @@ export default function ImageUploadForm() {
   const userId = useSelector((state: RootState) => state.user.userId);
 
   const dispatch = useDispatch();
+  const { showAlert } = useAlert();
+  const { hideDialog } = useDialog();
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -90,29 +92,11 @@ export default function ImageUploadForm() {
         })
       );
 
-      dispatch(
-        setAlert({
-          message: "画像をアップロードしました。",
-          severity: "success",
-          isShown: true,
-        })
-      );
-      setTimeout(() => {
-        dispatch(hideAlert());
-      }, 5000);
+      showAlert("画像をアップロードしました。", "success");
     } catch (error) {
-      dispatch(
-        setAlert({
-          message: "画像のアップロードに失敗しました。",
-          severity: "error",
-          isShown: true,
-        })
-      );
-      setTimeout(() => {
-        dispatch(hideAlert());
-      }, 5000);
+      showAlert("画像のアップロードに失敗しました。", "error");
     } finally {
-      dispatch(hideDialog());
+      hideDialog();
       await getIslandInfo(islandId).then((res) => {
         dispatch(
           reloadIslandInfo({

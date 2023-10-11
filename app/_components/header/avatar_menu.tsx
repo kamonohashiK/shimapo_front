@@ -9,9 +9,9 @@ import {
 import { Launch } from "@mui/icons-material";
 import Link from "next/link";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { showDialog } from "@/app/_store/dialogSlice";
+import { useSelector } from "react-redux";
 import dialogTypes from "@/app/_constants/dialog_types";
+import { useDialog } from "@/app/_hooks/dialog";
 
 export default function AvatarMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -28,7 +28,7 @@ export default function AvatarMenu() {
   const displayName = useSelector((state: RootState) => state.user.displayName);
   const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
 
-  const dispatch = useDispatch();
+  const { showDialog } = useDialog();
 
   const menuItems = [
     {
@@ -46,7 +46,7 @@ export default function AvatarMenu() {
   ];
 
   const authModal = () => {
-    dispatch(showDialog({ isShown: true, type: dialogTypes.AUTH_FORM }));
+    showDialog(dialogTypes.AUTH_FORM);
   };
 
   return (
@@ -81,25 +81,27 @@ export default function AvatarMenu() {
         onClose={handleClose}
       >
         <MenuItem key="authentication" onClick={authModal}>
-          { isLoggedIn ? "ログアウト" : "ログイン" }
+          {isLoggedIn ? "ログアウト" : "ログイン"}
         </MenuItem>
-        {menuItems.map((item, index) => (
-          (isLoggedIn || !item.loginOnly) && // ログアウトしている場合はマイページへのリンクを表示しない
-          <MenuItem
-            key={index}
-            onClick={handleClose}
-            component={item.external ? "a" : Link}
-            href={item.href}
-            target={item.external ? "_blank" : undefined}
-          >
-            {item.text}
-            {item.external && (
-              <ListItemIcon>
-                <Launch fontSize="small" />
-              </ListItemIcon>
-            )}
-          </MenuItem>
-        ))}
+        {menuItems.map(
+          (item, index) =>
+            (isLoggedIn || !item.loginOnly) && ( // ログアウトしている場合はマイページへのリンクを表示しない
+              <MenuItem
+                key={index}
+                onClick={handleClose}
+                component={item.external ? "a" : Link}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+              >
+                {item.text}
+                {item.external && (
+                  <ListItemIcon>
+                    <Launch fontSize="small" />
+                  </ListItemIcon>
+                )}
+              </MenuItem>
+            )
+        )}
       </Menu>
     </>
   );
