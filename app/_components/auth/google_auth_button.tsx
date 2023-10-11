@@ -4,15 +4,14 @@ import firebase_app from "@/firebase/config";
 import { Button } from "@mui/material";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { hideDialog } from "@/app/_store/dialogSlice";
 import { CreateUserProfile } from "@/app/_api/user_profile";
 import { useAlert } from "@/app/_hooks/alert";
+import { useDialog } from "@/app/_hooks/dialog";
 
 export default function GoogleAuthButton() {
   const { push } = useRouter();
-  const dispatch = useDispatch();
   const { showAlert } = useAlert();
+  const { hideDialog } = useDialog();
 
   function SignInWithGoogle() {
     const auth = getAuth(firebase_app);
@@ -42,7 +41,7 @@ export default function GoogleAuthButton() {
         );
       })
       .finally(() => {
-        dispatch(hideDialog());
+        hideDialog();
       });
   }
 

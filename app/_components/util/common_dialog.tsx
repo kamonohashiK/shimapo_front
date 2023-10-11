@@ -1,5 +1,3 @@
-import { useAppDispatch } from "@/app/_store/hooks";
-import { hideDialog } from "@/app/_store/dialogSlice";
 import { RootState } from "@/app/_store/store";
 import {
   Typography,
@@ -14,11 +12,12 @@ import ImageUploadForm from "../dialog_contents/img_upload_form";
 import NewQuestionForm from "../dialog_contents/new_question_form";
 import dialogTypes from "@/app/_constants/dialog_types";
 import AuthForm from "../dialog_contents/auth_form";
+import { useDialog } from "@/app/_hooks/dialog";
 
 export default function CommonDialog() {
-  const dispatch = useAppDispatch();
   const dialogState = useSelector((state: RootState) => state.dialog);
   const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
+  const { hideDialog } = useDialog();
 
   // ログインが必要なアクション
   const authRequiredActions = [
@@ -30,12 +29,12 @@ export default function CommonDialog() {
     <Dialog
       maxWidth={"md"}
       open={dialogState.isShown}
-      onClose={() => dispatch(hideDialog())}
+      onClose={() => hideDialog()}
     >
       <DialogTitle sx={{ m: 0, p: 2 }}></DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={() => dispatch(hideDialog())}
+        onClick={() => hideDialog()}
         sx={{
           position: "absolute",
           right: 8,
@@ -47,6 +46,7 @@ export default function CommonDialog() {
       </IconButton>
       <DialogContent>
         {(() => {
+          // ログインが必要なアクションの場合はログインしているかチェック
           return authRequiredActions.includes(dialogState.type) &&
             !isLoggedIn ? (
             <AuthForm />

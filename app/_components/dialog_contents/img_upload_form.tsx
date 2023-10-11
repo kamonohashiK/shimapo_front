@@ -18,8 +18,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getIslandInfo, saveImageUrl } from "@/app/_api/island";
 import { resizeImage } from "@/app/_utils/resize_image";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
-import { hideDialog } from "@/app/_store/dialogSlice";
 import { useAlert } from "@/app/_hooks/alert";
+import { useDialog } from "@/app/_hooks/dialog";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -32,6 +32,7 @@ export default function ImageUploadForm() {
 
   const dispatch = useDispatch();
   const { showAlert } = useAlert();
+  const { hideDialog } = useDialog();
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -95,7 +96,7 @@ export default function ImageUploadForm() {
     } catch (error) {
       showAlert("画像のアップロードに失敗しました。", "error");
     } finally {
-      dispatch(hideDialog());
+      hideDialog();
       await getIslandInfo(islandId).then((res) => {
         dispatch(
           reloadIslandInfo({

@@ -1,13 +1,12 @@
 import { useAlert } from "@/app/_hooks/alert";
-import { hideDialog } from "@/app/_store/dialogSlice";
+import { useDialog } from "@/app/_hooks/dialog";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
 
 export default function LogoutButton() {
-  const dispatch = useDispatch();
   const { showAlert } = useAlert();
+  const { hideDialog } = useDialog();
 
   function logout() {
     const auth = getAuth(firebase_app);
@@ -26,7 +25,7 @@ export default function LogoutButton() {
         });
       })
       .finally(() => {
-        dispatch(hideDialog());
+        hideDialog();
       });
   }
 

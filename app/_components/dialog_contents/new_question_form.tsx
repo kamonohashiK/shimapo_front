@@ -1,7 +1,7 @@
 import { getIslandInfo } from "@/app/_api/island";
 import { createQuestion } from "@/app/_api/question";
 import { useAlert } from "@/app/_hooks/alert";
-import { hideDialog } from "@/app/_store/dialogSlice";
+import { useDialog } from "@/app/_hooks/dialog";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
 import { RootState } from "@/app/_store/store";
 import {
@@ -26,6 +26,7 @@ export default function NewQuestionForm() {
 
   const dispatch = useDispatch();
   const { showAlert } = useAlert();
+  const { hideDialog } = useDialog();
 
   // 値が変更されたら実行される関数
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +70,7 @@ export default function NewQuestionForm() {
     } catch (error) {
       showAlert("質問の投稿に失敗しました。", "error");
     } finally {
-      dispatch(hideDialog());
+      hideDialog();
     }
   }
 
