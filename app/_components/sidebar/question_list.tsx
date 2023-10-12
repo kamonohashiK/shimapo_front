@@ -15,9 +15,16 @@ import { useDispatch } from "react-redux";
 import { setFocusedQuestion } from "@/app/_store/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
+import parse from "html-react-parser";
 interface QuestionListProps {
   questions: any[];
 }
+
+// テキストの改行コードをbrタグに変換する+サニタイズ TODO: 共通化
+const sanitize = (text: string) => {
+  const sanitizedText = text.replace(/\r?\n/g, "<br>");
+  return parse(sanitizedText);
+};
 
 export default function QuestionList(props: QuestionListProps) {
   const { showDialog } = useDialog();
@@ -61,7 +68,7 @@ export default function QuestionList(props: QuestionListProps) {
                   </Stack>
                   <Typography variant="caption">{answer.posted_at}</Typography>
                   <Typography gutterBottom paragraph>
-                    {answer.answer}
+                    {sanitize(answer.answer)}
                   </Typography>
                   {answer.option_url != "" ? (
                     <Typography>
