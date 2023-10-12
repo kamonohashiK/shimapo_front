@@ -112,5 +112,9 @@ async function getUserProfile(userId: string) {
 
 // タイムスタンプを文字列に修正 TODO: この関数は共通化したい
 export function convertTimestamp(t: any) {
-  return t.toDate().toLocaleString("ja-JP");
+  try {
+    return t.toDate().toLocaleString("ja-JP");
+  } catch (error) {
+    return "";
+  }
 }
