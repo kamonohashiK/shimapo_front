@@ -34,6 +34,7 @@ export default function QuestionList(props: QuestionListProps) {
   const dispatch = useDispatch();
 
   const userId = useSelector((state: RootState) => state.user.userId);
+  const islandId = useSelector((state: RootState) => state.page.uid);
 
   return (
     <>
@@ -96,7 +97,13 @@ export default function QuestionList(props: QuestionListProps) {
                     spacing={1}
                     sx={{ alignItems: "center", justifyContent: "right" }}
                   >
-                    <LikeButton liked_by={answer.liked_by} user_id={userId} />
+                    <LikeButton
+                      liked_by={answer.liked_by}
+                      user_id={userId}
+                      island_id={islandId}
+                      question_id={item.id}
+                      answer_id={answer.id}
+                    />
                     <DislikeButton
                       disliked_by={answer.disliked_by}
                       user_id={userId}
