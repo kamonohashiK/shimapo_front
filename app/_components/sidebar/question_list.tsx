@@ -18,7 +18,6 @@ import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";
 import LikeButton from "./answers/like_button";
 import DislikeButton from "./answers/dislike_button";
-import { use } from "react";
 import { RootState } from "@/app/_store/store";
 interface QuestionListProps {
   questions: any[];
