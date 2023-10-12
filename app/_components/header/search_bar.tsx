@@ -80,7 +80,9 @@ export default function SearchBar() {
               enName: selectedIsland.en_name,
               mainImage: dbInfo.islandInfo?.main_image_url ?? "",
               imageList: dbInfo.imageList,
-              questionList: dbInfo.questionList,
+              questionList: dbInfo.questionList ?? [],
+              focusedQuestionId: "",
+              focusedQuestion: "",
             })
           );
         } else {

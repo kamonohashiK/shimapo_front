@@ -101,7 +101,7 @@ export default function ImageUploadForm() {
         dispatch(
           reloadIslandInfo({
             imageList: res.imageList,
-            questionList: res.questionList,
+            questionList: res.questionList || [],
           })
         );
       });
