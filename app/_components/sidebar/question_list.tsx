@@ -70,16 +70,16 @@ export default function QuestionList(props: QuestionListProps) {
                   <Typography gutterBottom paragraph>
                     {sanitize(answer.answer)}
                   </Typography>
-                  {answer.option_url != "" ? (
-                    <Typography>
+                  <Typography overflow={"auto"}>
+                    {answer.option_url != "" ? (
                       <Link href={answer.option_url} target="_blank">
                         {answer.option_url}
                         <Launch fontSize="small" />
                       </Link>
-                    </Typography>
-                  ) : (
-                    <></>
-                  )}
+                    ) : (
+                      <></>
+                    )}
+                  </Typography>
                   <Stack direction="row" spacing={2}>
                     <Typography variant="caption">
                       b {answer.liked_count}
