@@ -88,8 +88,8 @@ export async function getAnswers(islandId: string, questionId: string) {
           },
           answer: doc.data().answer,
           option_url: doc.data().option_url,
-          liked_by: doc.data().liked_count,
-          disliked_by: doc.data().disliked_count,
+          liked_by: doc.data().liked_by,
+          disliked_by: doc.data().disliked_by,
           posted_at: convertTimestamp(doc.data().posted_at),
         };
       })

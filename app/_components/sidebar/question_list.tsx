@@ -11,13 +11,15 @@ import {
   Link,
 } from "@mui/material";
 import { useDialog } from "@/app/_hooks/dialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFocusedQuestion } from "@/app/_store/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";
 import LikeButton from "./answers/like_button";
 import DislikeButton from "./answers/dislike_button";
+import { use } from "react";
+import { RootState } from "@/app/_store/store";
 interface QuestionListProps {
   questions: any[];
 }
@@ -31,6 +33,8 @@ const sanitize = (text: string) => {
 export default function QuestionList(props: QuestionListProps) {
   const { showDialog } = useDialog();
   const dispatch = useDispatch();
+
+  const userId = useSelector((state: RootState) => state.user.userId);
 
   return (
     <>
@@ -93,8 +97,11 @@ export default function QuestionList(props: QuestionListProps) {
                     spacing={1}
                     sx={{ alignItems: "center", justifyContent: "right" }}
                   >
-                    <LikeButton liked_by={answer.liked_by} />
-                    <DislikeButton disliked_by={answer.disliked_by} />
+                    <LikeButton liked_by={answer.liked_by} user_id={userId} />
+                    <DislikeButton
+                      disliked_by={answer.disliked_by}
+                      user_id={userId}
+                    />
                   </Stack>
                   <Divider sx={{ my: 1 }} />
                 </>

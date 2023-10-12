@@ -5,6 +5,7 @@ import { useState } from "react";
 
 interface LikeButtonProps {
   liked_by: string[];
+  user_id: string;
 }
 
 // liked_byの要素数を返す
@@ -13,17 +14,12 @@ const countLiked = (array: any[]) => {
 };
 
 export default function LikeButton(props: LikeButtonProps) {
-  const [liked, setLiked] = useState(false);
-
-  // 高評価ボタンの状態を管理する(UI確認用に一時的に追加)
-  const toggleLiked = () => {
-    setLiked(!liked);
-  };
+  const liked = (props.liked_by || []).includes(props.user_id);
 
   return (
     <>
       <Tooltip title="高評価する" placement="top">
-        <IconButton onClick={toggleLiked}>
+        <IconButton>
           {liked ? <ThumbUpIcon color="success" /> : <ThumbUpOffAltIcon />}
         </IconButton>
       </Tooltip>

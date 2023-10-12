@@ -5,19 +5,15 @@ import { useState } from "react";
 
 interface DislikeButtonProps {
   disliked_by: string[];
+  user_id: string;
 }
 
 export default function DislikeButton(props: DislikeButtonProps) {
-  const [disliked, setDisliked] = useState(false);
-
-  // 低評価ボタンの状態を管理する(UI確認用に一時的に追加)
-  const toggleDisliked = () => {
-    setDisliked(!disliked);
-  };
+  const disliked = (props.disliked_by || []).includes(props.user_id);
 
   return (
     <Tooltip title="低評価する" placement="top">
-      <IconButton onClick={toggleDisliked}>
+      <IconButton>
         {disliked ? (
           <ThumbDownAltIcon color="error" />
         ) : (
