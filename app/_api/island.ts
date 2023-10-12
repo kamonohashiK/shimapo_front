@@ -39,8 +39,6 @@ export async function getIslandInfo(uid: string) {
       id: doc.id,
       question: doc.data().question,
       answer_count: doc.data().answer_count,
-      liked_count: doc.data().liked_count,
-      disliked_count: doc.data().disliked_count,
       is_default: doc.data().is_default,
       posted_at: convertTimestamp(doc.data().posted_at),
       answers: await getAnswers(uid, doc.id),

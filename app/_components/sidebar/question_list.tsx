@@ -33,6 +33,11 @@ const sanitize = (text: string) => {
   return parse(sanitizedText);
 };
 
+// liked_byの要素数を返す
+const countLiked = (array: any[]) => {
+  return array ? array.length : 0;
+};
+
 export default function QuestionList(props: QuestionListProps) {
   const { showDialog } = useDialog();
   const dispatch = useDispatch();
@@ -103,7 +108,7 @@ export default function QuestionList(props: QuestionListProps) {
                         <ThumbUpOffAltIcon />
                       </IconButton>
                     </Tooltip>
-                    <Typography>{answer.liked_count}</Typography>
+                    <Typography>{countLiked(answer.liked_by)}</Typography>
                     <Tooltip title="低評価する" placement="top">
                       <IconButton>
                         <ThumbDownOffAltIcon />

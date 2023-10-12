@@ -28,8 +28,6 @@ export async function createQuestion(
       posted_by: userRef,
       is_default: false,
       answer_count: 0,
-      liked_count: 0,
-      disliked_count: 0,
     });
 
     return true;
@@ -55,8 +53,8 @@ export async function createAnswer(
     await addDoc(answersRef, {
       answer: answer,
       option_url: optionUrl,
-      liked_count: 0,
-      disliked_count: 0,
+      liked_by: [],
+      disliked_by: [],
       posted_by: userRef,
       posted_at: timeStamp,
     });
@@ -90,8 +88,8 @@ export async function getAnswers(islandId: string, questionId: string) {
           },
           answer: doc.data().answer,
           option_url: doc.data().option_url,
-          liked_count: doc.data().liked_count,
-          disliked_count: doc.data().disliked_count,
+          liked_by: doc.data().liked_count,
+          disliked_by: doc.data().disliked_count,
           posted_at: convertTimestamp(doc.data().posted_at),
         };
       })
