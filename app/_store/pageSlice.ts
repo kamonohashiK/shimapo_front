@@ -13,6 +13,8 @@ interface PageState {
   mainImage: string;
   imageList: any[];
   questionList: any[];
+  focusedQuestionId: string;
+  focusedQuestion: string;
 }
 
 interface TextState {
@@ -23,6 +25,11 @@ interface TextState {
 interface ReloadState {
   imageList: any[];
   questionList: any[];
+}
+
+interface QuestionState {
+  focusedQuestionId: string;
+  focusedQuestion: string;
 }
 
 const initialState: PageState = {
@@ -38,6 +45,8 @@ const initialState: PageState = {
   mainImage: "",
   imageList: [],
   questionList: [],
+  focusedQuestionId: "",
+  focusedQuestion: "",
 };
 
 export const pageSlice = createSlice({
@@ -65,10 +74,18 @@ export const pageSlice = createSlice({
       state.imageList = action.payload.imageList;
       state.questionList = action.payload.questionList;
     },
+    setFocusedQuestion: (state, action: PayloadAction<QuestionState>) => {
+      state.focusedQuestionId = action.payload.focusedQuestionId;
+      state.focusedQuestion = action.payload.focusedQuestion;
+    },
   },
 });
 
-export const { setIslandInfo, showSidebarText, reloadIslandInfo } =
-  pageSlice.actions;
+export const {
+  setIslandInfo,
+  showSidebarText,
+  reloadIslandInfo,
+  setFocusedQuestion,
+} = pageSlice.actions;
 
 export default pageSlice.reducer;

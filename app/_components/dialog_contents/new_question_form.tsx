@@ -60,7 +60,7 @@ export default function NewQuestionForm() {
           dispatch(
             reloadIslandInfo({
               imageList: res.imageList,
-              questionList: res.questionList,
+              questionList: res.questionList || [],
             })
           );
         });
