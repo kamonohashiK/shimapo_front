@@ -9,9 +9,6 @@ import {
   Avatar,
   Stack,
   Link,
-  Icon,
-  IconButton,
-  Tooltip,
 } from "@mui/material";
 import { useDialog } from "@/app/_hooks/dialog";
 import { useDispatch } from "react-redux";
@@ -19,10 +16,8 @@ import { setFocusedQuestion } from "@/app/_store/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import LikeButton from "./answers/like_button";
+import DislikeButton from "./answers/dislike_button";
 interface QuestionListProps {
   questions: any[];
 }
@@ -31,11 +26,6 @@ interface QuestionListProps {
 const sanitize = (text: string) => {
   const sanitizedText = text.replace(/\r?\n/g, "<br>");
   return parse(sanitizedText);
-};
-
-// liked_byの要素数を返す
-const countLiked = (array: any[]) => {
-  return array ? array.length : 0;
 };
 
 export default function QuestionList(props: QuestionListProps) {
@@ -103,17 +93,8 @@ export default function QuestionList(props: QuestionListProps) {
                     spacing={1}
                     sx={{ alignItems: "center", justifyContent: "right" }}
                   >
-                    <Tooltip title="高評価する" placement="top">
-                      <IconButton>
-                        <ThumbUpOffAltIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Typography>{countLiked(answer.liked_by)}</Typography>
-                    <Tooltip title="低評価する" placement="top">
-                      <IconButton>
-                        <ThumbDownOffAltIcon />
-                      </IconButton>
-                    </Tooltip>
+                    <LikeButton liked_by={answer.liked_by} />
+                    <DislikeButton disliked_by={answer.disliked_by} />
                   </Stack>
                   <Divider sx={{ my: 1 }} />
                 </>
