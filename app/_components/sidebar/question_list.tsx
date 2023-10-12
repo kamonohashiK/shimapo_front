@@ -107,6 +107,9 @@ export default function QuestionList(props: QuestionListProps) {
                     <DislikeButton
                       disliked_by={answer.disliked_by}
                       user_id={userId}
+                      island_id={islandId}
+                      question_id={item.id}
+                      answer_id={answer.id}
                     />
                   </Stack>
                   <Divider sx={{ my: 1 }} />

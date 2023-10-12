@@ -133,6 +133,38 @@ export async function ToggleLikeAnswer(
   }
 }
 
+// 回答に低評価をつけるor取り消す
+export async function ToggleDislikeAnswer(
+  islandId: string,
+  questionId: string,
+  answerId: string,
+  userId: string
+) {
+  try {
+    // 回答を取得
+    const questionRef = doc(db, "islands", islandId, "questions", questionId);
+    const answerRef = doc(questionRef, "answers", answerId);
+    const answer = await getDoc(answerRef);
+    // 回答のliked_byに自分のIDがあるか確認
+    const dislikedBy = answer.data()?.disliked_by;
+    const isLiked = dislikedBy?.includes(userId);
+    // あれば削除、なければ追加
+    if (isLiked) {
+      await updateDoc(answerRef, {
+        disliked_by: dislikedBy.filter((id: string) => id !== userId),
+      });
+    } else {
+      await updateDoc(answerRef, {
+        disliked_by: [...dislikedBy, userId],
+      });
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 // ユーザーのプロフィールを取得する
 async function getUserProfile(userId: string) {
   const profileRef = doc(db, "user_profiles", userId);
