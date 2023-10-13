@@ -7,4 +7,13 @@ export class Collection {
   constructor() {
     this.firestore = db;
   }
+
+  // Timestamp型を日本語の日付表記に変換する
+  convertTimestamp(t: any) {
+    try {
+      return t.toDate().toLocaleString("ja-JP");
+    } catch (error) {
+      return "";
+    }
+  }
 }

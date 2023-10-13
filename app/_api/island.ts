@@ -13,6 +13,7 @@ import {
 import { convertTimestamp, getAnswers } from "./question";
 import { IslandCollection } from "./collections/island";
 import { IslandImageCollection } from "./collections/island_image";
+import { IslandQuestionCollection } from "./collections/question";
 
 // 島の情報を取得
 export async function getIslandInfo(uid: string) {
@@ -26,10 +27,9 @@ export async function getIslandInfo(uid: string) {
     const islandImageCollection = new IslandImageCollection(uid);
     const imageList = await islandImageCollection.getThumbnails();
 
-    // 質問を取得 TODO: ここだけ別のAPIに切り出したい
-    const questions = await getDocs(
-      query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
-    );
+    // 質問を取得 TODO: もっと簡略化したい
+    const islandQuestionCollection = new IslandQuestionCollection(uid);
+    const questions = await islandQuestionCollection.getQuestions();
     // 自身のIDを含めて渡す
     const questionList = questions.docs.map(async (doc) => ({
       id: doc.id,
