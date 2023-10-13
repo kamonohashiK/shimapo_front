@@ -10,7 +10,7 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
-import { getAnswers } from "../question";
+import { QuestionAnswerCollection } from "./question_answer";
 
 export class IslandQuestionCollection extends Collection {
   private islandId: string;
@@ -34,14 +34,20 @@ export class IslandQuestionCollection extends Collection {
   // 島ごとの質問と回答を取得する
   async getQuestionsWithAnswers() {
     const questions = await this.getQuestions();
-    const questionList = questions.docs.map(async (doc) => ({
-      id: doc.id,
-      question: doc.data().question,
-      answer_count: doc.data().answer_count,
-      is_default: doc.data().is_default,
-      posted_at: this.convertTimestamp(doc.data().posted_at),
-      answers: await getAnswers(this.islandId, doc.id), //TODO: collectionsのメソッドを呼び出すようにしたい
-    }));
+    const questionList = questions.docs.map(async (doc) => {
+      const questionAnswerCollection = new QuestionAnswerCollection(
+        this.islandId,
+        doc.id
+      );
+      return {
+        id: doc.id,
+        question: doc.data().question,
+        answer_count: doc.data().answer_count,
+        is_default: doc.data().is_default,
+        posted_at: this.convertTimestamp(doc.data().posted_at),
+        answers: await questionAnswerCollection.getAnswers(),
+      };
+    });
 
     return await Promise.all(questionList);
   }
