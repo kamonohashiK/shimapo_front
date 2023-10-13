@@ -5,6 +5,7 @@ import { Timestamp, addDoc, collection, doc } from "firebase/firestore";
 import { IslandCollection } from "./collections/island";
 import { IslandImageCollection } from "./collections/island_image";
 import { IslandQuestionCollection } from "./collections/question";
+import { UserProfileCollection } from "./collections/user_profile";
 
 // 島の情報を取得
 export async function getIslandInfo(islandId: string) {
@@ -41,7 +42,11 @@ export async function saveImageUrl(
   type: string
 ) {
   try {
-    const userRef = doc(db, "user_profiles", userId);
+    // ユーザーのプロフィールを参照
+    const userProfile = new UserProfileCollection(userId);
+    const userRef = userProfile.docRef;
+
+    // imagesコレクションに画像のメタデータを保存
     const collectionRef = collection(db, "islands", islandId, "images");
     const timeStamp = Timestamp.fromDate(new Date());
     await addDoc(collectionRef, {
