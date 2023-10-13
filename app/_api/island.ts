@@ -13,13 +13,15 @@ import {
   where,
 } from "firebase/firestore";
 import { convertTimestamp, getAnswers } from "./question";
+import { IslandCollection } from "./collections/island";
 
 // 島の情報を取得
 export async function getIslandInfo(uid: string) {
   try {
     // 島の情報をDBから取得
-    const docRef = doc(db, "islands", uid);
-    const docSnap = await getDoc(docRef);
+    const islandCollection = new IslandCollection(uid);
+    const docRef = islandCollection.docRef;
+    const docSnap = await islandCollection.getSnapshot();
 
     // 画像のメタデータを取得
     var imageList: any = [];
