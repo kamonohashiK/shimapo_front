@@ -5,6 +5,7 @@ import {
   CollectionReference,
   collection,
   getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 
@@ -25,6 +26,25 @@ export class UserProfileCollection extends Collection {
       return profile.data();
     } catch {
       throw new Error("プロフィールの取得に失敗しました");
+    }
+  }
+
+  // 既存データが存在するか
+  async isExist() {
+    try {
+      const profile = await getDoc(this.docRef);
+      return profile.exists();
+    } catch {
+      throw new Error("プロフィールの取得に失敗しました");
+    }
+  }
+
+  // プロフィールを作成
+  async saveProfile(profile: any) {
+    try {
+      await setDoc(this.docRef, profile);
+    } catch {
+      throw new Error("プロフィールの保存に失敗しました");
     }
   }
 }

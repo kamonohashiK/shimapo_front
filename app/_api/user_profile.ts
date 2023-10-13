@@ -1,7 +1,5 @@
 // user_profilesにデータが存在しない場合、新規作成する
-
-import { db } from "@/firebase/config";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { UserProfileCollection } from "./collections/user_profile";
 
 export type UserProfileProps = {
   userId: string;
@@ -12,11 +10,10 @@ export type UserProfileProps = {
 // user_profilesにデータが存在しない場合、新規作成する
 export async function CreateUserProfile(profile: UserProfileProps) {
   try {
-    const docRef = doc(db, "user_profiles", profile.userId);
-    const docSnap = await getDoc(docRef);
+    const prof = new UserProfileCollection(profile.userId);
 
-    if (!docSnap.exists()) {
-      await setDoc(docRef, profile);
+    if ((await prof.isExist()) === false) {
+      await prof.saveProfile(profile);
     }
   } catch (error) {
     return false;
