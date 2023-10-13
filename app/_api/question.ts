@@ -9,6 +9,9 @@ import {
   updateDoc,
   getDocs,
   getDoc,
+  orderBy,
+  query,
+  or,
 } from "firebase/firestore";
 
 // 質問を新規作成
@@ -53,7 +56,9 @@ export async function createAnswer(
     await addDoc(answersRef, {
       answer: answer,
       option_url: optionUrl,
+      liked_count: 0,
       liked_by: [],
+      disliked_count: 0,
       disliked_by: [],
       posted_by: userRef,
       posted_at: timeStamp,
@@ -74,7 +79,10 @@ export async function createAnswer(
 export async function getAnswers(islandId: string, questionId: string) {
   try {
     const questionRef = doc(db, "islands", islandId, "questions", questionId);
-    const answersRef = collection(questionRef, "answers");
+    const answersRef = query(
+      collection(questionRef, "answers"),
+      orderBy("liked_count", "desc")
+    );
     const answers = await Promise.all(
       (
         await getDocs(answersRef)
@@ -88,7 +96,9 @@ export async function getAnswers(islandId: string, questionId: string) {
           },
           answer: doc.data().answer,
           option_url: doc.data().option_url,
+          liked_count: doc.data().liked_count,
           liked_by: doc.data().liked_by,
+          disliked_count: doc.data().disliked_count,
           disliked_by: doc.data().disliked_by,
           posted_at: convertTimestamp(doc.data().posted_at),
         };
@@ -118,12 +128,18 @@ export async function ToggleLikeAnswer(
     const isLiked = likedBy?.includes(userId);
     // あれば削除、なければ追加
     if (isLiked) {
+      const newLikedBy = likedBy.filter((id: string) => id !== userId);
+      const likeCount = newLikedBy.length;
       await updateDoc(answerRef, {
-        liked_by: likedBy.filter((id: string) => id !== userId),
+        liked_count: likeCount,
+        liked_by: newLikedBy,
       });
     } else {
+      const newLikedBy = [...likedBy, userId];
+      const likeCount = newLikedBy.length;
       await updateDoc(answerRef, {
-        liked_by: [...likedBy, userId],
+        like_count: likeCount,
+        liked_by: newLikedBy,
       });
     }
 
@@ -147,15 +163,21 @@ export async function ToggleDislikeAnswer(
     const answer = await getDoc(answerRef);
     // 回答のliked_byに自分のIDがあるか確認
     const dislikedBy = answer.data()?.disliked_by;
-    const isLiked = dislikedBy?.includes(userId);
+    const isDisliked = dislikedBy?.includes(userId);
     // あれば削除、なければ追加
-    if (isLiked) {
+    if (isDisliked) {
+      const newDislikedBy = dislikedBy.filter((id: string) => id !== userId);
+      const disLikeCount = newDislikedBy.length;
       await updateDoc(answerRef, {
-        disliked_by: dislikedBy.filter((id: string) => id !== userId),
+        dislike_count: disLikeCount,
+        disliked_by: newDislikedBy,
       });
     } else {
+      const newDislikedBy = [...dislikedBy, userId];
+      const disLikeCount = newDislikedBy.length;
       await updateDoc(answerRef, {
-        disliked_by: [...dislikedBy, userId],
+        dislike_count: disLikeCount,
+        disliked_by: newDislikedBy,
       });
     }
 
