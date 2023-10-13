@@ -8,7 +8,7 @@ import Areas from "../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import { setMapInfo } from "../_store/mapSlice";
-import { getIslandInfo } from "../_api/island";
+import { getIslandInfo } from "../_api/endpoints/island";
 
 const container = {
   width: "100%",

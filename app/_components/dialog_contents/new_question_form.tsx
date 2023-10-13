@@ -1,4 +1,4 @@
-import { getIslandInfo } from "@/app/_api/island";
+import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { createQuestion } from "@/app/_api/question";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
