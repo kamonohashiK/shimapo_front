@@ -1,4 +1,4 @@
-import { Tooltip, IconButton, Typography } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { useDialog } from "@/app/_hooks/dialog";
@@ -13,13 +13,14 @@ interface DislikeButtonProps {
   question_id: string;
   answer_id: string;
   user_id: string;
+  disliked: boolean;
+  disabled: boolean;
 }
 
 export default function DislikeButton(props: DislikeButtonProps) {
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setInfo } = useIslandInfo();
-  const disliked = (props.disliked_by || []).includes(props.user_id);
 
   const onClick = async () => {
     if (props.user_id != "") {
@@ -41,9 +42,12 @@ export default function DislikeButton(props: DislikeButtonProps) {
   };
 
   return (
-    <Tooltip title="低評価する" placement="top">
-      <IconButton onClick={onClick}>
-        {disliked ? (
+    <Tooltip
+      title={props.disliked ? "評価を取り消す" : "低評価する"}
+      placement="top"
+    >
+      <IconButton onClick={onClick} disabled={props.disabled}>
+        {props.disliked ? (
           <ThumbDownAltIcon color="error" />
         ) : (
           <ThumbDownOffAltIcon />

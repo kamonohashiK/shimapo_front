@@ -19,6 +19,7 @@ import parse from "html-react-parser";
 import LikeButton from "./answers/like_button";
 import DislikeButton from "./answers/dislike_button";
 import { RootState } from "@/app/_store/store";
+import ValuateForm from "./answers/valuate_form";
 interface QuestionListProps {
   questions: any[];
 }
@@ -92,26 +93,14 @@ export default function QuestionList(props: QuestionListProps) {
                       <></>
                     )}
                   </Typography>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ alignItems: "center", justifyContent: "right" }}
-                  >
-                    <LikeButton
-                      liked_by={answer.liked_by}
-                      user_id={userId}
-                      island_id={islandId}
-                      question_id={item.id}
-                      answer_id={answer.id}
-                    />
-                    <DislikeButton
-                      disliked_by={answer.disliked_by}
-                      user_id={userId}
-                      island_id={islandId}
-                      question_id={item.id}
-                      answer_id={answer.id}
-                    />
-                  </Stack>
+                  <ValuateForm
+                    liked_by={answer.liked_by}
+                    disliked_by={answer.disliked_by}
+                    user_id={userId}
+                    island_id={islandId}
+                    question_id={item.id}
+                    answer_id={answer.id}
+                  />
                   <Divider sx={{ my: 1 }} />
                 </>
               ))

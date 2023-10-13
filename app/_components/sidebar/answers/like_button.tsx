@@ -6,7 +6,6 @@ import { useDialog } from "@/app/_hooks/dialog";
 import { ToggleLikeAnswer } from "@/app/_api/question";
 import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
-import { set } from "firebase/database";
 
 interface LikeButtonProps {
   liked_by: string[];
@@ -14,6 +13,8 @@ interface LikeButtonProps {
   question_id: string;
   answer_id: string;
   user_id: string;
+  liked: boolean;
+  disabled: boolean;
 }
 
 // liked_byの要素数を返す
@@ -25,7 +26,6 @@ export default function LikeButton(props: LikeButtonProps) {
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setInfo } = useIslandInfo();
-  const liked = (props.liked_by || []).includes(props.user_id);
 
   const onClick = async () => {
     if (props.user_id != "") {
@@ -48,9 +48,16 @@ export default function LikeButton(props: LikeButtonProps) {
 
   return (
     <>
-      <Tooltip title="高評価する" placement="top">
-        <IconButton onClick={onClick}>
-          {liked ? <ThumbUpIcon color="success" /> : <ThumbUpOffAltIcon />}
+      <Tooltip
+        title={props.liked ? "評価を取り消す" : "高評価する"}
+        placement="top"
+      >
+        <IconButton onClick={onClick} disabled={props.disabled}>
+          {props.liked ? (
+            <ThumbUpIcon color="success" />
+          ) : (
+            <ThumbUpOffAltIcon />
+          )}
         </IconButton>
       </Tooltip>
       <Typography>{countLiked(props.liked_by)}</Typography>
