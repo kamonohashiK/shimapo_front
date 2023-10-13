@@ -33,17 +33,8 @@ export async function createQuestion(
   question: string
 ) {
   try {
-    const userRef = doc(db, "user_profiles", userId);
-    const collectionRef = collection(db, "islands", islandId, "questions");
-    const timeStamp = Timestamp.fromDate(new Date());
-
-    await addDoc(collectionRef, {
-      posted_at: timeStamp,
-      question: question,
-      posted_by: userRef,
-      is_default: false,
-      answer_count: 0,
-    });
+    const q = new IslandQuestionCollection(islandId);
+    await q.SaveQuestion(userId, question);
 
     return true;
   } catch (error) {

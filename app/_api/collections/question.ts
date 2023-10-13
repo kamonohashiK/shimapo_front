@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   getDocs,
+  addDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 import { getAnswers } from "../question";
@@ -25,10 +26,7 @@ export class IslandQuestionCollection extends Collection {
 
   // 島ごとの質問を取得する
   async getQuestions() {
-    const q = query(
-      collection(this.docRef, "questions"),
-      orderBy("posted_at", "desc")
-    );
+    const q = query(this.collectionRef, orderBy("posted_at", "desc"));
     const questions = await getDocs(q);
     return questions;
   }
@@ -46,5 +44,24 @@ export class IslandQuestionCollection extends Collection {
     }));
 
     return await Promise.all(questionList);
+  }
+
+  // 質問を新規作成する
+  async SaveQuestion(userId: string, question: string) {
+    try {
+      // 参照を追加
+      const userRef = doc(this.firestore, "user_profiles", userId);
+
+      // 保存処理
+      await addDoc(this.collectionRef, {
+        posted_at: this.getTimestamp(),
+        question: question,
+        posted_by: userRef,
+        is_default: false,
+        answer_count: 0,
+      });
+    } catch {
+      throw new Error("質問の保存に失敗しました");
+    }
   }
 }
