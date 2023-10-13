@@ -13,6 +13,7 @@ import {
   query,
 } from "firebase/firestore";
 import { IslandQuestionCollection } from "./collections/question";
+import { QuestionAnswerCollection } from "./collections/question_answer";
 
 // 島に関する質問と回答を取得 (質問関連のアクション後のリロード想定で)
 export async function getQuestions(islandId: string) {
@@ -51,26 +52,8 @@ export async function createAnswer(
   optionUrl: string
 ) {
   try {
-    const userRef = doc(db, "user_profiles", userId);
-    const questionRef = doc(db, "islands", islandId, "questions", questionId);
-    const answersRef = collection(questionRef, "answers");
-    const timeStamp = Timestamp.fromDate(new Date());
-
-    await addDoc(answersRef, {
-      answer: answer,
-      option_url: optionUrl,
-      liked_count: 0,
-      liked_by: [],
-      disliked_count: 0,
-      disliked_by: [],
-      posted_by: userRef,
-      posted_at: timeStamp,
-    });
-
-    // 質問の回答数を更新
-    await updateDoc(questionRef, {
-      answer_count: increment(1),
-    });
+    const ans = new QuestionAnswerCollection(islandId, questionId);
+    await ans.saveAnswer(answer, optionUrl, userId);
 
     return true;
   } catch (error) {

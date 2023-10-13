@@ -87,10 +87,12 @@ export default function AnswerForm() {
       ) {
         showAlert("質問に回答しました。", "success");
         await getIslandInfo(islandId).then((res) => {
+          const questionList = res.questionList ? res.questionList : [];
+          const imageList = res.imageList ? res.imageList : [];
           dispatch(
             reloadIslandInfo({
-              imageList: res.imageList,
-              questionList: res.questionList ? res.questionList : [],
+              imageList: imageList,
+              questionList: questionList,
             })
           );
         });
