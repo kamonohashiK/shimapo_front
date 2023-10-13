@@ -3,7 +3,7 @@ import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { useDialog } from "@/app/_hooks/dialog";
 import dialogTypes from "@/app/_constants/dialog_types";
-import { ToggleDislikeAnswer } from "@/app/_api/question";
+import { ToggleDislikeAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 

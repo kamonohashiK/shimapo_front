@@ -1,5 +1,5 @@
-import { getIslandInfo } from "@/app/_api/island";
-import { createAnswer } from "@/app/_api/question";
+import { getIslandInfo } from "@/app/_api/endpoints/island";
+import { createAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
@@ -87,10 +87,12 @@ export default function AnswerForm() {
       ) {
         showAlert("質問に回答しました。", "success");
         await getIslandInfo(islandId).then((res) => {
+          const questionList = res.questionList ? res.questionList : [];
+          const imageList = res.imageList ? res.imageList : [];
           dispatch(
             reloadIslandInfo({
-              imageList: res.imageList,
-              questionList: res.questionList ? res.questionList : [],
+              imageList: imageList,
+              questionList: questionList,
             })
           );
         });

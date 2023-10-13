@@ -8,7 +8,7 @@ import Areas from "../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import { setMapInfo } from "../_store/mapSlice";
-import { getIslandInfo } from "../_api/island";
+import { getIslandInfo } from "../_api/endpoints/island";
 
 const container = {
   width: "100%",
@@ -54,7 +54,7 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
           kana: selectedIsland.kana,
           enName: selectedIsland.en_name,
           mainImage: dbInfo.islandInfo?.main_image_url ?? "",
-          imageList: dbInfo.imageList,
+          imageList: dbInfo.imageList ?? [],
           questionList: dbInfo.questionList ?? [],
           focusedQuestionId: "",
           focusedQuestion: "",

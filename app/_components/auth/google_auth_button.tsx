@@ -4,7 +4,7 @@ import firebase_app from "@/firebase/config";
 import { Button } from "@mui/material";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
 import { useRouter } from "next/navigation";
-import { CreateUserProfile } from "@/app/_api/user_profile";
+import { CreateUserProfile } from "@/app/_api/endpoints/user_profile";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 

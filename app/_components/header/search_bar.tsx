@@ -6,7 +6,7 @@ import islandSummaries from "@/app/_constants/island_summaries";
 import { setMapInfo } from "@/app/_store/mapSlice";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { setIslandInfo, showSidebarText } from "@/app/_store/pageSlice";
-import { getIslandInfo } from "@/app/_api/island";
+import { getIslandInfo } from "@/app/_api/endpoints/island";
 
 const inputWidth = 400;
 const inputPadding = "5px 10px";
@@ -79,7 +79,7 @@ export default function SearchBar() {
               kana: selectedIsland.kana,
               enName: selectedIsland.en_name,
               mainImage: dbInfo.islandInfo?.main_image_url ?? "",
-              imageList: dbInfo.imageList,
+              imageList: dbInfo.imageList ?? [],
               questionList: dbInfo.questionList ?? [],
               focusedQuestionId: "",
               focusedQuestion: "",

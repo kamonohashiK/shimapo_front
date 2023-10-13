@@ -1,5 +1,5 @@
-import { getIslandInfo } from "@/app/_api/island";
-import { createQuestion } from "@/app/_api/question";
+import { getIslandInfo } from "@/app/_api/endpoints/island";
+import { createQuestion } from "@/app/_api/endpoints/island_question";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { reloadIslandInfo } from "@/app/_store/pageSlice";
@@ -59,7 +59,7 @@ export default function NewQuestionForm() {
         await getIslandInfo(islandId).then((res) => {
           dispatch(
             reloadIslandInfo({
-              imageList: res.imageList,
+              imageList: res.imageList || [],
               questionList: res.questionList || [],
             })
           );
