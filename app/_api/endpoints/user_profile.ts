@@ -1,5 +1,5 @@
 // user_profilesにデータが存在しない場合、新規作成する
-import { UserProfileCollection } from "./collections/user_profile";
+import { UserProfileCollection } from "../collections/user_profile";
 
 export type UserProfileProps = {
   userId: string;
