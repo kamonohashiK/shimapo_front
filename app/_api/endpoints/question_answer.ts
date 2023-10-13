@@ -1,5 +1,5 @@
-// questionsコレクションに対するAPI
-import { QuestionAnswerCollection } from "./collections/question_answer";
+// questions/answersコレクションに対するAPI
+import { QuestionAnswerCollection } from "../collections/question_answer";
 
 // 回答を新規作成
 export async function createAnswer(

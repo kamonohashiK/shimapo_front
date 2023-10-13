@@ -6,7 +6,7 @@ import {
 } from "../_store/pageSlice";
 import { getIslandInfo } from "../_api/endpoints/island";
 import islandSummaries from "../_constants/island_summaries";
-import { getQuestions } from "../_api/question";
+import { getQuestions } from "../_api/endpoints/question_answer";
 
 export const useIslandInfo = () => {
   const dispatch = useDispatch();
