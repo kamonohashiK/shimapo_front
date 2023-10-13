@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_store/store";
-import { setIslandInfo } from "../_store/pageSlice";
+import {
+  setIslandInfo,
+  setQuestionList as setQuestionListAction,
+} from "../_store/pageSlice";
 import { getIslandInfo } from "../_api/island";
 import islandSummaries from "../_constants/island_summaries";
+import { getQuestions } from "../_api/question";
 
 export const useIslandInfo = () => {
   const dispatch = useDispatch();
@@ -55,5 +59,13 @@ export const useIslandInfo = () => {
     }
   };
 
-  return { islandInfo, setInfo };
+  // 質問一覧を取得してストアに保存
+  const setQuestionList = async (islandId: string) => {
+    const data = await getQuestions(islandId);
+    if (data.length > 0) {
+      dispatch(setQuestionListAction(data));
+    }
+  };
+
+  return { islandInfo, setInfo, setQuestionList };
 };

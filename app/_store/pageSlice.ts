@@ -80,6 +80,9 @@ export const pageSlice = createSlice({
       state.focusedQuestionId = action.payload.focusedQuestionId;
       state.focusedQuestion = action.payload.focusedQuestion;
     },
+    setQuestionList: (state, action: PayloadAction<any>) => {
+      state.questionList = action.payload;
+    },
   },
 });
 
@@ -88,6 +91,7 @@ export const {
   showSidebarText,
   reloadIslandInfo,
   setFocusedQuestion,
+  setQuestionList,
 } = pageSlice.actions;
 
 export default pageSlice.reducer;

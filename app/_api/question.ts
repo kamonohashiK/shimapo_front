@@ -11,8 +11,29 @@ import {
   getDoc,
   orderBy,
   query,
-  or,
 } from "firebase/firestore";
+
+export async function getQuestions(islandId: string) {
+  try {
+    const docRef = doc(db, "islands", islandId);
+    const questions = await getDocs(
+      query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
+    );
+    // 自身のIDを含めて渡す
+    const questionList = questions.docs.map(async (doc) => ({
+      id: doc.id,
+      question: doc.data().question,
+      answer_count: doc.data().answer_count,
+      is_default: doc.data().is_default,
+      posted_at: convertTimestamp(doc.data().posted_at),
+      answers: await getAnswers(islandId, doc.id),
+    }));
+
+    return await Promise.all(questionList);
+  } catch (error) {
+    return [];
+  }
+}
 
 // 質問を新規作成
 export async function createQuestion(
