@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+
+// FIXME: デカすぎるので分割したい
 interface PageState {
   isIslandInfo: boolean;
   textHeader: string;

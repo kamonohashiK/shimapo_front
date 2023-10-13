@@ -28,8 +28,6 @@ export async function createQuestion(
       posted_by: userRef,
       is_default: false,
       answer_count: 0,
-      liked_count: 0,
-      disliked_count: 0,
     });
 
     return true;
@@ -55,8 +53,8 @@ export async function createAnswer(
     await addDoc(answersRef, {
       answer: answer,
       option_url: optionUrl,
-      liked_count: 0,
-      disliked_count: 0,
+      liked_by: [],
+      disliked_by: [],
       posted_by: userRef,
       posted_at: timeStamp,
     });
@@ -90,8 +88,8 @@ export async function getAnswers(islandId: string, questionId: string) {
           },
           answer: doc.data().answer,
           option_url: doc.data().option_url,
-          liked_count: doc.data().liked_count,
-          disliked_count: doc.data().disliked_count,
+          liked_by: doc.data().liked_by,
+          disliked_by: doc.data().disliked_by,
           posted_at: convertTimestamp(doc.data().posted_at),
         };
       })
@@ -103,6 +101,71 @@ export async function getAnswers(islandId: string, questionId: string) {
   }
 }
 
+// 回答に高評価をつけるor取り消す
+export async function ToggleLikeAnswer(
+  islandId: string,
+  questionId: string,
+  answerId: string,
+  userId: string
+) {
+  try {
+    // 回答を取得
+    const questionRef = doc(db, "islands", islandId, "questions", questionId);
+    const answerRef = doc(questionRef, "answers", answerId);
+    const answer = await getDoc(answerRef);
+    // 回答のliked_byに自分のIDがあるか確認
+    const likedBy = answer.data()?.liked_by;
+    const isLiked = likedBy?.includes(userId);
+    // あれば削除、なければ追加
+    if (isLiked) {
+      await updateDoc(answerRef, {
+        liked_by: likedBy.filter((id: string) => id !== userId),
+      });
+    } else {
+      await updateDoc(answerRef, {
+        liked_by: [...likedBy, userId],
+      });
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+// 回答に低評価をつけるor取り消す
+export async function ToggleDislikeAnswer(
+  islandId: string,
+  questionId: string,
+  answerId: string,
+  userId: string
+) {
+  try {
+    // 回答を取得
+    const questionRef = doc(db, "islands", islandId, "questions", questionId);
+    const answerRef = doc(questionRef, "answers", answerId);
+    const answer = await getDoc(answerRef);
+    // 回答のliked_byに自分のIDがあるか確認
+    const dislikedBy = answer.data()?.disliked_by;
+    const isLiked = dislikedBy?.includes(userId);
+    // あれば削除、なければ追加
+    if (isLiked) {
+      await updateDoc(answerRef, {
+        disliked_by: dislikedBy.filter((id: string) => id !== userId),
+      });
+    } else {
+      await updateDoc(answerRef, {
+        disliked_by: [...dislikedBy, userId],
+      });
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+// ユーザーのプロフィールを取得する
 async function getUserProfile(userId: string) {
   const profileRef = doc(db, "user_profiles", userId);
   const profile = await getDoc(profileRef);

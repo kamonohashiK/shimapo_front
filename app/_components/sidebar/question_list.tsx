@@ -9,20 +9,17 @@ import {
   Avatar,
   Stack,
   Link,
-  Icon,
-  IconButton,
-  Tooltip,
 } from "@mui/material";
 import { useDialog } from "@/app/_hooks/dialog";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFocusedQuestion } from "@/app/_store/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import LikeButton from "./answers/like_button";
+import DislikeButton from "./answers/dislike_button";
+import { RootState } from "@/app/_store/store";
+import ValuateForm from "./answers/valuate_form";
 interface QuestionListProps {
   questions: any[];
 }
@@ -36,6 +33,9 @@ const sanitize = (text: string) => {
 export default function QuestionList(props: QuestionListProps) {
   const { showDialog } = useDialog();
   const dispatch = useDispatch();
+
+  const userId = useSelector((state: RootState) => state.user.userId);
+  const islandId = useSelector((state: RootState) => state.page.uid);
 
   return (
     <>
@@ -93,23 +93,14 @@ export default function QuestionList(props: QuestionListProps) {
                       <></>
                     )}
                   </Typography>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{ alignItems: "center", justifyContent: "right" }}
-                  >
-                    <Tooltip title="高評価する" placement="top">
-                      <IconButton>
-                        <ThumbUpOffAltIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Typography>{answer.liked_count}</Typography>
-                    <Tooltip title="低評価する" placement="top">
-                      <IconButton>
-                        <ThumbDownOffAltIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Stack>
+                  <ValuateForm
+                    liked_by={answer.liked_by}
+                    disliked_by={answer.disliked_by}
+                    user_id={userId}
+                    island_id={islandId}
+                    question_id={item.id}
+                    answer_id={answer.id}
+                  />
                   <Divider sx={{ my: 1 }} />
                 </>
               ))
