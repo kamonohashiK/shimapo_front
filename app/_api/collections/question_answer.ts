@@ -10,6 +10,7 @@ import {
   orderBy,
   query,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 import { UserProfileCollection } from "./user_profile";
@@ -87,6 +88,38 @@ export class QuestionAnswerCollection extends Collection {
       return answers;
     } catch {
       throw new Error("回答の取得に失敗しました");
+    }
+  }
+
+  // 高評価に関するデータを更新する
+  async updateHighEvaluation(answerId: string, userId: string) {
+    try {
+      const ref = doc(this.collectionRef, answerId);
+      const target = await getDoc(ref);
+
+      // 元データのliked_byにユーザーのIDがあるか確認
+      const likedBy = target.data()?.liked_by;
+      const alreadyLiked = likedBy?.includes(userId);
+
+      if (alreadyLiked) {
+        // すでに高評価している場合は、liked_byからユーザーのIDを削除
+        const newLikedBy = likedBy.filter((id: string) => id !== userId);
+        const likeCount = newLikedBy.length;
+        await updateDoc(ref, {
+          liked_count: likeCount,
+          liked_by: newLikedBy,
+        });
+      } else {
+        // 高評価していない場合は、liked_byにユーザーのIDを追加
+        const newLikedBy = [...likedBy, userId];
+        const likeCount = newLikedBy.length;
+        await updateDoc(ref, {
+          liked_count: likeCount,
+          liked_by: newLikedBy,
+        });
+      }
+    } catch {
+      throw new Error("高評価の更新に失敗しました");
     }
   }
 }

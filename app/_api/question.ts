@@ -81,29 +81,8 @@ export async function ToggleLikeAnswer(
   userId: string
 ) {
   try {
-    // 回答を取得
-    const questionRef = doc(db, "islands", islandId, "questions", questionId);
-    const answerRef = doc(questionRef, "answers", answerId);
-    const answer = await getDoc(answerRef);
-    // 回答のliked_byに自分のIDがあるか確認
-    const likedBy = answer.data()?.liked_by;
-    const isLiked = likedBy?.includes(userId);
-    // あれば削除、なければ追加
-    if (isLiked) {
-      const newLikedBy = likedBy.filter((id: string) => id !== userId);
-      const likeCount = newLikedBy.length;
-      await updateDoc(answerRef, {
-        liked_count: likeCount,
-        liked_by: newLikedBy,
-      });
-    } else {
-      const newLikedBy = [...likedBy, userId];
-      const likeCount = newLikedBy.length;
-      await updateDoc(answerRef, {
-        like_count: likeCount,
-        liked_by: newLikedBy,
-      });
-    }
+    const qa = new QuestionAnswerCollection(islandId, questionId);
+    await qa.updateHighEvaluation(answerId, userId);
 
     return true;
   } catch (error) {
