@@ -7,8 +7,12 @@ import {
   addDoc,
   updateDoc,
   increment,
+  orderBy,
+  query,
+  getDocs,
 } from "firebase/firestore";
 import { Collection } from "./collection";
+import { UserProfileCollection } from "./user_profile";
 
 export class QuestionAnswerCollection extends Collection {
   public docRef: DocumentReference<DocumentData, DocumentData>;
@@ -50,6 +54,39 @@ export class QuestionAnswerCollection extends Collection {
       });
     } catch {
       throw new Error("質問の保存に失敗しました");
+    }
+  }
+
+  // 回答の一覧を取得
+  async getAnswers() {
+    try {
+      const q = query(this.collectionRef, orderBy("liked_count", "desc"));
+      const answers = await Promise.all(
+        (
+          await getDocs(q)
+        ).docs.map(async (doc) => {
+          const profile = new UserProfileCollection(doc.data().posted_by.id);
+          const userProfile = await profile.getProfile();
+          return {
+            id: doc.id,
+            posted_user: {
+              name: userProfile?.name,
+              image_url: userProfile?.image_url,
+            },
+            answer: doc.data().answer,
+            option_url: doc.data().option_url,
+            liked_count: doc.data().liked_count,
+            liked_by: doc.data().liked_by,
+            disliked_count: doc.data().disliked_count,
+            disliked_by: doc.data().disliked_by,
+            posted_at: this.convertTimestamp(doc.data().posted_at),
+          };
+        })
+      );
+
+      return answers;
+    } catch {
+      throw new Error("回答の取得に失敗しました");
     }
   }
 }

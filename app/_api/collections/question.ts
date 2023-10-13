@@ -40,7 +40,7 @@ export class IslandQuestionCollection extends Collection {
       answer_count: doc.data().answer_count,
       is_default: doc.data().is_default,
       posted_at: this.convertTimestamp(doc.data().posted_at),
-      answers: await getAnswers(this.islandId, doc.id),
+      answers: await getAnswers(this.islandId, doc.id), //TODO: collectionsのメソッドを呼び出すようにしたい
     }));
 
     return await Promise.all(questionList);

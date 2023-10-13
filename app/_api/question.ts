@@ -61,35 +61,11 @@ export async function createAnswer(
   }
 }
 
-// 回答の一覧を取得
+// 回答の一覧と回答者のプロフィールを合わせて取得
 export async function getAnswers(islandId: string, questionId: string) {
   try {
-    const questionRef = doc(db, "islands", islandId, "questions", questionId);
-    const answersRef = query(
-      collection(questionRef, "answers"),
-      orderBy("liked_count", "desc")
-    );
-    const answers = await Promise.all(
-      (
-        await getDocs(answersRef)
-      ).docs.map(async (doc) => {
-        const userProfile = await getUserProfile(doc.data().posted_by.id);
-        return {
-          id: doc.id,
-          posted_user: {
-            name: userProfile?.name,
-            image_url: userProfile?.image_url,
-          },
-          answer: doc.data().answer,
-          option_url: doc.data().option_url,
-          liked_count: doc.data().liked_count,
-          liked_by: doc.data().liked_by,
-          disliked_count: doc.data().disliked_count,
-          disliked_by: doc.data().disliked_by,
-          posted_at: convertTimestamp(doc.data().posted_at),
-        };
-      })
-    );
+    const ans = new QuestionAnswerCollection(islandId, questionId);
+    const answers = await ans.getAnswers();
 
     return answers;
   } catch (error) {
@@ -171,14 +147,6 @@ export async function ToggleDislikeAnswer(
   } catch (error) {
     return false;
   }
-}
-
-// ユーザーのプロフィールを取得する
-async function getUserProfile(userId: string) {
-  const profileRef = doc(db, "user_profiles", userId);
-  const profile = await getDoc(profileRef);
-
-  return profile.data();
 }
 
 // タイムスタンプを文字列に修正 TODO: この関数は共通化したい
