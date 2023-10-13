@@ -1,5 +1,5 @@
 import { db } from "@/firebase/config";
-import { Firestore } from "firebase/firestore";
+import { Firestore, Timestamp } from "firebase/firestore";
 
 export class Collection {
   public firestore: Firestore;
@@ -15,5 +15,10 @@ export class Collection {
     } catch (error) {
       return "";
     }
+  }
+
+  // 現在のタイムスタンプを取得する
+  getTimestamp() {
+    return Timestamp.fromDate(new Date());
   }
 }

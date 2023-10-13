@@ -2,6 +2,7 @@ import {
   CollectionReference,
   DocumentData,
   DocumentReference,
+  addDoc,
   collection,
   doc,
   getDocs,
@@ -31,5 +32,24 @@ export class IslandImageCollection extends Collection {
     }));
 
     return imageList;
+  }
+
+  // 画像のメタデータを保存
+  async saveImageMetadata(url: string, type: string, userId: string) {
+    try {
+      // ユーザーのプロフィールを参照
+      const userRef = doc(this.firestore, "user_profiles", userId);
+      // imagesコレクションに画像のメタデータを保存
+      const collectionRef = collection(this.docRef, "images");
+      const timeStamp = this.getTimestamp();
+      await addDoc(collectionRef, {
+        url: url,
+        type: type,
+        posted_at: timeStamp,
+        posted_by: userRef,
+      });
+    } catch {
+      throw new Error("画像のメタデータの保存に失敗しました");
+    }
   }
 }

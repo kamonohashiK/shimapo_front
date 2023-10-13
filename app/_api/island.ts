@@ -1,11 +1,6 @@
-// islandsコレクション関連のデータを扱うAPIを定義する
-
-import { db } from "@/firebase/config";
-import { Timestamp, addDoc, collection, doc } from "firebase/firestore";
 import { IslandCollection } from "./collections/island";
 import { IslandImageCollection } from "./collections/island_image";
 import { IslandQuestionCollection } from "./collections/question";
-import { UserProfileCollection } from "./collections/user_profile";
 
 // 島の情報を取得
 export async function getIslandInfo(islandId: string) {
@@ -42,19 +37,9 @@ export async function saveImageUrl(
   type: string
 ) {
   try {
-    // ユーザーのプロフィールを参照
-    const userProfile = new UserProfileCollection(userId);
-    const userRef = userProfile.docRef;
-
     // imagesコレクションに画像のメタデータを保存
-    const collectionRef = collection(db, "islands", islandId, "images");
-    const timeStamp = Timestamp.fromDate(new Date());
-    await addDoc(collectionRef, {
-      url: url,
-      type: type,
-      posted_at: timeStamp,
-      posted_by: userRef,
-    });
+    const islandImage = new IslandImageCollection(islandId);
+    await islandImage.saveImageMetadata(url, type, userId);
 
     return true;
   } catch (error) {

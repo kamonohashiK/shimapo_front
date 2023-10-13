@@ -98,10 +98,12 @@ export default function ImageUploadForm() {
     } finally {
       hideDialog();
       await getIslandInfo(islandId).then((res) => {
+        const imageList = res.imageList || [];
+        const questionList = res.questionList || [];
         dispatch(
           reloadIslandInfo({
-            imageList: res.imageList,
-            questionList: res.questionList || [],
+            imageList,
+            questionList,
           })
         );
       });
