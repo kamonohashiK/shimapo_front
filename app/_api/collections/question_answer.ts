@@ -122,4 +122,36 @@ export class QuestionAnswerCollection extends Collection {
       throw new Error("高評価の更新に失敗しました");
     }
   }
+
+  // 低評価に関するデータを更新する
+  async updateLowEvaluation(answerId: string, userId: string) {
+    try {
+      const ref = doc(this.collectionRef, answerId);
+      const target = await getDoc(ref);
+
+      // 元データのdisliked_byにユーザーのIDがあるか確認
+      const dislikedBy = target.data()?.disliked_by;
+      const alreadyDisliked = dislikedBy?.includes(userId);
+
+      if (alreadyDisliked) {
+        // すでに低評価している場合は、disliked_byからユーザーのIDを削除
+        const newDislikedBy = dislikedBy.filter((id: string) => id !== userId);
+        const dislikeCount = newDislikedBy.length;
+        await updateDoc(ref, {
+          disliked_count: dislikeCount,
+          disliked_by: newDislikedBy,
+        });
+      } else {
+        // 低評価していない場合は、disliked_byにユーザーのIDを追加
+        const newDislikedBy = [...dislikedBy, userId];
+        const dislikeCount = newDislikedBy.length;
+        await updateDoc(ref, {
+          disliked_count: dislikeCount,
+          disliked_by: newDislikedBy,
+        });
+      }
+    } catch {
+      throw new Error("低評価の更新に失敗しました");
+    }
+  }
 }

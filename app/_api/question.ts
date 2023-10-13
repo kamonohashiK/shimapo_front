@@ -1,17 +1,4 @@
 // questionsコレクションに対するAPI
-import { db } from "@/firebase/config";
-import {
-  doc,
-  addDoc,
-  Timestamp,
-  collection,
-  increment,
-  updateDoc,
-  getDocs,
-  getDoc,
-  orderBy,
-  query,
-} from "firebase/firestore";
 import { IslandQuestionCollection } from "./collections/question";
 import { QuestionAnswerCollection } from "./collections/question_answer";
 
@@ -98,41 +85,11 @@ export async function ToggleDislikeAnswer(
   userId: string
 ) {
   try {
-    // 回答を取得
-    const questionRef = doc(db, "islands", islandId, "questions", questionId);
-    const answerRef = doc(questionRef, "answers", answerId);
-    const answer = await getDoc(answerRef);
-    // 回答のliked_byに自分のIDがあるか確認
-    const dislikedBy = answer.data()?.disliked_by;
-    const isDisliked = dislikedBy?.includes(userId);
-    // あれば削除、なければ追加
-    if (isDisliked) {
-      const newDislikedBy = dislikedBy.filter((id: string) => id !== userId);
-      const disLikeCount = newDislikedBy.length;
-      await updateDoc(answerRef, {
-        dislike_count: disLikeCount,
-        disliked_by: newDislikedBy,
-      });
-    } else {
-      const newDislikedBy = [...dislikedBy, userId];
-      const disLikeCount = newDislikedBy.length;
-      await updateDoc(answerRef, {
-        dislike_count: disLikeCount,
-        disliked_by: newDislikedBy,
-      });
-    }
+    const qa = new QuestionAnswerCollection(islandId, questionId);
+    await qa.updateLowEvaluation(answerId, userId);
 
     return true;
   } catch (error) {
     return false;
-  }
-}
-
-// タイムスタンプを文字列に修正 TODO: この関数は共通化したい
-export function convertTimestamp(t: any) {
-  try {
-    return t.toDate().toLocaleString("ja-JP");
-  } catch (error) {
-    return "";
   }
 }
