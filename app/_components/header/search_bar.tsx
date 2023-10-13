@@ -79,7 +79,7 @@ export default function SearchBar() {
               kana: selectedIsland.kana,
               enName: selectedIsland.en_name,
               mainImage: dbInfo.islandInfo?.main_image_url ?? "",
-              imageList: dbInfo.imageList,
+              imageList: dbInfo.imageList ?? [],
               questionList: dbInfo.questionList ?? [],
               focusedQuestionId: "",
               focusedQuestion: "",

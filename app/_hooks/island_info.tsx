@@ -6,7 +6,7 @@ import {
 } from "../_store/pageSlice";
 import { getIslandInfo } from "../_api/endpoints/island";
 import islandSummaries from "../_constants/island_summaries";
-import { getQuestions } from "../_api/endpoints/question_answer";
+import { getQuestions } from "../_api/endpoints/island_question";
 
 export const useIslandInfo = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const useIslandInfo = () => {
           kana: selectedIsland.kana,
           enName: selectedIsland.en_name,
           mainImage: data.islandInfo?.main_image_url ?? "",
-          imageList: data.imageList,
+          imageList: data.imageList ?? [],
           questionList: data.questionList ?? [],
           focusedQuestionId: "",
           focusedQuestion: "",
