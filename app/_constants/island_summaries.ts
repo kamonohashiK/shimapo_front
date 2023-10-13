@@ -1,15 +1,15 @@
 type IslandSummary = {
-    uid: string;
-    name: string;
-    kana: string;
-    en_name: string;
-    lat: number;
-    lng: number;
-    prefecture: string;
-    city: string;
+  uid: string;
+  name: string;
+  kana: string;
+  en_name: string;
+  lat: number;
+  lng: number;
+  prefecture: string;
+  city: string;
 };
 
-const islandSummaries: IslandSummary[] = [
+export const islandSummaries: IslandSummary[] = [
   {
     uid: "HKD_RBN_REBUNTO",
     name: "礼文島",
@@ -141,10 +141,10 @@ const islandSummaries: IslandSummary[] = [
     city: "塩竈市",
   },
   {
-    uid: "MYG_SOG_KATSURAIJMA",
+    uid: "MYG_SOG_KATSURAJIMA",
     name: "桂島",
     kana: "かつらじま",
-    en_name: "Katsuraijma",
+    en_name: "Katsurajima",
     lat: 38.334092,
     lng: 141.088068,
     prefecture: "宮城県",
@@ -231,10 +231,10 @@ const islandSummaries: IslandSummary[] = [
     city: "新島村",
   },
   {
-    uid: "TKY_KDS_KODUSHIMA",
+    uid: "TKY_KDS_KOZUSHIMA",
     name: "神津島",
     kana: "こうづしま",
-    en_name: "Kodushima",
+    en_name: "Kozushima",
     lat: 34.214573,
     lng: 139.147424,
     prefecture: "東京都",
@@ -671,20 +671,20 @@ const islandSummaries: IslandSummary[] = [
     city: "備前市",
   },
   {
-    uid: "OKY_BZN_OHTABUJIMA",
+    uid: "OKY_BZN_OOTABUJIMA",
     name: "大多府島",
     kana: "おおたぶじま",
-    en_name: "Ohtabujima",
+    en_name: "Ootabujima",
     lat: 34.683114,
     lng: 134.295854,
     prefecture: "岡山県",
     city: "備前市",
   },
   {
-    uid: "OKY_BZN_KASIRAJIMA",
+    uid: "OKY_BZN_KASHIRAJIMA",
     name: "頭島",
     kana: "かしらじま",
-    en_name: "Kasirajima",
+    en_name: "Kashirajima",
     lat: 34.699979,
     lng: 134.286977,
     prefecture: "岡山県",
@@ -1021,10 +1021,10 @@ const islandSummaries: IslandSummary[] = [
     city: "大崎上島町",
   },
   {
-    uid: "HRS_KR_OSAKSHIMOJIMA",
+    uid: "HRS_KR_OSAKISHIMOJIMA",
     name: "大崎下島",
     kana: "おおさきしもじま",
-    en_name: "Osakshimojima",
+    en_name: "Osakishimojima",
     lat: 34.172306,
     lng: 132.829664,
     prefecture: "広島県",
@@ -1341,10 +1341,10 @@ const islandSummaries: IslandSummary[] = [
     city: "光市",
   },
   {
-    uid: "YMGC_KDM_KADADOJIMA",
+    uid: "YMGC_KDM_KASADOJIMA",
     name: "笠戸島",
     kana: "かさどしま",
-    en_name: "Kadadojima",
+    en_name: "Kasadojima",
     lat: 33.948554,
     lng: 131.837721,
     prefecture: "山口県",
@@ -1471,10 +1471,10 @@ const islandSummaries: IslandSummary[] = [
     city: "下関市",
   },
   {
-    uid: "YMGC_SMN_HUTAOIJIMA",
+    uid: "YMGC_SMN_FUTAOIJIMA",
     name: "蓋井島",
     kana: "ふたおいじま",
-    en_name: "Hutaoijima",
+    en_name: "Futaoijima",
     lat: 34.107102,
     lng: 130.779193,
     prefecture: "山口県",
@@ -2711,10 +2711,10 @@ const islandSummaries: IslandSummary[] = [
     city: "西海市",
   },
   {
-    uid: "NGS_SIK_KAKIUNOURASHIMA",
+    uid: "NGS_SIK_KAKINOURASHIMA",
     name: "蛎浦島",
     kana: "かきのうらしま",
-    en_name: "Kakiunourashima",
+    en_name: "Kakinourashima",
     lat: 33.018421,
     lng: 129.582103,
     prefecture: "長崎県",
@@ -2815,8 +2815,8 @@ const islandSummaries: IslandSummary[] = [
     name: "樺島",
     kana: "かばしま",
     en_name: "Kabashima",
-    lat: 32.746531,
-    lng: 129.873019,
+    lat: 32.561356,
+    lng: 129.781988,
     prefecture: "長崎県",
     city: "長崎市",
   },
@@ -2921,10 +2921,10 @@ const islandSummaries: IslandSummary[] = [
     city: "小値賀町",
   },
   {
-    uid: "NGS_SNK_NAKADOURIJIMA",
+    uid: "NGS_SNK_NAKADOORIJIMA",
     name: "中通島",
     kana: "なかどおりじま",
-    en_name: "Nakadourijima",
+    en_name: "Nakadoorijima",
     lat: 32.955909,
     lng: 129.081493,
     prefecture: "長崎県",
@@ -2961,10 +2961,10 @@ const islandSummaries: IslandSummary[] = [
     city: "新上五島町",
   },
   {
-    uid: "NGS_SNK_RYOUZAGAURASHIMA",
+    uid: "NGS_SNK_RYOUZEGAURASHIMA",
     name: "漁生浦島",
     kana: "りょうぜがうらしま",
-    en_name: "Ryouzagaurashima",
+    en_name: "Ryouzegaurashima",
     lat: 32.909884,
     lng: 128.964015,
     prefecture: "長崎県",
@@ -3581,10 +3581,10 @@ const islandSummaries: IslandSummary[] = [
     city: "十島村",
   },
   {
-    uid: "KGS_TSM_SUWASENOJIMA",
+    uid: "KGS_TSM_SUWANOSEJIMA",
     name: "諏訪之瀬島",
     kana: "すわのせじま",
-    en_name: "Suwasenojima",
+    en_name: "Suwanosejima",
     lat: 29.637537,
     lng: 129.708562,
     prefecture: "鹿児島県",
@@ -4145,8 +4145,8 @@ const islandSummaries: IslandSummary[] = [
     name: "新城島下地",
     kana: "あらぐすくじま（しもじ）",
     en_name: "Aragusukujima(Shimoji)",
-    lat: 24.234786,
-    lng: 123.940728,
+    lat: 24.216649,
+    lng: 123.927431,
     prefecture: "沖縄県",
     city: "竹富町",
   },
@@ -4201,5 +4201,3 @@ const islandSummaries: IslandSummary[] = [
     city: "与那国町",
   },
 ];
-
-export default islandSummaries;

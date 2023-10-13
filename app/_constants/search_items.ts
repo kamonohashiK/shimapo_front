@@ -65,9 +65,9 @@ export const searchItems = [
     target: "野々島 ののしま Nonoshima 宮城県 塩竈市",
   },
   {
-    uid: "MYG_SOG_KATSURAIJMA",
+    uid: "MYG_SOG_KATSURAJIMA",
     label: "桂島(宮城県塩竈市)",
-    target: "桂島 かつらじま Katsuraijma 宮城県 塩竈市",
+    target: "桂島 かつらじま Katsurajima 宮城県 塩竈市",
   },
   {
     uid: "MYG_SOG_HOJIMA",
@@ -110,9 +110,9 @@ export const searchItems = [
     target: "式根島 しきねじま Shikinejima 東京都 新島村",
   },
   {
-    uid: "TKY_KDS_KODUSHIMA",
+    uid: "TKY_KDS_KOZUSHIMA",
     label: "神津島(東京都神津島村)",
-    target: "神津島 こうづしま Kodushima 東京都 神津島村",
+    target: "神津島 こうづしま Kozushima 東京都 神津島村",
   },
   {
     uid: "TKY_MYK_MIYAKEJIMA",
@@ -330,14 +330,14 @@ export const searchItems = [
     target: "鹿久居島 かくいじま Kakuijima 岡山県 備前市",
   },
   {
-    uid: "OKY_BZN_OHTABUJIMA",
+    uid: "OKY_BZN_OOTABUJIMA",
     label: "大多府島(岡山県備前市)",
-    target: "大多府島 おおたぶじま Ohtabujima 岡山県 備前市",
+    target: "大多府島 おおたぶじま Ootabujima 岡山県 備前市",
   },
   {
-    uid: "OKY_BZN_KASIRAJIMA",
+    uid: "OKY_BZN_KASHIRAJIMA",
     label: "頭島(岡山県備前市)",
-    target: "頭島 かしらじま Kasirajima 岡山県 備前市",
+    target: "頭島 かしらじま Kashirajima 岡山県 備前市",
   },
   {
     uid: "OKY_BZN_KOUJIMA",
@@ -505,9 +505,9 @@ export const searchItems = [
     target: "長島 ながしま Nagashima 広島県 大崎上島町",
   },
   {
-    uid: "HRS_KR_OSAKSHIMOJIMA",
+    uid: "HRS_KR_OSAKISHIMOJIMA",
     label: "大崎下島(広島県呉市)",
-    target: "大崎下島 おおさきしもじま Osakshimojima 広島県 呉市",
+    target: "大崎下島 おおさきしもじま Osakishimojima 広島県 呉市",
   },
   {
     uid: "HRS_KR_MIKADOJIMA",
@@ -555,9 +555,10 @@ export const searchItems = [
     target: "金輪島 かなわじま Kanawajima 広島県 広島市",
   },
   {
-    uid: "HRS_ETJ_ETAJIMA/NOUMISHIMA",
+    uid: "HRS_ETJ_ETAJIMA_NOUMISHIMA",
     label: "江田島・能美島(広島県江田島市)",
-    target: "江田島・能美島 えたじま・のうみじま Etajima/Noumishima 広島県 江田島市",
+    target:
+      "江田島・能美島 えたじま・のうみじま Etajima/Noumishima 広島県 江田島市",
   },
   {
     uid: "HRS_ETJ_OKINOSHIMA",
@@ -665,9 +666,9 @@ export const searchItems = [
     target: "牛島 うしま Usima 山口県 光市",
   },
   {
-    uid: "YMGC_KDM_KADADOJIMA",
+    uid: "YMGC_KDM_KASADOJIMA",
     label: "笠戸島(山口県下松市)",
-    target: "笠戸島 かさどしま Kadadojima 山口県 下松市",
+    target: "笠戸島 かさどしま Kasadojima 山口県 下松市",
   },
   {
     uid: "YMGC_SYN_SUKUMOJIMA",
@@ -730,9 +731,9 @@ export const searchItems = [
     target: "角島 つのしま Tsunoshima 山口県 下関市",
   },
   {
-    uid: "YMGC_SMN_HUTAOIJIMA",
+    uid: "YMGC_SMN_FUTAOIJIMA",
     label: "蓋井島(山口県下関市)",
-    target: "蓋井島 ふたおいじま Hutaoijima 山口県 下関市",
+    target: "蓋井島 ふたおいじま Futaoijima 山口県 下関市",
   },
   {
     uid: "YMGC_SMN_MUTSUREJIMA",
@@ -1350,9 +1351,9 @@ export const searchItems = [
     target: "寺島 てらしま Terashima 長崎県 西海市",
   },
   {
-    uid: "NGS_SIK_KAKIUNOURASHIMA",
+    uid: "NGS_SIK_KAKINOURASHIMA",
     label: "蛎浦島(長崎県西海市)",
-    target: "蛎浦島 かきのうらしま Kakiunourashima 長崎県 西海市",
+    target: "蛎浦島 かきのうらしま Kakinourashima 長崎県 西海市",
   },
   {
     uid: "NGS_SIK_SAKITOJIMA",
@@ -1455,9 +1456,9 @@ export const searchItems = [
     target: "大島 おおしま Ohshima 長崎県 小値賀町",
   },
   {
-    uid: "NGS_SNK_NAKADOURIJIMA",
+    uid: "NGS_SNK_NAKADOORIJIMA",
     label: "中通島(長崎県新上五島町)",
-    target: "中通島 なかどおりじま Nakadourijima 長崎県 新上五島町",
+    target: "中通島 なかどおりじま Nakadoorijima 長崎県 新上五島町",
   },
   {
     uid: "NGS_SNK_KASHIRAGASHIMA",
@@ -1475,9 +1476,9 @@ export const searchItems = [
     target: "若松島 わかまつじま Wakamatsujima 長崎県 新上五島町",
   },
   {
-    uid: "NGS_SNK_RYOUZAGAURASHIMA",
+    uid: "NGS_SNK_RYOUZEGAURASHIMA",
     label: "漁生浦島(長崎県新上五島町)",
-    target: "漁生浦島 りょうぜがうらしま Ryouzagaurashima 長崎県 新上五島町",
+    target: "漁生浦島 りょうぜがうらしま Ryouzegaurashima 長崎県 新上五島町",
   },
   {
     uid: "NGS_SNK_ARIFUKUJIMA",
@@ -1742,7 +1743,8 @@ export const searchItems = [
   {
     uid: "KGS__TANEGASHIMA",
     label: "種子島(鹿児島県西之表市・中種子町・南種子町)",
-    target: "種子島 たねがしま Tanegashima 鹿児島県 西之表市・中種子町・南種子町",
+    target:
+      "種子島 たねがしま Tanegashima 鹿児島県 西之表市・中種子町・南種子町",
   },
   {
     uid: "KGS_NSN_MAGESHIMA",
@@ -1785,9 +1787,9 @@ export const searchItems = [
     target: "中之島 なかのしま Nakanoshima 鹿児島県 十島村",
   },
   {
-    uid: "KGS_TSM_SUWASENOJIMA",
+    uid: "KGS_TSM_SUWANOSEJIMA",
     label: "諏訪之瀬島(鹿児島県十島村)",
-    target: "諏訪之瀬島 すわのせじま Suwasenojima 鹿児島県 十島村",
+    target: "諏訪之瀬島 すわのせじま Suwanosejima 鹿児島県 十島村",
   },
   {
     uid: "KGS_TSM_TAIRAJIMA",
@@ -1812,7 +1814,8 @@ export const searchItems = [
   {
     uid: "KGS__AMAMIOHSHIMA",
     label: "奄美大島(鹿児島県奄美市・大和村・宇検村・龍郷町・瀬戸内町)",
-    target: "奄美大島 あまみおおしま AmamiOhshima 鹿児島県 奄美市・大和村・宇検村・龍郷町・瀬戸内町",
+    target:
+      "奄美大島 あまみおおしま AmamiOhshima 鹿児島県 奄美市・大和村・宇検村・龍郷町・瀬戸内町",
   },
   {
     uid: "KGS_STU_KAKEROMAJIMA",
@@ -1842,7 +1845,8 @@ export const searchItems = [
   {
     uid: "KGS__OKINOERABUJIMA",
     label: "沖永良部島(鹿児島県和泊町・知名町)",
-    target: "沖永良部島 おきのえらぶじま Okinoerabujima 鹿児島県 和泊町・知名町",
+    target:
+      "沖永良部島 おきのえらぶじま Okinoerabujima 鹿児島県 和泊町・知名町",
   },
   {
     uid: "KGS_YRN_YORONJIMA",
@@ -2062,12 +2066,14 @@ export const searchItems = [
   {
     uid: "OKN_TKT_ARAGUSUKUJIMA(KAMIJI)",
     label: "新城島上地(沖縄県竹富町)",
-    target: "新城島上地 あらぐすくじま（かみじ） Aragusukujima(Kamiji) 沖縄県 竹富町",
+    target:
+      "新城島上地 あらぐすくじま（かみじ） Aragusukujima(Kamiji) 沖縄県 竹富町",
   },
   {
     uid: "OKN_TKT_ARAGUSUKUJIMA(SHIMOJI)",
     label: "新城島下地(沖縄県竹富町)",
-    target: "新城島下地 あらぐすくじま（しもじ） Aragusukujima(Shimoji) 沖縄県 竹富町",
+    target:
+      "新城島下地 あらぐすくじま（しもじ） Aragusukujima(Shimoji) 沖縄県 竹富町",
   },
   {
     uid: "OKN_TKT_IRIOMOTEHIMA",
