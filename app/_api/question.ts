@@ -12,22 +12,13 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
+import { IslandQuestionCollection } from "./collections/question";
 
+// 島に関する質問と回答を取得 (質問関連のアクション後のリロード想定で)
 export async function getQuestions(islandId: string) {
   try {
-    const docRef = doc(db, "islands", islandId);
-    const questions = await getDocs(
-      query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
-    );
-    // 自身のIDを含めて渡す
-    const questionList = questions.docs.map(async (doc) => ({
-      id: doc.id,
-      question: doc.data().question,
-      answer_count: doc.data().answer_count,
-      is_default: doc.data().is_default,
-      posted_at: convertTimestamp(doc.data().posted_at),
-      answers: await getAnswers(islandId, doc.id),
-    }));
+    const islandQuestion = new IslandQuestionCollection(islandId);
+    const questionList = await islandQuestion.getQuestionsWithAnswers();
 
     return await Promise.all(questionList);
   } catch (error) {
