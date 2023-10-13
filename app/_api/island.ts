@@ -6,14 +6,13 @@ import {
   addDoc,
   collection,
   doc,
-  getDoc,
   getDocs,
   orderBy,
   query,
-  where,
 } from "firebase/firestore";
 import { convertTimestamp, getAnswers } from "./question";
 import { IslandCollection } from "./collections/island";
+import { IslandImageCollection } from "./collections/island_image";
 
 // 島の情報を取得
 export async function getIslandInfo(uid: string) {
@@ -24,13 +23,8 @@ export async function getIslandInfo(uid: string) {
     const docSnap = await islandCollection.getSnapshot();
 
     // 画像のメタデータを取得
-    var imageList: any = [];
-    const imageRef = collection(docRef, "images");
-    const q = query(imageRef, where("type", "==", "thumbnail"));
-    const images = await getDocs(q);
-    images.forEach((doc) => {
-      imageList.push(doc.data());
-    });
+    const islandImageCollection = new IslandImageCollection(uid);
+    const imageList = await islandImageCollection.getThumbnails();
 
     // 質問を取得 TODO: ここだけ別のAPIに切り出したい
     const questions = await getDocs(
