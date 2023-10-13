@@ -6,17 +6,16 @@ import { IslandQuestionCollection } from "./collections/question";
 export async function getIslandInfo(islandId: string) {
   try {
     // 島の情報をDBから取得
-    const islandCollection = new IslandCollection(islandId);
-    const islandData = await islandCollection.getData();
+    const island = new IslandCollection(islandId);
+    const islandData = await island.getData();
 
     // 画像のメタデータを取得
-    const islandImageCollection = new IslandImageCollection(islandId);
-    const imageList = await islandImageCollection.getThumbnails();
+    const islandImage = new IslandImageCollection(islandId);
+    const imageList = await islandImage.getThumbnails();
 
     // 質問を取得
-    const islandQuestionCollection = new IslandQuestionCollection(islandId);
-    const questionList =
-      await islandQuestionCollection.getQuestionsWithAnswers();
+    const islandQuestion = new IslandQuestionCollection(islandId);
+    const questionList = await islandQuestion.getQuestionsWithAnswers();
 
     return {
       result: true,
