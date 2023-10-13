@@ -30,7 +30,7 @@ export async function getIslandInfo(uid: string) {
       imageList.push(doc.data());
     });
 
-    // 質問を取得
+    // 質問を取得 TODO: ここだけ別のAPIに切り出したい
     const questions = await getDocs(
       query(collection(docRef, "questions"), orderBy("posted_at", "desc"))
     );

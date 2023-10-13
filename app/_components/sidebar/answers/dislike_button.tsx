@@ -20,7 +20,7 @@ interface DislikeButtonProps {
 export default function DislikeButton(props: DislikeButtonProps) {
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
-  const { setInfo } = useIslandInfo();
+  const { setQuestionList } = useIslandInfo();
 
   const onClick = async () => {
     if (props.user_id != "") {
@@ -32,7 +32,7 @@ export default function DislikeButton(props: DislikeButtonProps) {
           props.user_id
         )
       ) {
-        setInfo(props.island_id);
+        setQuestionList(props.island_id);
       } else {
         showAlert("エラーが発生しました。", "error");
       }
