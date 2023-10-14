@@ -2,7 +2,7 @@ import * as React from "react";
 import { useAutocomplete } from "@mui/base/useAutocomplete";
 import { styled } from "@mui/system";
 import { searchItems } from "../../_constants/search_items";
-import islandSummaries from "@/app/_constants/island_summaries";
+import { islandSummaries } from "@/app/_constants/island_summaries";
 import { setMapInfo } from "@/app/_store/mapSlice";
 import { useAppDispatch } from "@/app/_store/hooks";
 import { setIslandInfo, showSidebarText } from "@/app/_store/pageSlice";

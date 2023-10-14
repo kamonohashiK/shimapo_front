@@ -5,7 +5,7 @@ import {
   setQuestionList as setQuestionListAction,
 } from "../_store/pageSlice";
 import { getIslandInfo } from "../_api/endpoints/island";
-import islandSummaries from "../_constants/island_summaries";
+import { islandSummaries } from "../_constants/island_summaries";
 import { getQuestions } from "../_api/endpoints/island_question";
 
 export const useIslandInfo = () => {

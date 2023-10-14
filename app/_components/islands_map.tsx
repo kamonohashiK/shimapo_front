@@ -1,6 +1,6 @@
 "use client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import islandSummaries from "../_constants/island_summaries";
+import { islandSummaries } from "../_constants/island_summaries";
 import { useAppDispatch } from "../_store/hooks";
 import { setIslandInfo, showSidebarText } from "../_store/pageSlice";
 import React from "react";
