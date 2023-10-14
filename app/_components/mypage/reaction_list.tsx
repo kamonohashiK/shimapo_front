@@ -12,7 +12,14 @@ const reactionListItems = [
 
 export default function ReactionList() {
   return (
-    <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+    <List
+      sx={{
+        width: "100%",
+        bgcolor: "background.paper",
+        maxHeight: "50vh",
+        overflow: "auto",
+      }}
+    >
       {reactionListItems.map((item, index) => {
         switch (item.type) {
           case "like_image":
