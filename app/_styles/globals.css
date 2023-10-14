@@ -18,20 +18,15 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: rgb(var(--foreground-rgb));
 }
 
 #content {
   background-color: white;
   height: 100vh;
-  text-align: center;
-  margin: 80px 0 40px 0;
-  width: 50%;
+  margin: 80px 0 0 0;
+  width: 100vh;
+  overflow: auto;
 }
 
 p {

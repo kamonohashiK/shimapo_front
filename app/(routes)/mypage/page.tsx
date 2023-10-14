@@ -1,30 +1,28 @@
 "use client";
 import React from "react";
-import { Typography, Container, Grid, Button } from "@mui/material";
+import { Container, Grid, } from "@mui/material";
 import Sidebar from "../../_components/sidebar/sidebar";
-import { IslandCollection } from "@/app/_api/collections/island";
+import { UserProfile } from "@/app/_components/mypage/user_profile";
+import { UserStats } from "@/app/_components/mypage/user_stats";
+import { NotificationTab } from "@/app/_components/mypage/notification_tab";
 
 export default function MyPage() {
   //TODO: マイページアクセス時に左サイドバーの状態を切り替えるようにする
 
-  async function onClick() {
-    const island = new IslandCollection("EHM_KMJ_UOSHIMA");
-    console.log(await island.getData());
-  }
-
   return (
+    <Container sx={{ maxHeight: "100vh", overflowY: "hidden" }}>
     <Grid container direction="row" spacing={2}>
       <Grid item xs={4}>
         <Sidebar />
       </Grid>
       <Grid item xs={8} id="content">
-        <Container className="content" fixed>
-          <Typography variant="h4" color="secondary">
-            My Page
-            <Button onClick={onClick}>ほげ</Button>
-          </Typography>
+        <Container fixed>
+          <UserProfile />
+          <UserStats />
+          <NotificationTab />
         </Container>
       </Grid>
     </Grid>
+    </Container>
   );
 }
