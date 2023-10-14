@@ -1,6 +1,5 @@
 import * as React from "react";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import { PostQuestion } from "./activities/post_question";
 import { PostImage } from "./activities/post_image";
 import { PostAnswer } from "./activities/post_answer";
