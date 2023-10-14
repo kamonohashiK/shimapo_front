@@ -1,73 +1,35 @@
 import * as React from "react";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import { PostQuestion } from "./activities/post_question";
+import { PostImage } from "./activities/post_image";
+import { PostAnswer } from "./activities/post_answer";
+
+const activityListItems = [
+  { type: "question", content: "質問を投稿しました。" },
+  { type: "image", content: "10枚の画像を投稿しました。" },
+  { type: "answer", content: "質問に回答しました。" },
+];
 
 export default function ActivityList() {
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="質問を投稿しました。"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                中島(愛媛県松山市)
-              </Typography>
-              {" - 質問内容"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <img src="" alt="img" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="10枚の画像を投稿しました。"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                睦月島(愛媛県松山市)
-              </Typography>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="質問に回答しました。"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                野忽那島(愛媛県松山市): この島へのアクセス方法について教えてください。
-              </Typography>
-              {" — 質問への回答(一部省略)…"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+      {activityListItems.map((item, index) => {
+        switch (item.type) {
+          case "question":
+            return <PostQuestion />;
+          case "image":
+            return <PostImage />;
+          case "answer":
+            return <PostAnswer />;
+          default:
+            return <></>;
+        }
+      })}
     </List>
   );
+}
+
+function isLast(index: number, length: number) {
+  return index === length - 1;
 }
