@@ -1,5 +1,7 @@
 import { Container, Box, Tabs, Tab, Typography } from "@mui/material";
 import React from "react";
+import ActivityList from "./activity_list";
+import ReactionList from "./reaction_list";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,10 +57,10 @@ export const NotificationTab = () => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
-          <Typography>0</Typography>
+          <ActivityList />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Typography>1</Typography>
+          <ReactionList />
         </CustomTabPanel>
       </Container>
     );
