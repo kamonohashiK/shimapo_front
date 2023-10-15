@@ -31,8 +31,8 @@ export const useIslandInfo = () => {
           kana: selectedIsland.kana,
           enName: selectedIsland.en_name,
           mainImage: data.islandInfo?.main_image_url ?? "",
-          imageList: data.imageList ?? [],
-          questionList: data.questionList ?? [],
+          imageList: [],
+          questionList: null,
           focusedQuestionId: "",
           focusedQuestion: "",
         })
@@ -64,6 +64,8 @@ export const useIslandInfo = () => {
     const data = await getQuestions(islandId);
     if (data.length > 0) {
       dispatch(setQuestionListAction(data));
+    } else {
+      dispatch(setQuestionListAction([]));
     }
   };
 

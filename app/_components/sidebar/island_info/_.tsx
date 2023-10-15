@@ -1,9 +1,9 @@
 "use client";
-import { RootState, store } from "@/app/_store/store";
+import { RootState } from "@/app/_store/store";
 import { Container, Box, Tab, Tabs, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import IslandImageList from "./image_list";
-import QuestionList from "./question_list";
+import QuestionList from "./question_list/_";
 import React from "react";
 import SidebarTop from "./top";
 
@@ -74,7 +74,7 @@ export default function SidebarIslandInfo() {
         <IslandImageList itemData={islandInfo.imageList} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <QuestionList questions={islandInfo.questionList} />
+        <QuestionList />
       </CustomTabPanel>
     </Container>
   );

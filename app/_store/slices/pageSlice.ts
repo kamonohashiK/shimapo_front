@@ -13,8 +13,8 @@ interface PageState {
   kana: string;
   enName: string;
   mainImage: string;
-  imageList: any[];
-  questionList: any[];
+  imageList: null | any[];
+  questionList: null | any[];
   focusedQuestionId: string;
   focusedQuestion: string;
 }
@@ -46,7 +46,7 @@ const initialState: PageState = {
   enName: "English Name",
   mainImage: "",
   imageList: [],
-  questionList: [],
+  questionList: null,
   focusedQuestionId: "",
   focusedQuestion: "",
 };

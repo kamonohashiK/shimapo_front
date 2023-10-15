@@ -1,40 +1,40 @@
 import dialogTypes from "@/app/_constants/dialog_types";
+import { setFocusedQuestion } from "@/app/_store/slices/pageSlice";
+import { Launch } from "@mui/icons-material";
 import {
   Accordion,
   AccordionSummary,
   Typography,
-  AccordionDetails,
   Divider,
-  Button,
-  Avatar,
+  AccordionDetails,
   Stack,
-  Link,
+  Avatar,
+  Button,
 } from "@mui/material";
+import Link from "next/link";
+import ValuateForm from "../answers/valuate_form";
+import { parse } from "uuid";
+import { useDispatch } from "react-redux";
 import { useDialog } from "@/app/_hooks/dialog";
-import { useDispatch, useSelector } from "react-redux";
-import { setFocusedQuestion } from "@/app/_store/slices/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Launch } from "@mui/icons-material";
-import parse from "html-react-parser";
-import { RootState } from "@/app/_store/store";
-import ValuateForm from "./answers/valuate_form";
-interface QuestionListProps {
+
+interface QuestionListItemsProps {
+  userId: string;
+  islandId: string;
   questions: any[];
 }
 
-// テキストの改行コードをbrタグに変換する+サニタイズ TODO: 共通化
+// テキストの改行コードをbrタグに変換する+サニタイズ TODO: 共通化とエラー原因の解明
+/**
 const sanitize = (text: string) => {
   const sanitizedText = text.replace(/\r?\n/g, "<br>");
   return parse(sanitizedText);
 };
+ */
 
-export default function QuestionList(props: QuestionListProps) {
+export const QuestionListItems = (props: QuestionListItemsProps) => {
   const { showDialog } = useDialog();
   const dispatch = useDispatch();
-
-  const userId = useSelector((state: RootState) => state.user.userId);
-  const islandId = useSelector((state: RootState) => state.page.uid);
-
   return (
     <>
       {props.questions.map((item, index) => (
@@ -79,7 +79,7 @@ export default function QuestionList(props: QuestionListProps) {
                     {answer.posted_at} に投稿
                   </Typography>
                   <Typography gutterBottom paragraph>
-                    {sanitize(answer.answer)}
+                    {answer.answer}
                   </Typography>
                   <Typography overflow={"auto"}>
                     {answer.option_url != "" ? (
@@ -94,8 +94,8 @@ export default function QuestionList(props: QuestionListProps) {
                   <ValuateForm
                     liked_by={answer.liked_by}
                     disliked_by={answer.disliked_by}
-                    user_id={userId}
-                    island_id={islandId}
+                    user_id={props.userId}
+                    island_id={props.islandId}
                     question_id={item.id}
                     answer_id={answer.id}
                   />
@@ -125,4 +125,4 @@ export default function QuestionList(props: QuestionListProps) {
       </Button>
     </>
   );
-}
+};
