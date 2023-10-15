@@ -4,9 +4,10 @@ import { styled } from "@mui/system";
 import { searchItems } from "../../_constants/search_items";
 import { islandSummaries } from "@/app/_constants/island_summaries";
 import { useAppDispatch } from "@/app/_store/hooks";
-import { setIslandInfo, showSidebarText } from "@/app/_store/slices/pageSlice";
+import { setIslandInfo } from "@/app/_store/slices/pageSlice";
 import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { useMap } from "@/app/_hooks/map";
+import { useAlert } from "@/app/_hooks/alert";
 
 const inputWidth = 400;
 const inputPadding = "5px 10px";
@@ -46,6 +47,7 @@ const Listbox = styled("ul")(() => ({
 export default function SearchBar() {
   const dispatch = useAppDispatch();
   const { setMapInfo } = useMap();
+  const { showAlert } = useAlert();
   const {
     getRootProps,
     getInputProps,
@@ -87,11 +89,9 @@ export default function SearchBar() {
             })
           );
         } else {
-          dispatch(
-            showSidebarText({
-              textHeader: "データ取得に失敗しました。",
-              textBody: "しばらく時間を置いてからお試しください。",
-            })
+          showAlert(
+            "データ取得に失敗しました。しばらく時間を置いてからお試しください。",
+            "error"
           );
         }
 

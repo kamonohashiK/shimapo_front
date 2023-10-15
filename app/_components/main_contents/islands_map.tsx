@@ -2,13 +2,14 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { islandSummaries } from "../../_constants/island_summaries";
 import { useAppDispatch } from "../../_store/hooks";
-import { setIslandInfo, showSidebarText } from "../../_store/slices/pageSlice";
+import { setIslandInfo } from "../../_store/slices/pageSlice";
 import React from "react";
 import Areas from "../../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_store/store";
 import { getIslandInfo } from "../../_api/endpoints/island";
 import { useMap } from "@/app/_hooks/map";
+import { useAlert } from "@/app/_hooks/alert";
 
 const container = {
   width: "100%",
@@ -31,6 +32,7 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
   const dispatch = useAppDispatch();
   const mapInfo = useSelector((state: RootState) => state.map);
   const { setMapInfo } = useMap();
+  const { showAlert } = useAlert();
 
   // マーカークリック時の処理
   async function onClickMarker(uid: string) {
@@ -62,11 +64,9 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
         })
       );
     } else {
-      dispatch(
-        showSidebarText({
-          textHeader: "データ取得に失敗しました。",
-          textBody: "しばらく時間を置いてからお試しください。",
-        })
+      showAlert(
+        "データ取得に失敗しました。しばらく時間を置いてからお試しください。",
+        "error"
       );
     }
 
