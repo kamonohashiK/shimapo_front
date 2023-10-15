@@ -16,8 +16,6 @@ import { setFocusedQuestion } from "@/app/_store/slices/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";
-import LikeButton from "./answers/like_button";
-import DislikeButton from "./answers/dislike_button";
 import { RootState } from "@/app/_store/store";
 import ValuateForm from "./answers/valuate_form";
 interface QuestionListProps {
