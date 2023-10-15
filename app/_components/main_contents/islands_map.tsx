@@ -7,8 +7,8 @@ import React from "react";
 import Areas from "../../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_store/store";
-import { setMapInfo } from "../../_store/slices/mapSlice";
 import { getIslandInfo } from "../../_api/endpoints/island";
+import { useMap } from "@/app/_hooks/map";
 
 const container = {
   width: "100%",
@@ -30,6 +30,7 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
   const apiKey = props.apiKey;
   const dispatch = useAppDispatch();
   const mapInfo = useSelector((state: RootState) => state.map);
+  const { setMapInfo } = useMap();
 
   // マーカークリック時の処理
   async function onClickMarker(uid: string) {
@@ -70,14 +71,12 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
     }
 
     // マップの状態をstoreに反映
-    dispatch(
-      setMapInfo({
-        uid: uid,
-        lat: selectedIsland.lat,
-        lng: selectedIsland.lng,
-        zoomLevel: focusedZoomLevel,
-      })
-    );
+    setMapInfo({
+      uid: uid,
+      lat: selectedIsland.lat,
+      lng: selectedIsland.lng,
+      zoomLevel: focusedZoomLevel,
+    });
   }
 
   return apiKey ? (
