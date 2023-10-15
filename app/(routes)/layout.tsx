@@ -1,7 +1,6 @@
 "use client";
 import "../_styles/globals.css";
-import { Inter } from "next/font/google";
-import Header from "../_components/header/header";
+import Header from "../_components/header/_";
 import { store } from "../_store/store";
 import { Provider } from "react-redux";
 import CommonDialog from "../_components/util/common_dialog";

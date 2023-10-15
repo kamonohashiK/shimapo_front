@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
-import ImageUploadForm from "../dialog_contents/img_upload_form";
-import NewQuestionForm from "../dialog_contents/new_question_form";
+import ImageUploadForm from "./dialog_contents/img_upload_form";
+import NewQuestionForm from "./dialog_contents/new_question_form";
 import dialogTypes from "@/app/_constants/dialog_types";
-import AuthForm from "../dialog_contents/auth_form";
+import AuthForm from "./dialog_contents/auth_form";
 import { useDialog } from "@/app/_hooks/dialog";
-import AnswerForm from "../dialog_contents/answer_form";
+import AnswerForm from "./dialog_contents/answer_form";
 
 export default function CommonDialog() {
   const dialogState = useSelector((state: RootState) => state.dialog);

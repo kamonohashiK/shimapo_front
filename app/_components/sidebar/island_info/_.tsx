@@ -1,17 +1,11 @@
 "use client";
 import { RootState, store } from "@/app/_store/store";
-import {
-  Container,
-  Box,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { Container, Box, Tab, Tabs, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import IslandImageList from "./island_image_list";
+import IslandImageList from "./image_list";
 import QuestionList from "./question_list";
 import React from "react";
-import SidebarTop from "./sidebar_top";
+import SidebarTop from "./top";
 
 interface TabPanelProps {
   children?: React.ReactNode;

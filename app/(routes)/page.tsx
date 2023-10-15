@@ -1,13 +1,13 @@
 "use client";
 import * as React from "react";
-import IslandsMap from "../_components/islands_map";
-import Sidebar from "../_components/sidebar/sidebar";
+import IslandsMap from "../_components/main_contents/islands_map";
+import Sidebar from "../_components/sidebar/_";
 import Grid from "@mui/material/Grid";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { setLoginInfo, unmountLoginInfo } from "../_store/userSlice";
-import CustomImageList from "../_components/image_list";
+import CustomImageList from "../_components/main_contents/image_list";
 
 export default function Home() {
   const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
