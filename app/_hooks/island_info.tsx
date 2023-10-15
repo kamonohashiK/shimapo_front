@@ -3,7 +3,7 @@ import { RootState } from "../_store/store";
 import {
   setIslandInfo,
   setQuestionList as setQuestionListAction,
-} from "../_store/pageSlice";
+} from "../_store/slices/pageSlice";
 import { getIslandInfo } from "../_api/endpoints/island";
 import { islandSummaries } from "../_constants/island_summaries";
 import { getQuestions } from "../_api/endpoints/island_question";

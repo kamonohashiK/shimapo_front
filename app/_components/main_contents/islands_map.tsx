@@ -1,14 +1,14 @@
 "use client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
-import { islandSummaries } from "../_constants/island_summaries";
-import { useAppDispatch } from "../_store/hooks";
-import { setIslandInfo, showSidebarText } from "../_store/pageSlice";
+import { islandSummaries } from "../../_constants/island_summaries";
+import { useAppDispatch } from "../../_store/hooks";
+import { setIslandInfo, showSidebarText } from "../../_store/slices/pageSlice";
 import React from "react";
-import Areas from "../_constants/areas";
+import Areas from "../../_constants/areas";
 import { useSelector } from "react-redux";
-import { RootState } from "../_store/store";
-import { setMapInfo } from "../_store/mapSlice";
-import { getIslandInfo } from "../_api/endpoints/island";
+import { RootState } from "../../_store/store";
+import { setMapInfo } from "../../_store/slices/mapSlice";
+import { getIslandInfo } from "../../_api/endpoints/island";
 
 const container = {
   width: "100%",

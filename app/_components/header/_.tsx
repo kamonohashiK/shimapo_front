@@ -7,7 +7,7 @@ import SearchBar from "./search_bar";
 import { usePathname } from "next/navigation";
 import TitleLogo from "./title_logo";
 import AvatarMenu from "./avatar_menu";
-import HeaderAlert from "./header_alert";
+import HeaderAlert from "./alert";
 
 export default function Header() {
   const pathname = usePathname();

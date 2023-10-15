@@ -1,7 +1,7 @@
 "use client";
 import { Drawer } from "@mui/material";
-import SidebarText from "./sidebar_text";
-import SidebarIslandInfo from "./sidebar_island_info";
+import SidebarText from "./text/_";
+import SidebarIslandInfo from "./island_info/_";
 import { useAppSelector } from "../../_store/hooks";
 
 export default function Sidebar() {
@@ -23,11 +23,7 @@ export default function Sidebar() {
       variant="permanent"
       anchor="left"
     >
-      {isIslandInfo ? (
-        <SidebarIslandInfo />
-      ) : (
-        <SidebarText />
-      )}
+      {isIslandInfo ? <SidebarIslandInfo /> : <SidebarText />}
     </Drawer>
   );
 }

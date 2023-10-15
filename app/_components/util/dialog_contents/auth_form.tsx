@@ -1,8 +1,8 @@
 import { RootState } from "@/app/_store/store";
 import { Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import GoogleAuthButton from "../auth/google_auth_button";
-import LogoutButton from "../auth/logout_button";
+import GoogleAuthButton from "../../auth/google_auth_button";
+import LogoutButton from "../../auth/logout_button";
 
 export default function AuthForm() {
   const isLoggedIn = useSelector((state: RootState) => state.user.loggedIn);
