@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { useDialog } from "@/app/_hooks/dialog";
 import { useDispatch, useSelector } from "react-redux";
-import { setFocusedQuestion } from "@/app/_store/pageSlice";
+import { setFocusedQuestion } from "@/app/_store/slices/pageSlice";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Launch } from "@mui/icons-material";
 import parse from "html-react-parser";

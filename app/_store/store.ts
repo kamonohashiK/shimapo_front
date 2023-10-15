@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import pageReducer from "./pageSlice";
-import userReducer from "./userSlice";
-import mapReducer from "./mapSlice";
-import alertReducer from "./alertSlice";
-import dialogReducer from "./dialogSlice";
+import pageReducer from "./slices/pageSlice";
+import userReducer from "./slices/userSlice";
+import mapReducer from "./slices/mapSlice";
+import alertReducer from "./slices/alertSlice";
+import dialogReducer from "./slices/dialogSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,7 +1,7 @@
 import {
   hideAlert as hideAlertAction,
   setAlert as setAlertAction,
-} from "@/app/_store/alertSlice";
+} from "@/app/_store/slices/alertSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 

@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
-import { setLoginInfo, unmountLoginInfo } from "../_store/userSlice";
+import { setLoginInfo, unmountLoginInfo } from "../_store/slices/userSlice";
 import CustomImageList from "../_components/main_contents/image_list";
 
 export default function Home() {

@@ -2,7 +2,7 @@ import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { createAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
-import { reloadIslandInfo } from "@/app/_store/pageSlice";
+import { reloadIslandInfo } from "@/app/_store/slices/pageSlice";
 import { RootState } from "@/app/_store/store";
 import {
   Button,

@@ -3,9 +3,9 @@ import { useAutocomplete } from "@mui/base/useAutocomplete";
 import { styled } from "@mui/system";
 import { searchItems } from "../../_constants/search_items";
 import { islandSummaries } from "@/app/_constants/island_summaries";
-import { setMapInfo } from "@/app/_store/mapSlice";
+import { setMapInfo } from "@/app/_store/slices/mapSlice";
 import { useAppDispatch } from "@/app/_store/hooks";
-import { setIslandInfo, showSidebarText } from "@/app/_store/pageSlice";
+import { setIslandInfo, showSidebarText } from "@/app/_store/slices/pageSlice";
 import { getIslandInfo } from "@/app/_api/endpoints/island";
 
 const inputWidth = 400;
