@@ -13,7 +13,7 @@ interface PageState {
   kana: string;
   enName: string;
   mainImage: string;
-  imageList: null | any[];
+  thumbnailList: null | any[];
   questionList: null | any[];
   focusedQuestionId: string;
   focusedQuestion: string;
@@ -25,7 +25,7 @@ interface TextState {
 }
 
 interface ReloadState {
-  imageList: any[];
+  thumbnailList: any[];
   questionList: any[];
 }
 
@@ -45,7 +45,7 @@ const initialState: PageState = {
   kana: "かな",
   enName: "English Name",
   mainImage: "",
-  imageList: [],
+  thumbnailList: null,
   questionList: null,
   focusedQuestionId: "",
   focusedQuestion: "",
@@ -64,7 +64,7 @@ export const pageSlice = createSlice({
       state.kana = action.payload.kana;
       state.enName = action.payload.enName;
       state.mainImage = action.payload.mainImage;
-      state.imageList = action.payload.imageList;
+      state.thumbnailList = action.payload.thumbnailList;
       state.questionList = action.payload.questionList;
     },
     showSidebarText: (state, action: PayloadAction<TextState>) => {
@@ -73,12 +73,15 @@ export const pageSlice = createSlice({
       state.textBody = action.payload.textBody;
     },
     reloadIslandInfo: (state, action: PayloadAction<ReloadState>) => {
-      state.imageList = action.payload.imageList;
+      state.thumbnailList = action.payload.thumbnailList;
       state.questionList = action.payload.questionList;
     },
     setFocusedQuestion: (state, action: PayloadAction<QuestionState>) => {
       state.focusedQuestionId = action.payload.focusedQuestionId;
       state.focusedQuestion = action.payload.focusedQuestion;
+    },
+    setThumbnailList: (state, action: PayloadAction<any>) => {
+      state.thumbnailList = action.payload;
     },
     setQuestionList: (state, action: PayloadAction<any>) => {
       state.questionList = action.payload;
@@ -91,6 +94,7 @@ export const {
   showSidebarText,
   reloadIslandInfo,
   setFocusedQuestion,
+  setThumbnailList,
   setQuestionList,
 } = pageSlice.actions;
 

@@ -15,12 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
-import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { resizeImage } from "@/app/_utils/resize_image";
-import { reloadIslandInfo } from "@/app/_store/slices/pageSlice";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { saveImageUrl } from "@/app/_api/endpoints/island_image";
+import { useIslandInfo } from "@/app/_hooks/island_info";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -34,6 +33,7 @@ export default function ImageUploadForm() {
   const dispatch = useDispatch();
   const { showAlert } = useAlert();
   const { hideDialog } = useDialog();
+  const { setThumbnailList } = useIslandInfo();
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -98,16 +98,7 @@ export default function ImageUploadForm() {
       showAlert("画像のアップロードに失敗しました。", "error");
     } finally {
       hideDialog();
-      await getIslandInfo(islandId).then((res) => {
-        const imageList = res.imageList || [];
-        const questionList = res.questionList || [];
-        dispatch(
-          reloadIslandInfo({
-            imageList,
-            questionList,
-          })
-        );
-      });
+      setThumbnailList(islandId);
     }
   }
 

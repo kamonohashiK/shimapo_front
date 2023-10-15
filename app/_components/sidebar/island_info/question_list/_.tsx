@@ -17,7 +17,9 @@ export default function QuestionList() {
       await setQuestionList(islandId);
     };
     fetchQuestions();
-  }, [islandId, setQuestionList]);
+    // NOTE: ここで自身を依存配列に入れると無限ループになる
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [islandId]);
 
   return (
     <>
