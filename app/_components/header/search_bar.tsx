@@ -3,10 +3,8 @@ import { useAutocomplete } from "@mui/base/useAutocomplete";
 import { styled } from "@mui/system";
 import { searchItems } from "../../_constants/search_items";
 import { islandSummaries } from "@/app/_constants/island_summaries";
-import { setMapInfo } from "@/app/_store/slices/mapSlice";
-import { useAppDispatch } from "@/app/_store/hooks";
-import { setIslandInfo, showSidebarText } from "@/app/_store/slices/pageSlice";
-import { getIslandInfo } from "@/app/_api/endpoints/island";
+import { useMap } from "@/app/_hooks/map";
+import { useIslandInfo } from "@/app/_hooks/island_info";
 
 const inputWidth = 400;
 const inputPadding = "5px 10px";
@@ -44,7 +42,9 @@ const Listbox = styled("ul")(() => ({
 }));
 
 export default function SearchBar() {
-  const dispatch = useAppDispatch();
+  const { setMapInfo } = useMap();
+  const { setInfo } = useIslandInfo();
+
   const {
     getRootProps,
     getInputProps,
@@ -62,47 +62,17 @@ export default function SearchBar() {
         var filtered = islandSummaries.filter((item) => item.uid === value.uid);
         var selectedIsland = filtered[0];
 
-        // DBから選択した島の情報を取得
-        var dbInfo = await getIslandInfo(selectedIsland.uid);
-
-        //選択した島の情報をstoreに格納
-        if (dbInfo.result) {
-          dispatch(
-            setIslandInfo({
-              uid: selectedIsland.uid,
-              textHeader: "",
-              textBody: "",
-              isIslandInfo: true,
-              name: selectedIsland.name,
-              prefecture: selectedIsland.prefecture,
-              city: selectedIsland.city,
-              kana: selectedIsland.kana,
-              enName: selectedIsland.en_name,
-              mainImage: dbInfo.islandInfo?.main_image_url ?? "",
-              imageList: dbInfo.imageList ?? [],
-              questionList: dbInfo.questionList ?? [],
-              focusedQuestionId: "",
-              focusedQuestion: "",
-            })
-          );
-        } else {
-          dispatch(
-            showSidebarText({
-              textHeader: "データ取得に失敗しました。",
-              textBody: "しばらく時間を置いてからお試しください。",
-            })
-          );
-        }
+        // 選択した島の情報を取得
+        const uid = selectedIsland.uid;
+        setInfo(uid);
 
         // 検索結果をstoreに格納
-        dispatch(
-          setMapInfo({
-            uid: value.uid,
-            lat: selectedIsland.lat,
-            lng: selectedIsland.lng,
-            zoomLevel: 15,
-          })
-        );
+        setMapInfo({
+          uid: value.uid,
+          lat: selectedIsland.lat,
+          lng: selectedIsland.lng,
+          zoomLevel: 15,
+        });
       }
     },
     getOptionLabel: (option) => option.target,

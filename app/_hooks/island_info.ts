@@ -3,10 +3,12 @@ import { RootState } from "../_store/store";
 import {
   setIslandInfo,
   setQuestionList as setQuestionListAction,
+  setThumbnailList as setThumbnailListAction,
 } from "../_store/slices/pageSlice";
 import { getIslandInfo } from "../_api/endpoints/island";
 import { islandSummaries } from "../_constants/island_summaries";
 import { getQuestions } from "../_api/endpoints/island_question";
+import { getThumbnails } from "../_api/endpoints/island_image";
 
 export const useIslandInfo = () => {
   const dispatch = useDispatch();
@@ -31,8 +33,8 @@ export const useIslandInfo = () => {
           kana: selectedIsland.kana,
           enName: selectedIsland.en_name,
           mainImage: data.islandInfo?.main_image_url ?? "",
-          imageList: data.imageList ?? [],
-          questionList: data.questionList ?? [],
+          thumbnailList: null,
+          questionList: null,
           focusedQuestionId: "",
           focusedQuestion: "",
         })
@@ -50,7 +52,7 @@ export const useIslandInfo = () => {
           kana: "",
           enName: "",
           mainImage: "",
-          imageList: [],
+          thumbnailList: [],
           questionList: [],
           focusedQuestionId: "",
           focusedQuestion: "",
@@ -59,13 +61,25 @@ export const useIslandInfo = () => {
     }
   };
 
+  // 画像一覧を取得してストアに保存
+  const setThumbnailList = async (islandId: string) => {
+    const data = await getThumbnails(islandId);
+    if (data.length > 0) {
+      dispatch(setThumbnailListAction(data));
+    } else {
+      dispatch(setThumbnailListAction([]));
+    }
+  };
+
   // 質問一覧を取得してストアに保存
   const setQuestionList = async (islandId: string) => {
     const data = await getQuestions(islandId);
     if (data.length > 0) {
       dispatch(setQuestionListAction(data));
+    } else {
+      dispatch(setQuestionListAction([]));
     }
   };
 
-  return { islandInfo, setInfo, setQuestionList };
+  return { islandInfo, setInfo, setThumbnailList, setQuestionList };
 };

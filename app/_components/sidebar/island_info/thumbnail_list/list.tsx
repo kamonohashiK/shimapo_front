@@ -1,33 +1,30 @@
-import {
-  Button,
-  Divider,
-  ImageList,
-  ImageListItem,
-  Typography,
-} from "@mui/material";
-import Image from "next/image";
 import dialogTypes from "@/app/_constants/dialog_types";
 import { useDialog } from "@/app/_hooks/dialog";
+import Image from "next/image";
+import {
+  Typography,
+  ImageList,
+  ImageListItem,
+  Divider,
+  Button,
+} from "@mui/material";
 
-interface IslandImageListProps {
-  itemData: {
-    url: string;
-    title: string;
-  }[];
+interface IslandThumbnailListProps {
+  thumbnails: any[];
 }
 
-export default function IslandImageList(props: IslandImageListProps) {
+export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
   const { showDialog } = useDialog();
 
   return (
     <>
-      {props.itemData.length === 0 ? (
+      {props.thumbnails.length === 0 ? (
         <Typography variant="body1" align="center">
           この島の画像はまだありません。
         </Typography>
       ) : (
         <ImageList cols={3} rowHeight={80}>
-          {props.itemData.map((item, index) => (
+          {props.thumbnails.map((item, index) => (
             <ImageListItem key={index}>
               <Image src={item.url} width={100} height={60} alt={item.title} />
             </ImageListItem>
@@ -46,4 +43,4 @@ export default function IslandImageList(props: IslandImageListProps) {
       </Button>
     </>
   );
-}
+};
