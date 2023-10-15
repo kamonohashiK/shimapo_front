@@ -2,6 +2,7 @@ import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { createAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
+import { useIslandInfo } from "@/app/_hooks/island_info";
 import { reloadIslandInfo } from "@/app/_store/slices/pageSlice";
 import { RootState } from "@/app/_store/store";
 import {
@@ -37,9 +38,9 @@ export default function AnswerForm() {
   );
   const islandName = useSelector((state: RootState) => state.page.name);
 
-  const dispatch = useDispatch();
   const { showAlert } = useAlert();
   const { hideDialog } = useDialog();
+  const { setQuestionList } = useIslandInfo();
 
   // 回答欄の値が変更されたら実行される関数
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,16 +87,7 @@ export default function AnswerForm() {
         await createAnswer(userId, islandId, focusedQuestionId, answer, url)
       ) {
         showAlert("質問に回答しました。", "success");
-        await getIslandInfo(islandId).then((res) => {
-          const questionList = res.questionList ? res.questionList : [];
-          const imageList = res.imageList ? res.imageList : [];
-          dispatch(
-            reloadIslandInfo({
-              imageList: imageList,
-              questionList: questionList,
-            })
-          );
-        });
+        await setQuestionList(islandId);
       } else {
         showAlert("回答の投稿に失敗しました。", "error");
       }

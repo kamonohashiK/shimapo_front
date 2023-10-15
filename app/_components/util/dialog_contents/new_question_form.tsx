@@ -1,8 +1,7 @@
-import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { createQuestion } from "@/app/_api/endpoints/island_question";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
-import { reloadIslandInfo } from "@/app/_store/slices/pageSlice";
+import { useIslandInfo } from "@/app/_hooks/island_info";
 import { RootState } from "@/app/_store/store";
 import {
   Button,
@@ -12,7 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function NewQuestionForm() {
   // フォームの状態管理
@@ -24,9 +23,9 @@ export default function NewQuestionForm() {
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
 
-  const dispatch = useDispatch();
   const { showAlert } = useAlert();
   const { hideDialog } = useDialog();
+  const { setQuestionList } = useIslandInfo();
 
   // 値が変更されたら実行される関数
   const handleQuestionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,14 +55,7 @@ export default function NewQuestionForm() {
     try {
       if (await createQuestion(islandId, userId, question)) {
         showAlert("質問を投稿しました。", "success");
-        await getIslandInfo(islandId).then((res) => {
-          dispatch(
-            reloadIslandInfo({
-              imageList: res.imageList || [],
-              questionList: res.questionList || [],
-            })
-          );
-        });
+        await setQuestionList(islandId);
       } else {
         showAlert("質問の投稿に失敗しました。", "error");
       }

@@ -11,7 +11,7 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { RootState } from "@/app/_store/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Cancel } from "@mui/icons-material";
 import { uploadStorage } from "@/app/_api/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -30,7 +30,6 @@ export default function ImageUploadForm() {
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
 
-  const dispatch = useDispatch();
   const { showAlert } = useAlert();
   const { hideDialog } = useDialog();
   const { setThumbnailList } = useIslandInfo();
