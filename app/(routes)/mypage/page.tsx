@@ -3,7 +3,7 @@ import React from "react";
 import { Container, Grid } from "@mui/material";
 import Sidebar from "../../_components/sidebar/_";
 import { UserProfile } from "@/app/_components/mypage/user_profile";
-import { UserStats } from "@/app/_components/mypage/user_stats";
+import { UserStats } from "@/app/_components/mypage/user_stats/_";
 import { NotificationTab } from "@/app/_components/mypage/notification_tab";
 import { setLoginInfo, unmountLoginInfo } from "@/app/_store/slices/userSlice";
 import firebase_app from "@/firebase/config";
