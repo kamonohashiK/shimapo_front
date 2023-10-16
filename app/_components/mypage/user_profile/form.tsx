@@ -52,7 +52,7 @@ export const UserProfileForm = (props: UserProfileFormProps) => {
       setNameErrorText(upperLimit + "文字以内で入力してください。");
     } else {
       setNameError(true);
-      setNameErrorText("回答を入力してください。");
+      setNameErrorText("表示名を入力してください。");
     }
   };
 
