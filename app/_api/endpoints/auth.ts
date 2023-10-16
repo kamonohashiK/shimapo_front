@@ -1,7 +1,7 @@
 import { AuthProfile } from "../auth/profile";
 
-// ユーザーのプロフィールを取得する
-export async function getUserProfile() {
+// ユーザー自身のプロフィールを取得する
+export async function getSelfProfile() {
   const profile = new AuthProfile();
   const result = await profile.getProfile();
 
