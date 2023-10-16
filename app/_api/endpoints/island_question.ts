@@ -1,4 +1,6 @@
+import { UserProfile } from "@/app/_components/mypage/user_profile/_";
 import { IslandQuestionCollection } from "../collections/island_question";
+import { UserProfileCollection } from "../collections/user_profile";
 
 // 島に関する質問と回答を取得 (質問関連のアクション後のリロード想定で)
 export async function getQuestions(islandId: string) {
@@ -20,7 +22,9 @@ export async function createQuestion(
 ) {
   try {
     const q = new IslandQuestionCollection(islandId);
-    await q.SaveQuestion(userId, question);
+    const p = new UserProfileCollection(userId);
+
+    Promise.all([q.SaveQuestion(userId, question), p.updatePostedQuestions()]);
 
     return true;
   } catch (error) {
