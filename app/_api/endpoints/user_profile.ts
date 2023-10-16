@@ -37,3 +37,13 @@ export async function GetUserProfileById(userId: string) {
     return false;
   }
 }
+
+export async function updatePostedImages(userId: string) {
+  try {
+    const prof = new UserProfileCollection(userId);
+    await prof.updatePostedImages();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
