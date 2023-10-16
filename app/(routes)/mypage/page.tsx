@@ -2,7 +2,7 @@
 import React from "react";
 import { Container, Grid } from "@mui/material";
 import Sidebar from "../../_components/sidebar/_";
-import { UserProfile } from "@/app/_components/mypage/user_profile";
+import { UserProfile } from "@/app/_components/mypage/user_profile/_";
 import { UserStats } from "@/app/_components/mypage/user_stats/_";
 import { NotificationTab } from "@/app/_components/mypage/notification_tab";
 import { setLoginInfo, unmountLoginInfo } from "@/app/_store/slices/userSlice";
@@ -10,7 +10,6 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/app/_store/hooks";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -39,8 +38,6 @@ export default function MyPage() {
     return () => unsubscribe();
   }, []);
 
-  const profile = useAppSelector((state) => state.user);
-
   return (
     <Container sx={{ maxHeight: "100vh", overflowY: "hidden" }}>
       <Grid container direction="row" spacing={2}>
@@ -49,10 +46,7 @@ export default function MyPage() {
         </Grid>
         <Grid item xs={8} id="content">
           <Container fixed>
-            <UserProfile
-              photoUrl={profile.photoUrl}
-              displayName={profile.displayName}
-            />
+            <UserProfile />
             <UserStats />
             <NotificationTab />
           </Container>
