@@ -14,6 +14,7 @@ export const UserProfile = () => {
 
   return isEditing ? (
     <UserProfileForm
+      userId={userProfile.userId}
       displayName={userProfile.displayName}
       photoUrl={userProfile.photoUrl}
       onCancel={toggleEdit}

@@ -6,6 +6,7 @@ import {
   collection,
   getDoc,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 
@@ -45,6 +46,16 @@ export class UserProfileCollection extends Collection {
       await setDoc(this.docRef, profile);
     } catch {
       throw new Error("プロフィールの保存に失敗しました");
+    }
+  }
+
+  // 表示名・画像URLを更新
+  async updateProfile(name: string, imageUrl: string) {
+    try {
+      await updateDoc(this.docRef, { name: name, image_url: imageUrl });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
     }
   }
 }
