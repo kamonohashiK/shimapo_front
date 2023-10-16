@@ -2,6 +2,7 @@ import { AuthProfile } from "@/app/_api/auth/profile";
 import { UserProfileCollection } from "@/app/_api/collections/user_profile";
 import { uploadStorage } from "@/app/_api/storage";
 import { useAlert } from "@/app/_hooks/alert";
+import { useAuth } from "@/app/_hooks/auth";
 import { resizeImage } from "@/app/_utils/resize_image";
 import {
   Avatar,
@@ -22,6 +23,7 @@ interface UserProfileFormProps {
 
 export const UserProfileForm = (props: UserProfileFormProps) => {
   const { showAlert } = useAlert();
+  const { setAuth } = useAuth();
   // フォームの状態管理
   const [displayName, setDisplayName] = useState(props.displayName);
   const [nameError, setNameError] = useState(false);
@@ -32,6 +34,8 @@ export const UserProfileForm = (props: UserProfileFormProps) => {
   const [file, setFile] = useState<File | null>(null);
   // 画像を変更したかどうかのフラグ
   const [changedPhoto, setChangedPhoto] = useState(false);
+  // 保存中フラグ
+  const [saving, setSaving] = useState(false);
 
   const upperLimit = 20;
   const userId = props.userId;
@@ -73,7 +77,7 @@ export const UserProfileForm = (props: UserProfileFormProps) => {
 
   // 保存ボタンが押されたら実行
   async function handleSave() {
-    //TODO: 二重投稿防止
+    setSaving(true);
     var uploadedUrl = photoUrl;
     try {
       // 画像が更新された場合は、リサイズ・ストレージの保存~URLの取得を行う
@@ -97,13 +101,15 @@ export const UserProfileForm = (props: UserProfileFormProps) => {
       await Promise.all([
         auth.updateProfile(displayName, uploadedUrl),
         profile.updateProfile(displayName, uploadedUrl),
-      ]).then(() => {
+      ]).then(async () => {
+        await setAuth();
         showAlert("プロフィールを更新しました。", "success");
+        handleCancel;
       });
     } catch (error) {
       showAlert("プロフィールの更新に失敗しました。", "error");
     } finally {
-      props.onCancel();
+      setSaving(false);
     }
   }
 
@@ -137,8 +143,14 @@ export const UserProfileForm = (props: UserProfileFormProps) => {
         error={nameError}
         helperText={nameErrorText}
       />
-      <Button onClick={props.onCancel}>キャンセル</Button>
-      <Button variant="outlined" disabled={nameError} onClick={handleSave}>
+      <Button onClick={handleCancel} disabled={saving}>
+        キャンセル
+      </Button>
+      <Button
+        variant="outlined"
+        disabled={nameError || saving}
+        onClick={handleSave}
+      >
         保存
       </Button>
     </Stack>

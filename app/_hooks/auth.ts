@@ -1,5 +1,4 @@
-import { get } from "http";
-import { getUserProfile } from "../_api/endpoints/auth";
+import { getSelfProfile } from "../_api/endpoints/auth";
 import { setLoginInfo } from "../_store/slices/userSlice";
 import { useDispatch } from "react-redux";
 
@@ -7,8 +6,8 @@ export const useAuth = () => {
   const dispatch = useDispatch();
 
   // 取得したユーザー情報をReduxに保存する
-  const setProfile = async () => {
-    const user = await getUserProfile();
+  const setAuth = async () => {
+    const user = await getSelfProfile();
     if (user) {
       dispatch(
         setLoginInfo({
@@ -24,4 +23,6 @@ export const useAuth = () => {
       return false;
     }
   };
+
+  return { setAuth };
 };
