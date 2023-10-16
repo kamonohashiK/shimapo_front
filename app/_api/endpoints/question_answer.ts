@@ -1,5 +1,6 @@
 // questions/answersコレクションに対するAPI
 import { QuestionAnswerCollection } from "../collections/question_answer";
+import { UserProfileCollection } from "../collections/user_profile";
 
 // 回答を新規作成
 export async function createAnswer(
@@ -11,7 +12,11 @@ export async function createAnswer(
 ) {
   try {
     const ans = new QuestionAnswerCollection(islandId, questionId);
-    await ans.saveAnswer(answer, optionUrl, userId);
+    const p = new UserProfileCollection(userId);
+    Promise.all([
+      ans.saveAnswer(answer, optionUrl, userId),
+      p.updatePostedAnswers(),
+    ]);
 
     return true;
   } catch (error) {

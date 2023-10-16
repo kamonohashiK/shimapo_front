@@ -79,4 +79,14 @@ export class UserProfileCollection extends Collection {
       throw new Error("プロフィールの更新に失敗しました");
     }
   }
+
+  // 回答数を更新
+  async updatePostedAnswers() {
+    try {
+      await updateDoc(this.docRef, { posted_answers: increment(1) });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
 }
