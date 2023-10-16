@@ -118,6 +118,8 @@ export class QuestionAnswerCollection extends Collection {
           liked_by: newLikedBy,
         });
       }
+
+      return alreadyLiked;
     } catch {
       throw new Error("高評価の更新に失敗しました");
     }

@@ -45,7 +45,12 @@ export async function ToggleLikeAnswer(
 ) {
   try {
     const qa = new QuestionAnswerCollection(islandId, questionId);
-    await qa.updateHighEvaluation(answerId, userId);
+    const p = new UserProfileCollection(userId);
+    await qa
+      .updateHighEvaluation(answerId, userId)
+      .then(async (alreadyLiked) => {
+        await p.updateLikedAnswers(!alreadyLiked);
+      });
 
     return true;
   } catch (error) {
