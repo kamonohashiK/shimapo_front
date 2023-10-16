@@ -14,12 +14,15 @@ export const uploadStorage = async (path: string, file: File) => {
     );
     return await getDownloadURL(gsReference)
       .then((url) => {
+        console.log("DownloadUrl: " + url);
         return url;
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         return "";
       });
   } catch (error) {
+    console.log(error);
     return "";
   }
 };
