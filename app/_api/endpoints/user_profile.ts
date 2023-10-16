@@ -2,15 +2,22 @@
 import { UserProfileCollection } from "../collections/user_profile";
 
 export type UserProfileProps = {
-  userId: string;
   name: string;
   image_url: string;
+  liked_answers: number;
+  liked_images: number;
+  posted_answers: number;
+  posted_images: number;
+  posted_questions: number;
 };
 
 // user_profilesにデータが存在しない場合、新規作成する
-export async function CreateUserProfile(profile: UserProfileProps) {
+export async function CreateUserProfile(
+  userId: string,
+  profile: UserProfileProps
+) {
   try {
-    const prof = new UserProfileCollection(profile.userId);
+    const prof = new UserProfileCollection(userId);
 
     if ((await prof.isExist()) === false) {
       await prof.saveProfile(profile);
