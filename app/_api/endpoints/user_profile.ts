@@ -19,3 +19,14 @@ export async function CreateUserProfile(profile: UserProfileProps) {
     return false;
   }
 }
+
+// user_profilesのデータを取得する
+export async function GetUserProfileById(userId: string) {
+  try {
+    const prof = new UserProfileCollection(userId);
+    const data = await prof.getProfile();
+    return data;
+  } catch (error) {
+    return false;
+  }
+}
