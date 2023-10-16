@@ -10,6 +10,7 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/app/_store/hooks";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -38,6 +39,8 @@ export default function MyPage() {
     return () => unsubscribe();
   }, []);
 
+  const profile = useAppSelector((state) => state.user);
+
   return (
     <Container sx={{ maxHeight: "100vh", overflowY: "hidden" }}>
       <Grid container direction="row" spacing={2}>
@@ -46,7 +49,10 @@ export default function MyPage() {
         </Grid>
         <Grid item xs={8} id="content">
           <Container fixed>
-            <UserProfile />
+            <UserProfile
+              photoUrl={profile.photoUrl}
+              displayName={profile.displayName}
+            />
             <UserStats />
             <NotificationTab />
           </Container>
