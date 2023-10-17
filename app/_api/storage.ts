@@ -14,7 +14,6 @@ export const uploadStorage = async (path: string, file: File) => {
     );
     return await getDownloadURL(gsReference)
       .then((url) => {
-        console.log("DownloadUrl: " + url);
         return url;
       })
       .catch((err) => {

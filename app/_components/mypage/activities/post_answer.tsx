@@ -1,10 +1,39 @@
-import { Divider, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import React from "react";
+import { lightGreen } from "@mui/material/colors";
+import { trimText } from "@/app/_utils/text";
 
-export const PostAnswer = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  posted_at: string;
+}
+
+export const PostAnswer = (props: Props) => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={props.index}>
+        <ListItemAvatar>
+          <Avatar sx={{ bgcolor: lightGreen[100] }}>
+            <IconButton>
+              <QuestionAnswerIcon sx={{ color: lightGreen[600] }} />
+            </IconButton>
+          </Avatar>
+        </ListItemAvatar>
         <ListItemText
           primary="質問に回答しました。"
           secondary={
@@ -15,10 +44,11 @@ export const PostAnswer = () => {
                 variant="body2"
                 color="text.primary"
               >
-                野忽那島(愛媛県松山市):
-                この島へのアクセス方法について教えてください。
+                {trimText(props.content)}
+                <br></br>
               </Typography>
-              {" — 質問への回答(一部省略)…"}
+              {props.island.name}({props.island.location})
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

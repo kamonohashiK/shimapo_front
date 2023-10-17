@@ -20,6 +20,9 @@ import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { saveImageUrl } from "@/app/_api/endpoints/island_image";
 import { useIslandInfo } from "@/app/_hooks/island_info";
+import { updatePostedImages } from "@/app/_api/endpoints/user_profile";
+import { UserActivityCollection } from "@/app/_api/collections/user_activity";
+import { notificationTypes } from "@/app/_constants/notification_types";
 
 export default function ImageUploadForm() {
   // 投稿フォーム関連のstate
@@ -65,6 +68,10 @@ export default function ImageUploadForm() {
       setCanSubmit(false);
       setIsUploadinig(true);
 
+      // アクティビティ用に最初の画像のサムネイルを保持する変数
+      let firstThumbnailUrl: string = "";
+      let count = files.length;
+
       await Promise.all(
         files.map(async (file) => {
           // UIDを生成
@@ -76,21 +83,37 @@ export default function ImageUploadForm() {
             { name: "large", width: 1920, height: 1080 },
             { name: "thumbnail", width: 160, height: 90 },
           ];
-          types.map(async (type) => {
-            const path = `${islandId}/${type.name}/${uid}`;
-            const resizedFile = await resizeImage(
-              file,
-              type.width,
-              type.height
-            );
-            const imageUrl = await uploadStorage(path, resizedFile);
-            if (imageUrl != "") {
-              await saveImageUrl(islandId, userId, imageUrl, type.name);
-            }
-          });
+          await Promise.all(
+            types.map(async (type) => {
+              const path = `${islandId}/${type.name}/${uid}`;
+              const resizedFile = await resizeImage(
+                file,
+                type.width,
+                type.height
+              );
+              const imageUrl = await uploadStorage(path, resizedFile);
+              if (imageUrl != "") {
+                await saveImageUrl(islandId, userId, imageUrl, type.name);
+                if (type.name === "thumbnail" && !firstThumbnailUrl) {
+                  firstThumbnailUrl = imageUrl;
+                }
+              }
+            })
+          );
           // TODO: 保存が失敗した場合の処理
+          // ユーザーの画像投稿数を更新
+          await updatePostedImages(userId);
+          // アクティビティを保存
         })
-      );
+      ).then(async () => {
+        const activity = new UserActivityCollection(userId);
+        await activity.SaveActivity(
+          islandId,
+          notificationTypes.IMAGE,
+          `${count}枚の画像を投稿しました。`,
+          firstThumbnailUrl
+        );
+      });
 
       showAlert("画像をアップロードしました。", "success");
     } catch (error) {

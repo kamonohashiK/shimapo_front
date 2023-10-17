@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Divider,
   ListItem,
   ListItemAvatar,
@@ -7,25 +8,35 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const PostImage = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  thumbnail_url: string;
+  posted_at: string;
+}
+
+export const PostImage = (props: Props) => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem>
         <ListItemAvatar>
-          <img src="" alt="img" />
+          <Avatar
+            variant="rounded"
+            src={props.thumbnail_url}
+            alt="サムネイル"
+          />
         </ListItemAvatar>
         <ListItemText
-          primary="10枚の画像を投稿しました。"
+          primary={props.content}
           secondary={
             <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                睦月島(愛媛県松山市)
-              </Typography>
+              {props.island.name}({props.island.location})
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

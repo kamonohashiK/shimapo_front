@@ -18,7 +18,7 @@ export default function MyPage() {
 
   React.useEffect(() => {
     // ログイン状態を検知する TODO: 共通化する
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         dispatch(
           setLoginInfo({

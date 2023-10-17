@@ -7,6 +7,7 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  increment,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 
@@ -53,6 +54,47 @@ export class UserProfileCollection extends Collection {
   async updateProfile(name: string, imageUrl: string) {
     try {
       await updateDoc(this.docRef, { name: name, image_url: imageUrl });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
+
+  // 画像の投稿数を更新
+  async updatePostedImages() {
+    try {
+      await updateDoc(this.docRef, { posted_images: increment(1) });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
+
+  // 質問数を更新
+  async updatePostedQuestions() {
+    try {
+      await updateDoc(this.docRef, { posted_questions: increment(1) });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
+
+  // 回答数を更新
+  async updatePostedAnswers() {
+    try {
+      await updateDoc(this.docRef, { posted_answers: increment(1) });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
+
+  // 回答への高評価数を更新
+  async updateLikedAnswers(isIncrement: boolean) {
+    try {
+      const number = isIncrement ? 1 : -1;
+      await updateDoc(this.docRef, { liked_answers: increment(number) });
       return true;
     } catch {
       throw new Error("プロフィールの更新に失敗しました");

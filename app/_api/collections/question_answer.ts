@@ -118,6 +118,8 @@ export class QuestionAnswerCollection extends Collection {
           liked_by: newLikedBy,
         });
       }
+
+      return alreadyLiked;
     } catch {
       throw new Error("高評価の更新に失敗しました");
     }
@@ -152,6 +154,37 @@ export class QuestionAnswerCollection extends Collection {
       }
     } catch {
       throw new Error("低評価の更新に失敗しました");
+    }
+  }
+
+  // 質問を1件取得する
+  async getQuestion() {
+    try {
+      const question = await getDoc(this.docRef);
+
+      if (question.exists()) {
+        return question;
+      } else {
+        throw new Error("質問が見つかりませんでした");
+      }
+    } catch {
+      throw new Error("質問の取得に失敗しました");
+    }
+  }
+
+  // 回答を1件取得する
+  async getAnswer(answerId: string) {
+    try {
+      const ref = doc(this.collectionRef, answerId);
+      const answer = await getDoc(ref);
+
+      if (answer.exists()) {
+        return answer;
+      } else {
+        throw new Error("回答が見つかりませんでした");
+      }
+    } catch {
+      throw new Error("回答の取得に失敗しました");
     }
   }
 }

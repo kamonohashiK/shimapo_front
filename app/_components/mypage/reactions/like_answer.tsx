@@ -25,7 +25,7 @@ interface Props {
   posted_at: string;
 }
 
-export const AnswerQuestion = (props: Props) => {
+export const LikeAnswer = (props: Props) => {
   return (
     <>
       <ListItem alignItems="flex-start" key={props.index}>
@@ -33,7 +33,7 @@ export const AnswerQuestion = (props: Props) => {
           <Avatar alt="ユーザー画像" src={props.user.image_url} />
         </ListItemAvatar>
         <ListItemText
-          primary={props.user.name + " さんがあなたの質問に回答しました。"}
+          primary={props.user.name + "さんがあなたの回答を高評価しました。"}
           secondary={
             <React.Fragment>
               <Typography

@@ -1,7 +1,7 @@
 import { Container, Box, Tabs, Tab, Typography } from "@mui/material";
 import React from "react";
-import ActivityList from "./activity_list";
-import ReactionList from "./reaction_list";
+import ActivityList from "./activities/_";
+import ReactionList from "./reactions/_";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -37,31 +37,31 @@ function a11yProps(index: number) {
 }
 
 export const NotificationTab = () => {
-     const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0);
 
-     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-       setValue(newValue);
-     };
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
-    return (
-      <Container maxWidth="sm">
-        <Box>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-            centered
-          >
-            <Tab label="アクティビティ" {...a11yProps(0)} />
-            <Tab label="リアクション" {...a11yProps(1)} />
-          </Tabs>
-        </Box>
-        <CustomTabPanel value={value} index={0}>
-          <ActivityList />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <ReactionList />
-        </CustomTabPanel>
-      </Container>
-    );
-}
+  return (
+    <Container maxWidth="sm">
+      <Box>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          centered
+        >
+          <Tab label="アクティビティ" {...a11yProps(0)} />
+          <Tab label="リアクション" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <CustomTabPanel value={value} index={0}>
+        <ActivityList />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <ReactionList />
+      </CustomTabPanel>
+    </Container>
+  );
+};

@@ -19,10 +19,14 @@ export default function GoogleAuthButton() {
       .then(() => {
         auth.onAuthStateChanged((user) => {
           if (user) {
-            CreateUserProfile({
-              userId: user.uid,
+            CreateUserProfile(user.uid, {
               name: user.displayName ?? "未設定",
               image_url: user.photoURL ?? "",
+              liked_answers: 0,
+              liked_images: 0,
+              posted_answers: 0,
+              posted_images: 0,
+              posted_questions: 0,
             });
             showAlert("ログインに成功しました。", "success");
             push("/");
