@@ -10,6 +10,7 @@ import {
   Timestamp,
 } from "firebase/firestore";
 import { Collection } from "./collection";
+import { IslandCollection } from "./island";
 
 export class UserActivityCollection extends Collection {
   public docRef: DocumentReference<DocumentData, DocumentData>;
@@ -31,17 +32,32 @@ export class UserActivityCollection extends Collection {
         this.collectionRef,
         where("posted_at", ">=", Timestamp.fromDate(oneMonthAgo))
       );
-      const activities = await getDocs(q);
-      const activityList = activities.docs.map((doc) => ({
-        id: doc.id,
-        type: doc.data().type,
-        content: doc.data().content,
-        thumbnail_url: doc.data().thumbnail_url ?? "",
-        posted_at: this.convertTimestamp(doc.data().posted_at),
-        island: doc.data().island,
-      }));
+      const activities = await Promise.all(
+        (
+          await getDocs(q)
+        ).docs.map(async (doc) => {
+          // 参照している島のデータを取得
+          const island = new IslandCollection(doc.data().island.id);
+          const islandData = await island.getData();
+          if (islandData) {
+            return {
+              id: doc.id,
+              island: {
+                name: islandData.name,
+                location: islandData.location,
+              },
+              content: doc.data().content,
+              type: doc.data().type,
+              posted_at: this.convertTimestamp(doc.data().posted_at),
+              thumbnail_url: doc.data().thumbnail_url ?? "",
+            };
+          } else {
+            throw new Error("アクティビティの取得に失敗しました");
+          }
+        })
+      );
 
-      return activityList;
+      return activities;
     } catch {
       throw new Error("アクティビティの取得に失敗しました");
     }

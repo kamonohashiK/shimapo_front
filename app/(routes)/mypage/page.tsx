@@ -10,6 +10,8 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { UserActivityCollection } from "@/app/_api/collections/user_activity";
+import { getUserActivities } from "@/app/_api/endpoints/user_activity";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -18,7 +20,7 @@ export default function MyPage() {
 
   React.useEffect(() => {
     // ログイン状態を検知する TODO: 共通化する
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         dispatch(
           setLoginInfo({
@@ -28,6 +30,11 @@ export default function MyPage() {
             loggedIn: true,
           })
         );
+
+        const hoge = await getUserActivities(user.uid);
+        if (hoge.result) {
+          console.log(hoge.activities);
+        }
       } else {
         dispatch(unmountLoginInfo());
         push("/");
