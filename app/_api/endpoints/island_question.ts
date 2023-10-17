@@ -1,6 +1,8 @@
 import { UserProfile } from "@/app/_components/mypage/user_profile/_";
 import { IslandQuestionCollection } from "../collections/island_question";
 import { UserProfileCollection } from "../collections/user_profile";
+import { UserActivityCollection } from "../collections/user_activity";
+import { notificationTypes } from "@/app/_constants/notification_types";
 
 // 島に関する質問と回答を取得 (質問関連のアクション後のリロード想定で)
 export async function getQuestions(islandId: string) {
@@ -23,8 +25,13 @@ export async function createQuestion(
   try {
     const q = new IslandQuestionCollection(islandId);
     const p = new UserProfileCollection(userId);
+    const a = new UserActivityCollection(userId);
 
-    Promise.all([q.SaveQuestion(userId, question), p.updatePostedQuestions()]);
+    Promise.all([
+      q.SaveQuestion(userId, question),
+      p.updatePostedQuestions(),
+      a.SaveActivity(islandId, notificationTypes.QUESTION, question, ""),
+    ]);
 
     return true;
   } catch (error) {

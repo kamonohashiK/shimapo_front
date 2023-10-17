@@ -8,6 +8,7 @@ import {
   query,
   where,
   Timestamp,
+  addDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 import { IslandCollection } from "./island";
@@ -60,6 +61,31 @@ export class UserActivityCollection extends Collection {
       return activities;
     } catch {
       throw new Error("アクティビティの取得に失敗しました");
+    }
+  }
+
+  // アクティビティを新規作成
+  async SaveActivity(
+    islandId: string,
+    type: string,
+    content: string,
+    thumbnailUrl: string
+  ) {
+    try {
+      // 参照を追加
+      const islandRef = doc(this.firestore, "islands", islandId);
+      console.log(islandRef);
+
+      await addDoc(this.collectionRef, {
+        content: content,
+        type: type,
+        thumbnail_url: thumbnailUrl,
+        island: islandRef,
+        posted_at: Timestamp.now(),
+        expired_at: Timestamp.fromDate(this.getTimestampOneMonthLater()),
+      });
+    } catch {
+      throw new Error("アクティビティの作成に失敗しました");
     }
   }
 }

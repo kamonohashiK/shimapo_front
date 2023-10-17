@@ -28,4 +28,11 @@ export class Collection {
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
     return oneMonthAgo;
   }
+
+  // 現時点より1ヶ月後のタイムスタンプを取得する
+  getTimestampOneMonthLater() {
+    const oneMonthLater = new Date();
+    oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+    return oneMonthLater;
+  }
 }
