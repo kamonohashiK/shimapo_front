@@ -25,10 +25,12 @@ export class IslandImageCollection extends Collection {
   async getThumbnails() {
     const q = query(this.collectionRef, where("type", "==", "thumbnail"));
     const images = await getDocs(q);
-    // TODO: ストア保存時にタイムスタンプ関連のエラーが出るため修正
+    // TODO: 参照しているユーザーの情報を取得する
     const imageList = images.docs.map((doc) => ({
       id: doc.id,
-      ...doc.data(),
+      url: doc.data().url,
+      posted_at: this.convertTimestamp(doc.data().posted_at),
+      //posted_by: doc.data().posted_by,
     }));
 
     return imageList;
