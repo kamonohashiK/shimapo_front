@@ -35,14 +35,7 @@ export const PostImage = (props: Props) => {
           primary={props.content}
           secondary={
             <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                {props.island.name}({props.island.location})
-              </Typography>
+              {props.island.name}({props.island.location})
               {" " + props.posted_at}
             </React.Fragment>
           }

@@ -1,3 +1,4 @@
+import { trimText } from "@/app/_utils/text";
 import {
   ListItem,
   ListItemAvatar,
@@ -41,11 +42,11 @@ export const AnswerQuestion = (props: Props) => {
                 variant="body2"
                 color="text.primary"
               >
-                {props.content}
+                {trimText(props.content)}
                 <br></br>
-                {props.island.name}({props.island.location})
               </Typography>
-              {" — " + props.posted_at}
+              {props.island.name}({props.island.location})
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

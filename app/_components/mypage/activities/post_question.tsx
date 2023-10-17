@@ -10,6 +10,7 @@ import {
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import React from "react";
 import { blue } from "@mui/material/colors";
+import { trimText } from "@/app/_utils/text";
 
 interface Props {
   index: number;
@@ -43,10 +44,10 @@ export const PostQuestion = (props: Props) => {
                 variant="body2"
                 color="text.primary"
               >
-                {props.content}
+                {trimText(props.content)}
                 <br></br>
-                {props.island.name}({props.island.location})
               </Typography>
+              {props.island.name}({props.island.location})
               {" " + props.posted_at}
             </React.Fragment>
           }

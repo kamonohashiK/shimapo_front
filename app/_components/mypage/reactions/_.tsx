@@ -1,15 +1,8 @@
 import * as React from "react";
-import List from "@mui/material/List";
-import { LikeImage } from "./like_image";
-import { AnswerQuestion } from "./answer_question";
-import { LikeAnswer } from "./like_answer";
-import { notificationTypes } from "@/app/_constants/notification_types";
 import { useUserProfile } from "@/app/_hooks/user_profile";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
-import { Timestamp } from "firebase/firestore";
 import { ProgressCircle } from "../../util/progress_circle";
-import { ActivityList } from "../activities/list";
 import ReactionList from "./list";
 
 export default function Reaction() {
@@ -35,6 +28,7 @@ export default function Reaction() {
       }
     };
     fetchReactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   // TODO: 取得したデータが0件の場合の処理を追加
