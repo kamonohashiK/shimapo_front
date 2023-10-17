@@ -4,101 +4,47 @@ import { LikeImage } from "./like_image";
 import { AnswerQuestion } from "./answer_question";
 import { LikeAnswer } from "./like_answer";
 import { notificationTypes } from "@/app/_constants/notification_types";
+import { useUserProfile } from "@/app/_hooks/user_profile";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
+import { Timestamp } from "firebase/firestore";
+import { ProgressCircle } from "../../util/progress_circle";
+import { ActivityList } from "../activities/list";
+import ReactionList from "./list";
 
-const reactionListItems = [
-  {
-    type: "like_image",
-    content: "画像url",
-    island: { id: "hoge", name: "釣島", location: "愛媛県松山市" },
-    user: { id: "fuga", name: "釣り太郎", image_url: "ユーザー画像url" },
-    posted_at: "YYYY年MM月DD日 10:00:00",
-  },
-  {
-    type: "answer_question",
-    content: "質問:回答(合計40字以内)",
-    island: { id: "hoge", name: "釣島", location: "愛媛県松山市" },
-    user: { id: "fuga", name: "釣り太郎", image_url: "ユーザー画像url" },
-    posted_at: "YYYY年MM月DD日 10:00:00",
-  },
-  {
-    type: "like_answer",
-    content: "質問:回答(合計40字以内)",
-    island: { id: "hoge", name: "釣島", location: "愛媛県松山市" },
-    user: { id: "fuga", name: "釣り太郎", image_url: "ユーザー画像url" },
-    posted_at: "YYYY年MM月DD日 10:00:00",
-  },
-];
+export default function Reaction() {
+  // 島の質問一覧を取得
+  const [reactionListItems, setReactionListItems] = React.useState<
+    {
+      id: string;
+      island: { name: any; location: any };
+      user: { name: any; image_url: any };
+      content: any;
+      type: any;
+      posted_at: any;
+    }[]
+  >([]);
+  const userId = useSelector((state: RootState) => state.user.userId);
+  const { getUserReactionsById } = useUserProfile();
 
-export default function ReactionList() {
+  React.useEffect(() => {
+    const fetchReactions = async () => {
+      const items = await getUserReactionsById(userId);
+      if (items.result && items.reactions !== undefined) {
+        setReactionListItems(items.reactions);
+      }
+    };
+    fetchReactions();
+  }, [userId]);
+
+  // TODO: 取得したデータが0件の場合の処理を追加
   return (
-    <List
-      sx={{
-        width: "100%",
-        bgcolor: "background.paper",
-        maxHeight: "50vh",
-        overflow: "auto",
-      }}
-    >
-      {reactionListItems.map((item, index) => {
-        switch (item.type) {
-          case notificationTypes.LIKE_IMAGE:
-            return (
-              <LikeImage
-                index={index}
-                content={item.content}
-                island={{
-                  id: item.island?.id ?? "",
-                  name: item.island?.name ?? "",
-                  location: item.island?.location ?? "",
-                }}
-                user={{
-                  id: item.user.id ?? "",
-                  name: item.user.name ?? "",
-                  image_url: item.user.image_url ?? "",
-                }}
-                posted_at={item.posted_at ?? ""}
-              />
-            );
-          case notificationTypes.ANSWER_QUESTION:
-            return (
-              <AnswerQuestion
-                index={index}
-                content={item.content}
-                island={{
-                  id: item.island?.id ?? "",
-                  name: item.island?.name ?? "",
-                  location: item.island?.location ?? "",
-                }}
-                user={{
-                  id: item.user.id ?? "",
-                  name: item.user.name ?? "",
-                  image_url: item.user.image_url ?? "",
-                }}
-                posted_at={item.posted_at ?? ""}
-              />
-            );
-          case notificationTypes.LIKE_ANSWER:
-            return (
-              <LikeAnswer
-                index={index}
-                content={item.content}
-                island={{
-                  id: item.island?.id ?? "",
-                  name: item.island?.name ?? "",
-                  location: item.island?.location ?? "",
-                }}
-                user={{
-                  id: item.user.id ?? "",
-                  name: item.user.name ?? "",
-                  image_url: item.user.image_url ?? "",
-                }}
-                posted_at={item.posted_at ?? ""}
-              />
-            );
-          default:
-            return <></>;
-        }
-      })}
-    </List>
+    <>
+      {reactionListItems != null ? (
+        <ReactionList reactionListItems={reactionListItems} />
+      ) : (
+        <ProgressCircle />
+      )}
+    </>
   );
 }
