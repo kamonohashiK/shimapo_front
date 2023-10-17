@@ -1,18 +1,21 @@
 import {
+  Avatar,
   Divider,
+  IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Typography,
 } from "@mui/material";
+import FilterIcon from "@mui/icons-material/Filter";
 import React from "react";
 
 export const PostImage = () => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem>
         <ListItemAvatar>
-          <img src="" alt="img" />
+          <Avatar variant="rounded" src="1枚目の画像url" alt="サムネイル" />
         </ListItemAvatar>
         <ListItemText
           primary="10枚の画像を投稿しました。"
@@ -26,6 +29,7 @@ export const PostImage = () => {
               >
                 睦月島(愛媛県松山市)
               </Typography>
+              {" 投稿日時"}
             </React.Fragment>
           }
         />

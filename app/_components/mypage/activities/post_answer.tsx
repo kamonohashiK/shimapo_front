@@ -1,10 +1,27 @@
-import { Divider, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Avatar,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import React from "react";
+import { lightGreen, yellow } from "@mui/material/colors";
 
 export const PostAnswer = () => {
   return (
     <>
       <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar sx={{ bgcolor: lightGreen[100] }}>
+            <IconButton>
+              <QuestionAnswerIcon sx={{ color: lightGreen[600] }} />
+            </IconButton>
+          </Avatar>
+        </ListItemAvatar>
         <ListItemText
           primary="質問に回答しました。"
           secondary={
@@ -15,10 +32,11 @@ export const PostAnswer = () => {
                 variant="body2"
                 color="text.primary"
               >
-                野忽那島(愛媛県松山市):
-                この島へのアクセス方法について教えてください。
+                質問: 回答(合計40字以内)
+                <br></br>
+                野忽那島(愛媛県松山市)
               </Typography>
-              {" — 質問への回答(一部省略)…"}
+              {" 投稿日時"}
             </React.Fragment>
           }
         />

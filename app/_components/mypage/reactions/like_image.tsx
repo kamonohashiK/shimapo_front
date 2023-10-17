@@ -5,6 +5,7 @@ import {
   ListItemText,
   Typography,
   Divider,
+  IconButton,
 } from "@mui/material";
 import React from "react";
 
@@ -16,7 +17,7 @@ export const LikeImage = () => {
           <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
         </ListItemAvatar>
         <ListItemAvatar>
-          <img src="" alt="img" />
+          <Avatar variant="rounded" src="1枚目の画像url" alt="サムネイル" />
         </ListItemAvatar>
         <ListItemText
           primary="{ユーザー名} さんがあなたの画像を高評価しました。"
@@ -30,6 +31,7 @@ export const LikeImage = () => {
               >
                 中島(愛媛県松山市)
               </Typography>
+              {" 投稿日時"}
             </React.Fragment>
           }
         />

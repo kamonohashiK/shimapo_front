@@ -25,9 +25,11 @@ export const LikeAnswer = () => {
                 variant="body2"
                 color="text.primary"
               >
-                大島(愛媛県八幡浜市): 質問内容
+                質問:回答(合計40字以内)
+                <br></br>
+                中島(愛媛県松山市)
               </Typography>
-              {" — 回答内容(省略あり)"}
+              {" 投稿日時"}
             </React.Fragment>
           }
         />
