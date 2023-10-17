@@ -88,6 +88,7 @@ export default function AnswerForm() {
         showAlert("回答の投稿に失敗しました。", "error");
       }
     } catch (error) {
+      console.error(error);
       showAlert("回答の投稿に失敗しました。", "error");
     } finally {
       hideDialog();

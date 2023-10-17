@@ -3,6 +3,7 @@ import { notificationTypes } from "@/app/_constants/notification_types";
 import { QuestionAnswerCollection } from "../collections/question_answer";
 import { UserActivityCollection } from "../collections/user_activity";
 import { UserProfileCollection } from "../collections/user_profile";
+import { UserReactionCollection } from "../collections/user_reaction";
 
 // 回答を新規作成
 export async function createAnswer(
@@ -17,17 +18,25 @@ export async function createAnswer(
     const q = new QuestionAnswerCollection(islandId, questionId);
     await q.getQuestion().then(async (questionData) => {
       const questionText = questionData.data().question;
+      const questionerId = questionData.data().posted_by.id;
       const content = questionText + ":" + answer;
 
       // 保存メソッドの呼び出し
       const ans = new QuestionAnswerCollection(islandId, questionId);
       const p = new UserProfileCollection(userId);
       const act = new UserActivityCollection(userId);
+      const reaction = new UserReactionCollection(questionerId);
 
       await Promise.all([
         ans.saveAnswer(answer, optionUrl, userId),
         p.updatePostedAnswers(),
         act.SaveActivity(islandId, notificationTypes.ANSWER, content, ""),
+        reaction.SaveReaction(
+          userId,
+          islandId,
+          notificationTypes.ANSWER_QUESTION,
+          content
+        ),
       ]);
     });
     return true;

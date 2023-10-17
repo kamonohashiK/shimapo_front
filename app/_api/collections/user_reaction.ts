@@ -8,10 +8,10 @@ import {
   getDocs,
   query,
   where,
+  addDoc,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 import { IslandCollection } from "./island";
-import { UserProfile } from "@/app/_components/mypage/user_profile/_";
 import { UserProfileCollection } from "./user_profile";
 
 export class UserReactionCollection extends Collection {
@@ -68,6 +68,37 @@ export class UserReactionCollection extends Collection {
       return activities;
     } catch {
       throw new Error("リアクションの取得に失敗しました");
+    }
+  }
+
+  // リアクションを保存
+  async SaveReaction(
+    userId: string,
+    islandId: string,
+    type: string,
+    content: string
+  ) {
+    try {
+      // 参照している情報を取得
+      const userRef = doc(this.firestore, "user_profiles", userId);
+      const islandRef = doc(this.firestore, "islands", islandId);
+
+      if (userRef && islandRef) {
+        // リアクションの保存
+        await addDoc(this.collectionRef, {
+          content: content,
+          type: type,
+          user: userRef,
+          island: islandRef,
+          read: false,
+          posted_at: Timestamp.now(),
+          expired_at: Timestamp.fromDate(this.getTimestampOneMonthLater()),
+        });
+      } else {
+        throw new Error("参照データがないためリアクションの保存に失敗しました");
+      }
+    } catch {
+      throw new Error("リアクションの保存に失敗しました");
     }
   }
 }
