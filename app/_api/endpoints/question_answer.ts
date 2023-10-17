@@ -1,5 +1,7 @@
 // questions/answersコレクションに対するAPI
+import { notificationTypes } from "@/app/_constants/notification_types";
 import { QuestionAnswerCollection } from "../collections/question_answer";
+import { UserActivityCollection } from "../collections/user_activity";
 import { UserProfileCollection } from "../collections/user_profile";
 
 // 回答を新規作成
@@ -11,13 +13,23 @@ export async function createAnswer(
   optionUrl: string
 ) {
   try {
-    const ans = new QuestionAnswerCollection(islandId, questionId);
-    const p = new UserProfileCollection(userId);
-    Promise.all([
-      ans.saveAnswer(answer, optionUrl, userId),
-      p.updatePostedAnswers(),
-    ]);
+    // 元の質問文を取得
+    const q = new QuestionAnswerCollection(islandId, questionId);
+    await q.getQuestion().then(async (questionData) => {
+      const questionText = questionData.data().question;
+      const content = questionText + ":" + answer;
 
+      // 保存メソッドの呼び出し
+      const ans = new QuestionAnswerCollection(islandId, questionId);
+      const p = new UserProfileCollection(userId);
+      const act = new UserActivityCollection(userId);
+
+      await Promise.all([
+        ans.saveAnswer(answer, optionUrl, userId),
+        p.updatePostedAnswers(),
+        act.SaveActivity(islandId, notificationTypes.ANSWER, content, ""),
+      ]);
+    });
     return true;
   } catch (error) {
     return false;

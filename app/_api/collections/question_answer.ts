@@ -156,4 +156,19 @@ export class QuestionAnswerCollection extends Collection {
       throw new Error("低評価の更新に失敗しました");
     }
   }
+
+  // 質問を1件取得する
+  async getQuestion() {
+    try {
+      const question = await getDoc(this.docRef);
+
+      if (question.exists()) {
+        return question;
+      } else {
+        throw new Error("質問が見つかりませんでした");
+      }
+    } catch {
+      throw new Error("質問の取得に失敗しました");
+    }
+  }
 }

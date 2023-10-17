@@ -1,9 +1,7 @@
-import { getIslandInfo } from "@/app/_api/endpoints/island";
 import { createAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 import { useIslandInfo } from "@/app/_hooks/island_info";
-import { reloadIslandInfo } from "@/app/_store/slices/pageSlice";
 import { RootState } from "@/app/_store/store";
 import {
   Button,
@@ -13,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function AnswerForm() {
   // フォームの状態管理 FIXME: もうちょっとスマートに書く方法はありそう
@@ -82,12 +80,10 @@ export default function AnswerForm() {
     setDisabled(true);
 
     try {
-      // TODO: API作成
       if (
         await createAnswer(userId, islandId, focusedQuestionId, answer, url)
       ) {
         showAlert("質問に回答しました。", "success");
-        await setQuestionList(islandId);
       } else {
         showAlert("回答の投稿に失敗しました。", "error");
       }
@@ -95,6 +91,7 @@ export default function AnswerForm() {
       showAlert("回答の投稿に失敗しました。", "error");
     } finally {
       hideDialog();
+      await setQuestionList(islandId);
     }
   }
 

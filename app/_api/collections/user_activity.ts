@@ -74,7 +74,6 @@ export class UserActivityCollection extends Collection {
     try {
       // 参照を追加
       const islandRef = doc(this.firestore, "islands", islandId);
-      console.log(islandRef);
 
       await addDoc(this.collectionRef, {
         content: content,
