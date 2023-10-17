@@ -10,8 +10,6 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { UserActivityCollection } from "@/app/_api/collections/user_activity";
-import { getUserActivities } from "@/app/_api/endpoints/user_activity";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -30,11 +28,6 @@ export default function MyPage() {
             loggedIn: true,
           })
         );
-
-        const hoge = await getUserActivities(user.uid);
-        if (hoge.result) {
-          console.log(hoge.activities);
-        }
       } else {
         dispatch(unmountLoginInfo());
         push("/");
