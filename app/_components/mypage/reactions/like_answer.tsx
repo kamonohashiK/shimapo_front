@@ -8,15 +8,31 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const LikeAnswer = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  user: {
+    id: string;
+    name: string;
+    image_url: string;
+  };
+  posted_at: string;
+}
+
+export const LikeAnswer = (props: Props) => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={props.index}>
         <ListItemAvatar>
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+          <Avatar alt="ユーザー画像" src={props.user.image_url} />
         </ListItemAvatar>
         <ListItemText
-          primary="{ユーザー名} さんがあなたの回答を高評価しました。"
+          primary={props.user.name + "さんがあなたの回答を高評価しました。"}
           secondary={
             <React.Fragment>
               <Typography
@@ -25,11 +41,11 @@ export const LikeAnswer = () => {
                 variant="body2"
                 color="text.primary"
               >
-                質問:回答(合計40字以内)
+                {props.content}
                 <br></br>
-                中島(愛媛県松山市)
+                {props.island.name}({props.island.location})
               </Typography>
-              {" 投稿日時"}
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

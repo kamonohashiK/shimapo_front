@@ -8,15 +8,31 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export const AnswerQuestion = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  user: {
+    id: string;
+    name: string;
+    image_url: string;
+  };
+  posted_at: string;
+}
+
+export const AnswerQuestion = (props: Props) => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={props.index}>
         <ListItemAvatar>
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+          <Avatar alt="ユーザー画像" src={props.user.image_url} />
         </ListItemAvatar>
         <ListItemText
-          primary="{ユーザー名} さんがあなたの質問に回答しました。"
+          primary={props.user.name + " さんがあなたの質問に回答しました。"}
           secondary={
             <React.Fragment>
               <Typography
@@ -25,11 +41,11 @@ export const AnswerQuestion = () => {
                 variant="body2"
                 color="text.primary"
               >
-                質問:回答(合計40字以内)
+                {props.content}
                 <br></br>
-                中島(愛媛県今治市)
+                {props.island.name}({props.island.location})
               </Typography>
-              {" 投稿日時"}
+              {" — " + props.posted_at}
             </React.Fragment>
           }
         />
