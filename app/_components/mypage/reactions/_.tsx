@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import { LikeImage } from "./like_image";
 import { AnswerQuestion } from "./answer_question";
 import { LikeAnswer } from "./like_answer";
+import { notificationTypes } from "@/app/_constants/notification_types";
 
 const reactionListItems = [
   {
@@ -40,7 +41,7 @@ export default function ReactionList() {
     >
       {reactionListItems.map((item, index) => {
         switch (item.type) {
-          case "like_image":
+          case notificationTypes.LIKE_IMAGE:
             return (
               <LikeImage
                 index={index}
@@ -58,7 +59,7 @@ export default function ReactionList() {
                 posted_at={item.posted_at ?? ""}
               />
             );
-          case "answer_question":
+          case notificationTypes.ANSWER_QUESTION:
             return (
               <AnswerQuestion
                 index={index}
@@ -76,7 +77,7 @@ export default function ReactionList() {
                 posted_at={item.posted_at ?? ""}
               />
             );
-          case "like_answer":
+          case notificationTypes.LIKE_ANSWER:
             return (
               <LikeAnswer
                 index={index}

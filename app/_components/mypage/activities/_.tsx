@@ -3,6 +3,7 @@ import List from "@mui/material/List";
 import { PostQuestion } from "./post_question";
 import { PostImage } from "./post_image";
 import { PostAnswer } from "./post_answer";
+import { notificationTypes } from "@/app/_constants/notification_types";
 
 const activityListItems = [
   {
@@ -50,7 +51,7 @@ export default function ActivityList() {
     >
       {activityListItems.map((item, index) => {
         switch (item.type) {
-          case "question":
+          case notificationTypes.QUESTION:
             return (
               <PostQuestion
                 index={index}
@@ -63,7 +64,7 @@ export default function ActivityList() {
                 posted_at={item.posted_at ?? ""}
               />
             );
-          case "image":
+          case notificationTypes.IMAGE:
             return (
               <PostImage
                 index={index}
@@ -77,7 +78,7 @@ export default function ActivityList() {
                 posted_at={item.posted_at ?? ""}
               />
             );
-          case "answer":
+          case notificationTypes.ANSWER:
             return (
               <PostAnswer
                 index={index}
