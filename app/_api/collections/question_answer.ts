@@ -171,4 +171,20 @@ export class QuestionAnswerCollection extends Collection {
       throw new Error("質問の取得に失敗しました");
     }
   }
+
+  // 回答を1件取得する
+  async getAnswer(answerId: string) {
+    try {
+      const ref = doc(this.collectionRef, answerId);
+      const answer = await getDoc(ref);
+
+      if (answer.exists()) {
+        return answer;
+      } else {
+        throw new Error("回答が見つかりませんでした");
+      }
+    } catch {
+      throw new Error("回答の取得に失敗しました");
+    }
+  }
 }
