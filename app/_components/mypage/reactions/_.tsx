@@ -1,8 +1,8 @@
 import * as React from "react";
 import List from "@mui/material/List";
-import { LikeImage } from "./reactions/like_image";
-import { AnswerQuestion } from "./reactions/answer_question";
-import { LikeAnswer } from "./reactions/like_answet";
+import { LikeImage } from "./like_image";
+import { AnswerQuestion } from "./answer_question";
+import { LikeAnswer } from "./like_answer";
 
 const reactionListItems = [
   { type: "like_image", content: "あなたの画像を高評価しました。" },

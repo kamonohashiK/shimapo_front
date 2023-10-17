@@ -1,24 +1,38 @@
 import {
   Avatar,
   Divider,
-  IconButton,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Typography,
 } from "@mui/material";
-import FilterIcon from "@mui/icons-material/Filter";
 import React from "react";
 
-export const PostImage = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  thumbnail_url: string;
+  posted_at: string;
+}
+
+export const PostImage = (props: Props) => {
   return (
     <>
       <ListItem>
         <ListItemAvatar>
-          <Avatar variant="rounded" src="1枚目の画像url" alt="サムネイル" />
+          <Avatar
+            variant="rounded"
+            src={props.thumbnail_url}
+            alt="サムネイル"
+          />
         </ListItemAvatar>
         <ListItemText
-          primary="10枚の画像を投稿しました。"
+          primary={props.content}
           secondary={
             <React.Fragment>
               <Typography
@@ -27,9 +41,9 @@ export const PostImage = () => {
                 variant="body2"
                 color="text.primary"
               >
-                睦月島(愛媛県松山市)
+                {props.island.name}({props.island.location})
               </Typography>
-              {" 投稿日時"}
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

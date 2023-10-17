@@ -9,12 +9,23 @@ import {
 } from "@mui/material";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import React from "react";
-import { lightGreen, yellow } from "@mui/material/colors";
+import { lightGreen } from "@mui/material/colors";
 
-export const PostAnswer = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  posted_at: string;
+}
+
+export const PostAnswer = (props: Props) => {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={props.index}>
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: lightGreen[100] }}>
             <IconButton>
@@ -32,11 +43,11 @@ export const PostAnswer = () => {
                 variant="body2"
                 color="text.primary"
               >
-                質問: 回答(合計40字以内)
+                {props.content}
                 <br></br>
-                野忽那島(愛媛県松山市)
+                {props.island.name}({props.island.location})
               </Typography>
-              {" 投稿日時"}
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />

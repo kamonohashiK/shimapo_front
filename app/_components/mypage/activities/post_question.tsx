@@ -11,7 +11,18 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import React from "react";
 import { blue } from "@mui/material/colors";
 
-export const PostQuestion = () => {
+interface Props {
+  index: number;
+  content: string;
+  island: {
+    id: string;
+    name: string;
+    location: string;
+  };
+  posted_at: string;
+}
+
+export const PostQuestion = (props: Props) => {
   return (
     <>
       <ListItem alignItems="flex-start">
@@ -32,11 +43,11 @@ export const PostQuestion = () => {
                 variant="body2"
                 color="text.primary"
               >
-                質問(合計40字以内)
+                {props.content}
                 <br></br>
-                中島(愛媛県松山市)
+                {props.island.name}({props.island.location})
               </Typography>
-              {" 投稿日時"}
+              {" " + props.posted_at}
             </React.Fragment>
           }
         />
