@@ -1,9 +1,0 @@
-const dialogTypes = {
-  IMAGE_UPLOAD_FORM: "IMAGE_UPLOAD_FORM",
-  NEW_QUESTION_FORM: "NEW_QUESTION_FORM",
-  ANSWER_FORM: "ANSWER_FORM",
-  AUTH_FORM: "AUTH_FORM",
-  DEFAULT: "",
-};
-
-export default dialogTypes;
