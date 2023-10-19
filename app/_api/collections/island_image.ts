@@ -6,6 +6,7 @@ import {
   collection,
   doc,
   getDocs,
+  limit,
   query,
   where,
 } from "firebase/firestore";
@@ -24,6 +25,25 @@ export class IslandImageCollection extends Collection {
   // 島ごとの画像(サムネイル)のメタデータを取得する
   async getThumbnails() {
     const q = query(this.collectionRef, where("type", "==", "thumbnail"));
+    const images = await getDocs(q);
+    // TODO: 参照しているユーザーの情報を取得する
+    const imageList = images.docs.map((doc) => ({
+      id: doc.id,
+      url: doc.data().url,
+      posted_at: this.convertTimestamp(doc.data().posted_at),
+      //posted_by: doc.data().posted_by,
+    }));
+
+    return imageList;
+  }
+
+  // 島ごとの画像(拡大版)のメタデータを取得する
+  async getLargeImages() {
+    const q = query(
+      this.collectionRef,
+      where("type", "==", "large"),
+      limit(10)
+    );
     const images = await getDocs(q);
     // TODO: 参照しているユーザーの情報を取得する
     const imageList = images.docs.map((doc) => ({

@@ -7,9 +7,26 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Fab, Tooltip } from "@mui/material";
 import { useMap } from "@/app/_hooks/map";
+import { useEffect } from "react";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 
 export default function CustomImageList() {
-  const { setIsMap } = useMap();
+  const islandId = useSelector((state: RootState) => state.page.uid);
+  const [imageList, setImageList] = React.useState<
+    { id: string; url: any; posted_at: any }[]
+  >([]);
+  const { setIsMap, getLargeImages } = useMap();
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const items = await getLargeImages(islandId);
+      if (items.length > 0) {
+        setImageList(items);
+      }
+    };
+    fetchImages();
+  }, []);
 
   return (
     <>
@@ -42,14 +59,14 @@ export default function CustomImageList() {
           backgroundColor: "black",
         }}
         rowHeight={300}
-        cols={3}
+        cols={2}
       >
-        {itemData.map((item, index) => {
+        {imageList.map((item, index) => {
           return (
             <ImageListItem key={index}>
               <img
-                src={`${item.img}?w=400&fit=crop&auto=format`}
-                alt={item.title}
+                src={`${item.url}`}
+                alt={`画像${index + 1}`}
                 loading="lazy"
               />
               <ImageListItemBar
@@ -62,7 +79,7 @@ export default function CustomImageList() {
                 actionIcon={
                   <IconButton
                     sx={{ color: "white" }}
-                    aria-label={`star ${item.title}`}
+                    aria-label={`star ${item.id}`}
                   >
                     <StarBorderIcon />
                   </IconButton>
@@ -76,68 +93,3 @@ export default function CustomImageList() {
     </>
   );
 }
-
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-    title: "Breakfast",
-    author: "@bkristastucchio",
-    featured: true,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-    title: "Burger",
-    author: "@rollelflex_graphy726",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-    author: "@helloimnik",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-    title: "Coffee",
-    author: "@nolanissac",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-    title: "Hats",
-    author: "@hjrc33",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-    author: "@arwinneil",
-    featured: true,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-    author: "@tjdragotta",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-    author: "@katie_wasserman",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-    author: "@silverdalex",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-    author: "@shelleypauls",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-    author: "@peterlaster",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-    author: "@southside_customs",
-  },
-];

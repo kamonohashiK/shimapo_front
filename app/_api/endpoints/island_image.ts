@@ -1,9 +1,21 @@
 // IslandImage関連のデータを取得するAPI
 import { IslandImageCollection } from "../collections/island_image";
 
+// imagesコレクションから画像(サムネイル)のメタデータを取得
 export async function getThumbnails(islandId: string) {
   try {
-    // imagesコレクションから画像のメタデータを取得
+    const islandImage = new IslandImageCollection(islandId);
+    const imageList = await islandImage.getThumbnails();
+
+    return imageList;
+  } catch (error) {
+    return [];
+  }
+}
+
+// imagesコレクションから画像(大)のメタデータを取得
+export async function getLargeImages(islandId: string) {
+  try {
     const islandImage = new IslandImageCollection(islandId);
     const imageList = await islandImage.getThumbnails();
 
