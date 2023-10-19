@@ -27,6 +27,7 @@ export const mapSlice = createSlice({
       state.zoomLevel = action.payload.zoomLevel;
       state.lat = action.payload.lat;
       state.lng = action.payload.lng;
+      state.isMap = true;
     },
     // 地図の表示・非表示
     setIsMap: (state, action: PayloadAction<boolean>) => {
