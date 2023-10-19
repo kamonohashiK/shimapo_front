@@ -62,6 +62,7 @@ export class IslandImageCollection extends Collection {
         return {
           id: doc.id,
           url: doc.data().url,
+          liked_by: doc.data().liked_by ?? [],
           posted_at: this.convertTimestamp(doc.data().posted_at),
           posted_by: userId,
         };
