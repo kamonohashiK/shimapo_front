@@ -9,6 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import { useMap } from "@/app/_hooks/map";
+import { usePathname } from "next/navigation";
 
 interface IslandThumbnailListProps {
   thumbnails: any[];
@@ -17,6 +18,13 @@ interface IslandThumbnailListProps {
 export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
   const { showDialog } = useDialog();
   const { setIsMap } = useMap();
+  const router = usePathname();
+
+  function handleImageClick() {
+    if (router === "/") {
+      setIsMap(false);
+    }
+  }
 
   return (
     <>
@@ -30,7 +38,7 @@ export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
             <ImageListItem
               key={index}
               sx={{ cursor: "pointer" }}
-              onClick={() => setIsMap(false)}
+              onClick={handleImageClick}
             >
               <Image
                 src={item.url}
