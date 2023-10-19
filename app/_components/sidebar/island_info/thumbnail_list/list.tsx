@@ -8,6 +8,8 @@ import {
   Divider,
   Button,
 } from "@mui/material";
+import { useMap } from "@/app/_hooks/map";
+import { usePathname } from "next/navigation";
 
 interface IslandThumbnailListProps {
   thumbnails: any[];
@@ -15,6 +17,14 @@ interface IslandThumbnailListProps {
 
 export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
   const { showDialog } = useDialog();
+  const { setIsMap } = useMap();
+  const router = usePathname();
+
+  function handleImageClick() {
+    if (router === "/") {
+      setIsMap(false);
+    }
+  }
 
   return (
     <>
@@ -25,8 +35,17 @@ export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
       ) : (
         <ImageList cols={3} rowHeight={80}>
           {props.thumbnails.map((item, index) => (
-            <ImageListItem key={index}>
-              <Image src={item.url} width={100} height={60} alt={item.title} />
+            <ImageListItem
+              key={index}
+              sx={{ cursor: "pointer" }}
+              onClick={handleImageClick}
+            >
+              <Image
+                src={item.url}
+                width={100}
+                height={60}
+                alt={`サムネイル${index + 1}`}
+              />
             </ImageListItem>
           ))}
         </ImageList>
