@@ -2,19 +2,28 @@ import { IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useState } from "react";
+import { useMap } from "@/app/_hooks/map";
 
 export const FavoriteButton = (props: {
+  islandId: string;
   userId: string;
   imageId: string;
   liked: boolean;
+  imageUrl: string;
 }) => {
-  const userId = props.userId;
-  const imageId = props.imageId;
   const [liked, setLiked] = useState<boolean>(props.liked);
+  const { likeImage } = useMap();
 
   function onClick() {
     setLiked(!liked);
-    // TODO: 高評価のアクティビティ・リアクションを操作するフックを叩く
+    // TODO: エラー時の処理
+    likeImage(
+      props.islandId,
+      props.imageId,
+      props.userId,
+      props.imageUrl,
+      !liked
+    );
   }
 
   return (

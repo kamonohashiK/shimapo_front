@@ -70,6 +70,17 @@ export class UserProfileCollection extends Collection {
     }
   }
 
+  // 画像への高評価数を更新
+  async updateLikedImages(isIncrement: boolean) {
+    try {
+      const number = isIncrement ? 1 : -1;
+      await updateDoc(this.docRef, { liked_images: increment(number) });
+      return true;
+    } catch {
+      throw new Error("プロフィールの更新に失敗しました");
+    }
+  }
+
   // 質問数を更新
   async updatePostedQuestions() {
     try {

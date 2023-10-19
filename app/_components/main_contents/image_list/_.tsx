@@ -84,9 +84,11 @@ export default function CustomImageList() {
                 position="top"
                 actionIcon={
                   <FavoriteButton
+                    islandId={islandId}
                     userId={userId}
                     imageId={item.id}
                     liked={item.liked_by.includes(userId)}
+                    imageUrl={item.url}
                   />
                 }
                 actionPosition="right"

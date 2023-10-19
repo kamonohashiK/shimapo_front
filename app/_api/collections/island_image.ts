@@ -10,6 +10,7 @@ import {
   limit,
   orderBy,
   query,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { Collection } from "./collection";
@@ -89,6 +90,42 @@ export class IslandImageCollection extends Collection {
       });
     } catch {
       throw new Error("画像のメタデータの保存に失敗しました");
+    }
+  }
+
+  // 画像データから投稿したユーザーのIDを取得
+  async getPostedUserId(imageId: string) {
+    try {
+      const image = await getDoc(doc(this.collectionRef, imageId));
+      if (image !== undefined) {
+        return image.data()?.posted_by.id;
+      } else {
+        throw new Error("画像の取得に失敗しました");
+      }
+    } catch {
+      throw new Error("画像の取得に失敗しました");
+    }
+  }
+
+  // liked_byへ値を追加or削除
+  async updateLikedBy(imageId: string, userId: string) {
+    try {
+      const imageRef = doc(this.collectionRef, imageId);
+      const image = await getDoc(imageRef);
+      const likedBy = image.data()?.liked_by ?? [];
+      if (likedBy.includes(userId)) {
+        // 既に高評価している場合は削除
+        await updateDoc(imageRef, {
+          liked_by: likedBy.filter((id: string) => id !== userId),
+        });
+      } else {
+        // まだ高評価していない場合は追加
+        await updateDoc(imageRef, {
+          liked_by: [...likedBy, userId],
+        });
+      }
+    } catch {
+      throw new Error("画像の更新に失敗しました");
     }
   }
 }
