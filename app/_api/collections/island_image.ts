@@ -5,6 +5,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -12,6 +13,7 @@ import {
   where,
 } from "firebase/firestore";
 import { Collection } from "./collection";
+import { UserProfileCollection } from "./user_profile";
 
 export class IslandImageCollection extends Collection {
   public docRef: DocumentReference<DocumentData, DocumentData>;
@@ -31,12 +33,11 @@ export class IslandImageCollection extends Collection {
       limit(9)
     );
     const images = await getDocs(q);
-    // TODO: 参照しているユーザーの情報を取得する
+    // NOTE: こちらではユーザー情報の取得はしない
     const imageList = images.docs.map((doc) => ({
       id: doc.id,
       url: doc.data().url,
       posted_at: this.convertTimestamp(doc.data().posted_at),
-      //posted_by: doc.data().posted_by,
     }));
 
     return imageList;
@@ -49,14 +50,23 @@ export class IslandImageCollection extends Collection {
       where("type", "==", "large"),
       limit(100)
     );
-    const images = await getDocs(q);
-    // TODO: 参照しているユーザーの情報を取得する
-    const imageList = images.docs.map((doc) => ({
-      id: doc.id,
-      url: doc.data().url,
-      posted_at: this.convertTimestamp(doc.data().posted_at),
-      //posted_by: doc.data().posted_by,
-    }));
+
+    const imageList = await Promise.all(
+      (
+        await getDocs(q)
+      ).docs.map(async (doc) => {
+        // posted_byの値から投稿したユーザーのIDを取得
+        const userRef = doc.data().posted_by;
+        const userDoc = await getDoc(userRef);
+        const userId = userDoc.id;
+        return {
+          id: doc.id,
+          url: doc.data().url,
+          posted_at: this.convertTimestamp(doc.data().posted_at),
+          posted_by: userId,
+        };
+      })
+    );
 
     return imageList;
   }

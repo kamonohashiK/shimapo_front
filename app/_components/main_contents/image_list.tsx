@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 export default function CustomImageList() {
   const islandId = useSelector((state: RootState) => state.page.uid);
   const [imageList, setImageList] = React.useState<
-    { id: string; url: any; posted_at: any }[]
+    { id: string; url: any; posted_at: any; posted_by: string }[]
   >([]);
   const { setIsMap, getLargeImages } = useMap();
 
@@ -24,6 +24,7 @@ export default function CustomImageList() {
       if (items.length > 0) {
         setImageList(items);
       }
+      console.log(items);
     };
     fetchImages();
   }, []);
