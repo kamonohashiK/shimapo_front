@@ -84,6 +84,7 @@ export class IslandImageCollection extends Collection {
         type: type,
         posted_at: timeStamp,
         posted_by: userRef,
+        liked_by: [],
       });
     } catch {
       throw new Error("画像のメタデータの保存に失敗しました");
