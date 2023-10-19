@@ -7,6 +7,7 @@ import {
   doc,
   getDocs,
   limit,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -46,7 +47,7 @@ export class IslandImageCollection extends Collection {
     const q = query(
       this.collectionRef,
       where("type", "==", "large"),
-      limit(10)
+      limit(100)
     );
     const images = await getDocs(q);
     // TODO: 参照しているユーザーの情報を取得する
