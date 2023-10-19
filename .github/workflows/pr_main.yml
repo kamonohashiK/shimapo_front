@@ -1,0 +1,33 @@
+name: On pull request to main branch
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # secretsから.envファイルを作成
+      - name: create .env file
+        run: |
+          cat > .env <<EOF
+          TEST=${{ secrets.ENV_PRODUCTION }}
+          EOF
+
+      - name: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: yarn-install
+        run: yarn install
+
+      - name: app-build
+        run: yarn build
+
+      - name: yarn-test
+        run: yarn test

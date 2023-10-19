@@ -2,21 +2,47 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+このプロジェクトでは、随所でHTTPSによる通信を必要とするため、ローカル環境でもSSL証明書を発行しています。開発を始める前に以下の手順に従ってSSL証明書を作成してください。
+
+### 1. mkcert をインストール ※Mac環境の場合
+
+https://github.com/FiloSottile/mkcert
+
+※ Mac以外のOSを使用している場合は、同様の動作をするツールを適宜探してみてください。
+
+※ brewを使用している場合: インストールを行う
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+brew install mkcert
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+プロジェクトのルートディレクトリにて、以下のコマンドを実行
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+mkcert localhost
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+localhost.pem及びlocalhost-key.pemが作成されるのをご確認ください。
+
+### 2. 開発サーバの立ち上げ
+
+HTTPSで開発サーバを立ち上げるには、以下のコマンドを実行してください。
+
+```bash
+yarn dev:proxy
+```
+
+## Gitについての注意点
+
+このプロジェクトでは、mainブランチ及びdevelopブランチへの直接コミットを禁止しています。変更を行う際は、必ずトピックブランチを作成し、developブランチへのプルリクエストを提出するようにしてください。
+
+また、ローカルレベルで各ブランチへの誤コミットを防止するため、コミット前に対象のブランチ名をチェックするスクリプトを用意しています。
+
+ルートディレクトリで以下のコマンドを実行し、実行権限を与えておいてください。
+
+```bash
+chmod a+x .git/hooks/pre-commit
+```
 
 ## Learn More
 
@@ -26,31 +52,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-# Firebase Emulator
-このプロジェクトでは、バックエンドにFirabaseを使用しています。
-
-以下の手順でFirebase CLI及びエミュレータをインストールしてください。
-
-https://firebase.google.com/docs/cli?hl=ja
-
-## Hosting
-静的ファイルの生成
-
-```
-yarn build
-```
-
-エミュレータの実行
-
-```
-firebase emulators:start
-```
-
-実行後、http://localhost:6001 にアクセス

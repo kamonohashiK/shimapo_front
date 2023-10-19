@@ -1,0 +1,40 @@
+name: Deploy to Firebase Hosting on Push(Production)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # secretsから.envファイルを作成
+      - name: create .env file
+        run: |
+          cat > .env <<EOF
+          TEST=${{ secrets.ENV_PRODUCTION }}
+          EOF
+
+      - name: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: yarn
+
+      - name: yarn-install
+        run: yarn install
+
+      - name: app-build
+        run: yarn build
+
+      - name: deploy-to-firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}"
+          channelId: live
+          projectId: ritograph-prod
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
