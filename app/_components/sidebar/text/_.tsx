@@ -9,7 +9,7 @@ export default function SidebarText() {
 
   return (
     <>
-      <Typography align="center" paragraph sx={{ margin: 3 }}>
+      <Typography align="left" paragraph sx={{ margin: 3 }}>
         <b>{pageState.textHeader}</b>
         <br />
         {sanitize(pageState.textBody)}

@@ -10,6 +10,8 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { showSidebarText } from "@/app/_store/slices/pageSlice";
+import { appText } from "@/app/_constants/text";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -33,6 +35,14 @@ export default function MyPage() {
         push("/");
       }
     });
+
+    // サイドバー用のテキストをセットする
+    dispatch(
+      showSidebarText({
+        textHeader: appText.SIDEBAR_TITLE_MYPAGE,
+        textBody: appText.SIDEBAR_CONTENT_MYPAGE,
+      })
+    );
 
     // コンポーネントがアンマウントされたときにunsubscribeする
     return () => unsubscribe();

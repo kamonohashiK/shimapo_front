@@ -69,7 +69,6 @@ export const pageSlice = createSlice({
       state.questionList = action.payload.questionList;
     },
     showSidebarText: (state, action: PayloadAction<TextState>) => {
-      state.isIslandInfo = false;
       state.textHeader = action.payload.textHeader;
       state.textBody = action.payload.textBody;
     },
