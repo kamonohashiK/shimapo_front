@@ -10,7 +10,7 @@ import {
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import React from "react";
 import { lightGreen } from "@mui/material/colors";
-import { trimText } from "@/app/_utils/text";
+import { textHelper } from "@/app/_utils/text_helper";
 
 interface Props {
   index: number;
@@ -24,6 +24,8 @@ interface Props {
 }
 
 export const PostAnswer = (props: Props) => {
+  const { trimText } = textHelper();
+
   return (
     <>
       <ListItem alignItems="flex-start" key={props.index}>

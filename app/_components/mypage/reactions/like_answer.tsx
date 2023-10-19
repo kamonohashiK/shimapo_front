@@ -1,4 +1,4 @@
-import { trimText } from "@/app/_utils/text";
+import { textHelper } from "@/app/_utils/text_helper";
 import {
   ListItem,
   ListItemAvatar,
@@ -26,6 +26,8 @@ interface Props {
 }
 
 export const LikeAnswer = (props: Props) => {
+  const { trimText } = textHelper();
+
   return (
     <>
       <ListItem alignItems="flex-start" key={props.index}>
