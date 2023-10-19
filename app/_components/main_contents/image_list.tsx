@@ -58,7 +58,7 @@ export default function CustomImageList() {
           overflowY: "scroll",
           backgroundColor: "black",
         }}
-        rowHeight={300}
+        rowHeight={320}
         cols={2}
       >
         {imageList.map((item, index) => {

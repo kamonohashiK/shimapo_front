@@ -17,7 +17,7 @@ export async function getThumbnails(islandId: string) {
 export async function getLargeImages(islandId: string) {
   try {
     const islandImage = new IslandImageCollection(islandId);
-    const imageList = await islandImage.getThumbnails();
+    const imageList = await islandImage.getLargeImages();
 
     return imageList;
   } catch (error) {
