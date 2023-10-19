@@ -7,7 +7,7 @@ import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginInfo, unmountLoginInfo } from "../_store/slices/userSlice";
-import CustomImageList from "../_components/main_contents/image_list";
+import CustomImageList from "../_components/main_contents/image_list/_";
 import { RootState } from "../_store/store";
 
 export default function Home() {

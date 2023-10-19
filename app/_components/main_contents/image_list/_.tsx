@@ -2,15 +2,13 @@ import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Fab, Tooltip } from "@mui/material";
 import { useMap } from "@/app/_hooks/map";
 import { useEffect } from "react";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { FavoriteButton } from "./favorite_button";
 
 export default function CustomImageList() {
   const islandId = useSelector((state: RootState) => state.page.uid);
@@ -85,23 +83,11 @@ export default function CustomImageList() {
                 }}
                 position="top"
                 actionIcon={
-                  item.liked_by.includes(userId) ? (
-                    <IconButton
-                      sx={{ color: "white" }}
-                      aria-label={`star ${item.id}`}
-                      size="large"
-                    >
-                      <FavoriteIcon />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      sx={{ color: "white" }}
-                      aria-label={`star ${item.id}`}
-                      size="large"
-                    >
-                      <FavoriteBorderIcon />
-                    </IconButton>
-                  )
+                  <FavoriteButton
+                    userId={userId}
+                    imageId={item.id}
+                    liked={item.liked_by.includes(userId)}
+                  />
                 }
                 actionPosition="right"
               />
