@@ -37,12 +37,14 @@ export default function AvatarMenu() {
       external: false,
       loginOnly: true,
     },
+    /**
     {
       text: "寄付をする",
       href: process.env.NEXT_PUBLIC_STRIPE_DONATION_URL || "",
       external: true,
       loginOnly: false,
     },
+     */
   ];
 
   const authModal = () => {

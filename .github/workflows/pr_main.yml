@@ -1,8 +1,8 @@
-name: Deploy to Firebase Hosting on Push(Develop)
+name: On pull request to main branch
 on:
-  push:
+  pull_request:
     branches:
-      - develop
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +14,7 @@ jobs:
       - name: create .env file
         run: |
           cat > .env <<EOF
-          TEST=${{ secrets.ENV_DEVELOP }}
+          TEST=${{ secrets.ENV_PRODUCTION }}
           EOF
 
       - name: setup-node
@@ -29,12 +29,5 @@ jobs:
       - name: app-build
         run: yarn build
 
-      - name: deploy-to-firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SHIMAPO_TEST }}"
-          channelId: live
-          projectId: shimapo-test
-        env:
-          FIREBASE_CLI_EXPERIMENTS: webframeworks
+      - name: yarn-test
+        run: yarn test
