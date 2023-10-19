@@ -8,27 +8,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Fab, Tooltip } from "@mui/material";
 import { useMap } from "@/app/_hooks/map";
 
-function srcset(
-  image: string,
-  width: number,
-  height: number,
-  rows = 1,
-  cols = 1
-) {
-  return {
-    src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${width * cols}&h=${
-      height * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
-  };
-}
-
 export default function CustomImageList() {
   const { setIsMap } = useMap();
 
   return (
     <>
-      <Box height={110} />
+      <Box height={110} sx={{ backgroundColor: "black" }} />
       <Tooltip title="地図に戻る">
         <Fab
           onClick={() => setIsMap(true)}
@@ -54,18 +39,16 @@ export default function CustomImageList() {
           // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
           transform: "translateZ(0)",
           overflowY: "scroll",
+          backgroundColor: "black",
         }}
-        rowHeight={200}
-        gap={1}
+        rowHeight={300}
+        cols={3}
       >
-        {itemData.map((item) => {
-          const cols = item.featured ? 2 : 1;
-          const rows = item.featured ? 2 : 1;
-
+        {itemData.map((item, index) => {
           return (
-            <ImageListItem key={item.img} cols={cols} rows={rows}>
+            <ImageListItem key={index}>
               <img
-                {...srcset(item.img, 250, 200, rows, cols)}
+                src={`${item.img}?w=400&fit=crop&auto=format`}
                 alt={item.title}
                 loading="lazy"
               />
@@ -84,7 +67,7 @@ export default function CustomImageList() {
                     <StarBorderIcon />
                   </IconButton>
                 }
-                actionPosition="left"
+                actionPosition="right"
               />
             </ImageListItem>
           );
