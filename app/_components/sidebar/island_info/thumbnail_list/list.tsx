@@ -32,7 +32,12 @@ export const IslandThumbnailList = (props: IslandThumbnailListProps) => {
               sx={{ cursor: "pointer" }}
               onClick={() => setIsMap(false)}
             >
-              <Image src={item.url} width={100} height={60} alt={item.title} />
+              <Image
+                src={item.url}
+                width={100}
+                height={60}
+                alt={`サムネイル${index + 1}`}
+              />
             </ImageListItem>
           ))}
         </ImageList>

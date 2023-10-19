@@ -24,7 +24,11 @@ export class IslandImageCollection extends Collection {
 
   // 島ごとの画像(サムネイル)のメタデータを取得する
   async getThumbnails() {
-    const q = query(this.collectionRef, where("type", "==", "thumbnail"));
+    const q = query(
+      this.collectionRef,
+      where("type", "==", "thumbnail"),
+      limit(9)
+    );
     const images = await getDocs(q);
     // TODO: 参照しているユーザーの情報を取得する
     const imageList = images.docs.map((doc) => ({
