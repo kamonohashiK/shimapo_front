@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Fab, Tooltip } from "@mui/material";
+import { useMap } from "@/app/_hooks/map";
 
 function srcset(
   image: string,
@@ -23,11 +24,14 @@ function srcset(
 }
 
 export default function CustomImageList() {
+  const { setIsMap } = useMap();
+
   return (
     <>
-      <Box height={100} />
-      <Tooltip title="地図に戻る" >
+      <Box height={110} />
+      <Tooltip title="地図に戻る">
         <Fab
+          onClick={() => setIsMap(true)}
           variant="extended"
           color="primary"
           sx={{

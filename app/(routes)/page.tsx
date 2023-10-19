@@ -5,9 +5,10 @@ import Sidebar from "../_components/sidebar/_";
 import Grid from "@mui/material/Grid";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoginInfo, unmountLoginInfo } from "../_store/slices/userSlice";
 import CustomImageList from "../_components/main_contents/image_list";
+import { RootState } from "../_store/store";
 
 export default function Home() {
   const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -36,7 +37,7 @@ export default function Home() {
     return () => unsubscribe();
   }, []);
 
-  const isMap = true;
+  const isMap = useSelector((state: RootState) => state.map.isMap);
 
   return (
     <Grid container direction="row" spacing={2}>
