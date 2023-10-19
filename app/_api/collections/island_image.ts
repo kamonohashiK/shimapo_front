@@ -46,11 +46,7 @@ export class IslandImageCollection extends Collection {
 
   // 島ごとの画像(拡大版)のメタデータを取得する
   async getLargeImages() {
-    const q = query(
-      this.collectionRef,
-      where("type", "==", "large"),
-      limit(100)
-    );
+    const q = query(this.collectionRef, where("type", "==", "large"));
 
     const imageList = await Promise.all(
       (
