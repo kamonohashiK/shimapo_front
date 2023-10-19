@@ -1,3 +1,4 @@
+import { appText } from "@/app/_constants/text";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -36,8 +37,8 @@ interface QuestionState {
 
 const initialState: PageState = {
   isIslandInfo: false,
-  textHeader: "ようこそ",
-  textBody: "最初のページ",
+  textHeader: appText.SIDEBAR_TITLE_TOP,
+  textBody: appText.SIDEBAR_CONTENT_TOP,
   uid: "",
   name: "島の名前",
   prefecture: "都道府県名",
@@ -68,7 +69,6 @@ export const pageSlice = createSlice({
       state.questionList = action.payload.questionList;
     },
     showSidebarText: (state, action: PayloadAction<TextState>) => {
-      state.isIslandInfo = false;
       state.textHeader = action.payload.textHeader;
       state.textBody = action.payload.textBody;
     },

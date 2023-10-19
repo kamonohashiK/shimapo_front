@@ -10,7 +10,7 @@ import {
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import React from "react";
 import { blue } from "@mui/material/colors";
-import { trimText } from "@/app/_utils/text";
+import { textHelper } from "@/app/_utils/text_helper";
 
 interface Props {
   index: number;
@@ -24,6 +24,8 @@ interface Props {
 }
 
 export const PostQuestion = (props: Props) => {
+  const { trimText } = textHelper();
+
   return (
     <>
       <ListItem alignItems="flex-start">

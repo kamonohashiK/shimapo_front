@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginInfo, unmountLoginInfo } from "../_store/slices/userSlice";
 import CustomImageList from "../_components/main_contents/image_list/_";
 import { RootState } from "../_store/store";
+import { appText } from "../_constants/text";
+import { showSidebarText } from "../_store/slices/pageSlice";
 
 export default function Home() {
   const googleMapApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
@@ -32,6 +34,14 @@ export default function Home() {
         dispatch(unmountLoginInfo());
       }
     });
+
+    // サイドバー用のテキストをセットする
+    dispatch(
+      showSidebarText({
+        textHeader: appText.SIDEBAR_TITLE_TOP,
+        textBody: appText.SIDEBAR_CONTENT_TOP,
+      })
+    );
 
     // コンポーネントがアンマウントされたときにunsubscribeする
     return () => unsubscribe();
