@@ -14,12 +14,12 @@ export default function GoogleAuthButton() {
   const { hideDialog } = useDialog();
 
   function SignInWithGoogle() {
-    const auth = getAuth(firebase_app);
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then(() => {
-        auth.onAuthStateChanged((user) => {
+    try {
+      const auth = getAuth(firebase_app);
+      signInWithPopup(auth, new GoogleAuthProvider()).then(() => {
+        auth.onAuthStateChanged(async (user) => {
           if (user) {
-            CreateUserProfile(user.uid, {
+            await CreateUserProfile(user.uid, {
               name: user.displayName ?? "未設定",
               image_url: user.photoURL ?? "",
               liked_answers: 0,
@@ -30,23 +30,17 @@ export default function GoogleAuthButton() {
             });
             showAlert("ログインに成功しました。", "success");
             push("/");
-          } else {
-            showAlert(
-              "ログインに失敗しました。時間をおいて再度お試しください。",
-              "error"
-            );
           }
         });
-      })
-      .catch(() => {
-        showAlert(
-          "ログインに失敗しました。時間をおいて再度お試しください。",
-          "error"
-        );
-      })
-      .finally(() => {
-        hideDialog();
       });
+    } catch (error) {
+      showAlert(
+        "ログインに失敗しました。時間をおいて再度お試しください。",
+        "error"
+      );
+    } finally {
+      hideDialog();
+    }
   }
 
   return (

@@ -9,24 +9,23 @@ export default function LogoutButton() {
   const { hideDialog } = useDialog();
 
   function logout() {
-    const auth = getAuth(firebase_app);
-    auth
-      .signOut()
-      .then(() => {
+    try {
+      const auth = getAuth(firebase_app);
+      auth.signOut().then(() => {
         auth.onAuthStateChanged((user) => {
           if (!user) {
-            showAlert("ログアウトしました。", "success");
-          } else {
-            showAlert(
-              "ログアウトに失敗しました。時間をおいて再度お試しください。",
-              "error"
-            );
+            showAlert("ログアウトに成功しました。", "success");
           }
         });
-      })
-      .finally(() => {
-        hideDialog();
       });
+    } catch (error) {
+      showAlert(
+        "ログアウトに失敗しました。時間をおいて再度お試しください。",
+        "error"
+      );
+    } finally {
+      hideDialog();
+    }
   }
 
   return (
