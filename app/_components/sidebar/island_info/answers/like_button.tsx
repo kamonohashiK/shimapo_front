@@ -59,7 +59,7 @@ export default function LikeButton(props: LikeButtonProps) {
       >
         <IconButton onClick={onClick} disabled={props.disabled}>
           {liked ? (
-            <ThumbUpIcon color="success" sx={{ color: lightGreen[700] }} />
+            <ThumbUpIcon sx={{ color: lightGreen[700] }} />
           ) : (
             <ThumbUpOffAltIcon />
           )}
