@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { useUserProfile } from "@/app/_hooks/user_profile";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import ReactionList from "./list";
 
 export default function Reaction() {
   // 島の質問一覧を取得
-  const [reactionListItems, setReactionListItems] = React.useState<
+  const [reactionListItems, setReactionListItems] = useState<
     {
       id: string;
       island: { name: any; location: any };
@@ -17,27 +17,30 @@ export default function Reaction() {
       posted_at: any;
     }[]
   >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const userId = useSelector((state: RootState) => state.user.userId);
   const { getUserReactionsById } = useUserProfile();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchReactions = async () => {
-      const items = await getUserReactionsById(userId);
-      if (items.result && items.reactions !== undefined) {
-        setReactionListItems(items.reactions);
-      }
+      setIsLoading(true);
+      await getUserReactionsById(userId).then((res) => {
+        if (res.result && res.reactions !== undefined) {
+          setReactionListItems(res.reactions);
+        }
+        setIsLoading(false);
+      });
     };
     fetchReactions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
-  // TODO: 取得したデータが0件の場合の処理を追加
   return (
     <>
-      {reactionListItems != null ? (
-        <ReactionList reactionListItems={reactionListItems} />
-      ) : (
+      {isLoading ? (
         <ProgressCircle />
+      ) : (
+        <ReactionList reactionListItems={reactionListItems} />
       )}
     </>
   );
