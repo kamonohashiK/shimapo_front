@@ -4,7 +4,6 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
-  Typography,
   Divider,
 } from "@mui/material";
 import React from "react";

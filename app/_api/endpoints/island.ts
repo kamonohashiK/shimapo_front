@@ -1,6 +1,4 @@
 import { IslandCollection } from "../collections/island";
-import { IslandImageCollection } from "../collections/island_image";
-import { IslandQuestionCollection } from "../collections/island_question";
 
 // 島の情報を取得
 export async function getIslandInfo(islandId: string) {

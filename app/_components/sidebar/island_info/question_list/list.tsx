@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import ValuateForm from "../answers/valuate_form";
-import { parse } from "uuid";
 import { useDispatch } from "react-redux";
 import { useDialog } from "@/app/_hooks/dialog";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -23,14 +22,6 @@ interface QuestionListItemsProps {
   islandId: string;
   questions: any[];
 }
-
-// テキストの改行コードをbrタグに変換する+サニタイズ TODO: 共通化とエラー原因の解明
-/**
-const sanitize = (text: string) => {
-  const sanitizedText = text.replace(/\r?\n/g, "<br>");
-  return parse(sanitizedText);
-};
- */
 
 export const QuestionListItems = (props: QuestionListItemsProps) => {
   const { showDialog } = useDialog();

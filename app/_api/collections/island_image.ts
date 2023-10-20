@@ -15,7 +15,6 @@ import {
   where,
 } from "firebase/firestore";
 import { Collection } from "./collection";
-import { UserProfileCollection } from "./user_profile";
 
 export class IslandImageCollection extends Collection {
   public docRef: DocumentReference<DocumentData, DocumentData>;
