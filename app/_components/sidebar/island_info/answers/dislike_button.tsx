@@ -6,6 +6,8 @@ import dialogTypes from "@/app/_constants/dialog_types";
 import { ToggleDislikeAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
+import { useState } from "react";
+import { red } from "@mui/material/colors";
 
 interface DislikeButtonProps {
   disliked_by: string[];
@@ -18,11 +20,13 @@ interface DislikeButtonProps {
 }
 
 export default function DislikeButton(props: DislikeButtonProps) {
+  const [disliked, setDisliked] = useState<boolean>(props.disliked);
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setQuestionList } = useIslandInfo();
 
   const onClick = async () => {
+    setDisliked(!disliked);
     if (props.user_id != "") {
       if (
         await ToggleDislikeAnswer(
@@ -34,6 +38,7 @@ export default function DislikeButton(props: DislikeButtonProps) {
       ) {
         setQuestionList(props.island_id);
       } else {
+        setDisliked(!disliked);
         showAlert("エラーが発生しました。", "error");
       }
     } else {
@@ -47,8 +52,8 @@ export default function DislikeButton(props: DislikeButtonProps) {
       placement="top"
     >
       <IconButton onClick={onClick} disabled={props.disabled}>
-        {props.disliked ? (
-          <ThumbDownAltIcon color="error" />
+        {disliked ? (
+          <ThumbDownAltIcon sx={{ color: red[400] }} />
         ) : (
           <ThumbDownOffAltIcon />
         )}

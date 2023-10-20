@@ -6,7 +6,8 @@ import { useDialog } from "@/app/_hooks/dialog";
 import { ToggleLikeAnswer } from "@/app/_api/endpoints/question_answer";
 import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
-
+import { useState } from "react";
+import { lightGreen } from "@mui/material/colors";
 interface LikeButtonProps {
   liked_by: string[];
   island_id: string;
@@ -23,11 +24,14 @@ const countLiked = (array: any[]) => {
 };
 
 export default function LikeButton(props: LikeButtonProps) {
+  const [liked, setLiked] = useState<boolean>(props.liked);
+
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setQuestionList } = useIslandInfo();
 
   const onClick = async () => {
+    setLiked(!liked);
     if (props.user_id != "") {
       if (
         await ToggleLikeAnswer(
@@ -39,6 +43,7 @@ export default function LikeButton(props: LikeButtonProps) {
       ) {
         setQuestionList(props.island_id);
       } else {
+        setLiked(!liked);
         showAlert("エラーが発生しました。", "error");
       }
     } else {
@@ -53,8 +58,8 @@ export default function LikeButton(props: LikeButtonProps) {
         placement="top"
       >
         <IconButton onClick={onClick} disabled={props.disabled}>
-          {props.liked ? (
-            <ThumbUpIcon color="success" />
+          {liked ? (
+            <ThumbUpIcon sx={{ color: lightGreen[700] }} />
           ) : (
             <ThumbUpOffAltIcon />
           )}
