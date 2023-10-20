@@ -61,7 +61,11 @@ export class QuestionAnswerCollection extends Collection {
   // 回答の一覧を取得
   async getAnswers() {
     try {
-      const q = query(this.collectionRef, orderBy("liked_count", "desc"));
+      const q = query(
+        this.collectionRef,
+        orderBy("posted_at", "asc"),
+        orderBy("liked_count", "desc")
+      );
       const answers = await Promise.all(
         (
           await getDocs(q)
