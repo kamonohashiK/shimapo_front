@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   IconButton,
   ImageList,
   ImageListItem,
@@ -37,17 +38,19 @@ export default function ImageUploadForm() {
   const { hideDialog } = useDialog();
   const { setThumbnailList } = useIslandInfo();
 
+  const UPPER_LIMIT = 10;
+
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      image: ["image/jpeg", "image/png"],
+      "image/*": [".jpeg", ".jpg", ".png"],
     },
-    onDrop: (acceptedFiles) => {
-      // TODO: acceptしているファイル以外がドロップされた場合の処理
-      if (acceptedFiles.length > 5) {
-        console.log("上限オーバー");
-        setError("5枚以上はアップロードできません。");
+    onDrop: (acceptedFiles, fileRejections) => {
+      if (acceptedFiles.length > UPPER_LIMIT) {
+        setError(`${UPPER_LIMIT}枚以上はアップロードできません。`);
         setCanSubmit(false);
+      } else if (fileRejections.length > 0) {
+        setError(`画像ファイル以外はアップロードできません。`);
       } else {
         setFiles(
           acceptedFiles.map((file) =>
@@ -100,7 +103,6 @@ export default function ImageUploadForm() {
               }
             })
           );
-          // TODO: 保存が失敗した場合の処理
           // ユーザーの画像投稿数を更新
           await updatePostedImages(userId);
           // アクティビティを保存
@@ -140,7 +142,7 @@ export default function ImageUploadForm() {
         {isDragActive ? (
           // ドラッグ中の状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -153,7 +155,7 @@ export default function ImageUploadForm() {
         ) : (
           // アクションを起こす前のデフォルトの状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -169,7 +171,7 @@ export default function ImageUploadForm() {
       </div>
       <Typography color="error">
         {" "}
-        {error ? error : "※画像ファイルのみ・上限5枚"}
+        {error ? error : `※画像ファイルのみ・上限${UPPER_LIMIT}枚`}
       </Typography>
       {files.length > 0 ? (
         <ImageList cols={5}>
@@ -202,8 +204,11 @@ export default function ImageUploadForm() {
         variant="outlined"
         disabled={!canSubmit || isUploading}
         onClick={upload}
+        startIcon={
+          isUploading ? <CircularProgress color="info" size={20} /> : undefined
+        }
       >
-        アップロード
+        {isUploading ? "アップロード中..." : "アップロード"}
       </Button>
     </Stack>
   );
