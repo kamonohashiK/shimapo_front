@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   IconButton,
   ImageList,
   ImageListItem,
@@ -102,7 +103,6 @@ export default function ImageUploadForm() {
               }
             })
           );
-          // TODO: 保存が失敗した場合の処理
           // ユーザーの画像投稿数を更新
           await updatePostedImages(userId);
           // アクティビティを保存
@@ -142,7 +142,7 @@ export default function ImageUploadForm() {
         {isDragActive ? (
           // ドラッグ中の状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -155,7 +155,7 @@ export default function ImageUploadForm() {
         ) : (
           // アクションを起こす前のデフォルトの状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -204,8 +204,11 @@ export default function ImageUploadForm() {
         variant="outlined"
         disabled={!canSubmit || isUploading}
         onClick={upload}
+        startIcon={
+          isUploading ? <CircularProgress color="info" size={20} /> : undefined
+        }
       >
-        アップロード
+        {isUploading ? "アップロード中..." : "アップロード"}
       </Button>
     </Stack>
   );
