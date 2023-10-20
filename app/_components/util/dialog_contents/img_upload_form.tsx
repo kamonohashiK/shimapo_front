@@ -37,6 +37,8 @@ export default function ImageUploadForm() {
   const { hideDialog } = useDialog();
   const { setThumbnailList } = useIslandInfo();
 
+  const UPPER_LIMIT = 10;
+
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -44,9 +46,8 @@ export default function ImageUploadForm() {
     },
     onDrop: (acceptedFiles) => {
       // TODO: acceptしているファイル以外がドロップされた場合の処理
-      if (acceptedFiles.length > 5) {
-        console.log("上限オーバー");
-        setError("5枚以上はアップロードできません。");
+      if (acceptedFiles.length > UPPER_LIMIT) {
+        setError(`${UPPER_LIMIT}枚以上はアップロードできません。`);
         setCanSubmit(false);
       } else {
         setFiles(
@@ -169,7 +170,7 @@ export default function ImageUploadForm() {
       </div>
       <Typography color="error">
         {" "}
-        {error ? error : "※画像ファイルのみ・上限5枚"}
+        {error ? error : `※画像ファイルのみ・上限${UPPER_LIMIT}枚`}
       </Typography>
       {files.length > 0 ? (
         <ImageList cols={5}>
