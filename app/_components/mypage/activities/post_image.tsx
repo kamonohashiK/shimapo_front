@@ -1,3 +1,4 @@
+import { useIslandInfo } from "@/app/_hooks/island_info";
 import {
   Avatar,
   Divider,
@@ -21,10 +22,16 @@ interface Props {
 }
 
 export const PostImage = (props: Props) => {
+  const { setInfo } = useIslandInfo();
+
+  function onClick() {
+    setInfo(props.island.id);
+  }
+
   return (
     <>
       <ListItem>
-        <ListItemAvatar>
+        <ListItemAvatar onClick={onClick}>
           <Avatar
             variant="rounded"
             src={props.thumbnail_url}

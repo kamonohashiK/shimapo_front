@@ -46,6 +46,7 @@ export class UserActivityCollection extends Collection {
             return {
               id: doc.id,
               island: {
+                id: doc.data().island.id,
                 name: islandData.name,
                 location: islandData.location,
               },
