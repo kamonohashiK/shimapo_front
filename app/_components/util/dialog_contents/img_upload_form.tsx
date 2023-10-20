@@ -42,13 +42,14 @@ export default function ImageUploadForm() {
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      image: ["image/jpeg", "image/png"],
+      "image/*": [".jpeg", ".jpg", ".png"],
     },
-    onDrop: (acceptedFiles) => {
-      // TODO: acceptしているファイル以外がドロップされた場合の処理
+    onDrop: (acceptedFiles, fileRejections) => {
       if (acceptedFiles.length > UPPER_LIMIT) {
         setError(`${UPPER_LIMIT}枚以上はアップロードできません。`);
         setCanSubmit(false);
+      } else if (fileRejections.length > 0) {
+        setError(`画像ファイル以外はアップロードできません。`);
       } else {
         setFiles(
           acceptedFiles.map((file) =>
