@@ -1,12 +1,13 @@
 "use client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { islandSummaries } from "../../_constants/island_summaries";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Areas from "../../_constants/areas";
 import { useSelector } from "react-redux";
 import { RootState } from "../../_store/store";
 import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
+import { Box, Stack } from "@mui/material";
 
 const container = {
   width: "100%",
@@ -29,6 +30,20 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
   const mapInfo = useSelector((state: RootState) => state.map);
   const { setMapInfo } = useMap();
   const { setInfo } = useIslandInfo();
+  const container = {
+    width: "100%",
+    height: "calc(100vh - 60px)", // 60px is the height of the Box component
+  };
+  const [stackHeight, setStackHeight] = useState<number>(0);
+
+  useEffect(() => {
+    function handleResize() {
+      setStackHeight(window.innerHeight);
+    }
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // マーカークリック時の処理
   async function onClickMarker(uid: string) {
@@ -49,30 +64,29 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
   }
 
   return apiKey ? (
-    <>
-      <div className="wrap">
-        <LoadScript googleMapsApiKey={apiKey}>
-          <GoogleMap
-            mapContainerStyle={container}
-            center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
-            zoom={mapInfo.zoomLevel}
-          >
-            {islandPositions.map((position) => {
-              return (
-                <Marker
-                  key={position.uid}
-                  position={position}
-                  onClick={() => onClickMarker(position.uid)}
-                  icon={{
-                    url: getIconUrl(position.prefecture),
-                  }}
-                />
-              );
-            })}
-          </GoogleMap>
-        </LoadScript>
-      </div>
-    </>
+    <Stack sx={{ height: stackHeight }}>
+      <Box height={60} />
+      <LoadScript googleMapsApiKey={apiKey}>
+        <GoogleMap
+          mapContainerStyle={container}
+          center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
+          zoom={mapInfo.zoomLevel}
+        >
+          {islandPositions.map((position) => {
+            return (
+              <Marker
+                key={position.uid}
+                position={position}
+                onClick={() => onClickMarker(position.uid)}
+                icon={{
+                  url: getIconUrl(position.prefecture),
+                }}
+              />
+            );
+          })}
+        </GoogleMap>
+      </LoadScript>
+    </Stack>
   ) : (
     <></>
   );
