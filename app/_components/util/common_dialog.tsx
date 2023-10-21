@@ -43,6 +43,7 @@ export default function CommonDialog() {
           top: 8,
           color: (theme) => theme.palette.grey[500],
         }}
+        disabled={dialogState.disabled}
       >
         <CloseIcon />
       </IconButton>

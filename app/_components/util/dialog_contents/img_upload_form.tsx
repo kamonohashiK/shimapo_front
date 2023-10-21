@@ -35,7 +35,7 @@ export default function ImageUploadForm() {
   const userId = useSelector((state: RootState) => state.user.userId);
 
   const { showAlert } = useAlert();
-  const { hideDialog } = useDialog();
+  const { hideDialog, toggleDisabled } = useDialog();
   const { setThumbnailList } = useIslandInfo();
 
   const UPPER_LIMIT = 10;
@@ -70,6 +70,7 @@ export default function ImageUploadForm() {
     try {
       setCanSubmit(false);
       setIsUploadinig(true);
+      toggleDisabled();
 
       // アクティビティ用に最初の画像のサムネイルを保持する変数
       let firstThumbnailUrl: string = "";
@@ -122,6 +123,7 @@ export default function ImageUploadForm() {
       showAlert("画像のアップロードに失敗しました。", "error");
     } finally {
       hideDialog();
+      toggleDisabled();
       setThumbnailList(islandId);
     }
   }
