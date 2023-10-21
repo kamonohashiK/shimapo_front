@@ -1,10 +1,5 @@
 "use client";
 import React from "react";
-import { Container, Grid } from "@mui/material";
-import Sidebar from "../../_components/sidebar/_";
-import { UserProfile } from "@/app/_components/mypage/user_profile/_";
-import { UserStats } from "@/app/_components/mypage/user_stats/_";
-import { NotificationTab } from "@/app/_components/mypage/notification_tab";
 import { setLoginInfo, unmountLoginInfo } from "@/app/_store/slices/userSlice";
 import firebase_app from "@/firebase/config";
 import { getAuth } from "@firebase/auth";
@@ -12,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { showSidebarText } from "@/app/_store/slices/pageSlice";
 import { appText } from "@/app/_constants/text";
+import { MypagePC } from "@/app/_components/page/pc/mypage";
+import { MypageMobile } from "@/app/_components/page/mobile/mypage";
 
 export default function MyPage() {
   const { push } = useRouter();
@@ -48,20 +45,6 @@ export default function MyPage() {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <Container sx={{ maxHeight: "100vh", overflowY: "hidden" }}>
-      <Grid container direction="row" spacing={2}>
-        <Grid item xs={4}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={8} id="content">
-          <Container fixed>
-            <UserProfile />
-            <UserStats />
-            <NotificationTab />
-          </Container>
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  const isMobile = true;
+  return <>{isMobile ? <MypageMobile /> : <MypagePC />}</>;
 }
