@@ -1,3 +1,4 @@
+import { textHelper } from "@/app/_utils/text_helper";
 import { Stack, Avatar, Typography, Button } from "@mui/material";
 
 interface UserProfileProps {
@@ -7,6 +8,8 @@ interface UserProfileProps {
 }
 
 export const UserProfileStandard = (props: UserProfileProps) => {
+  const { sanitize } = textHelper();
+
   return (
     <Stack direction="row" spacing={2} margin={3} alignItems={"center"}>
       <Avatar
@@ -15,7 +18,7 @@ export const UserProfileStandard = (props: UserProfileProps) => {
         src={props.photoUrl}
       ></Avatar>
       <Typography variant="h6" color="black">
-        {props.displayName}
+        {sanitize(props.displayName)}
       </Typography>
       <Button variant="outlined" onClick={props.onEdit}>
         編集
