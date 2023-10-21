@@ -4,11 +4,11 @@ import { Container, Box, Tab, Tabs, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import IslandImageList from "./thumbnail_list/_";
 import QuestionList from "./question_list/_";
-import React from "react";
+import { ReactNode, SyntheticEvent, useState } from "react";
 import SidebarTop from "./top";
 
 interface TabPanelProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   index: number;
   value: number;
 }
@@ -43,9 +43,9 @@ function a11yProps(index: number) {
 export default function SidebarIslandInfo() {
   const islandInfo = useSelector((state: RootState) => state.page);
 
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 

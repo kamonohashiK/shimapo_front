@@ -5,7 +5,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import { getLargeImages as getLargeImagesAction } from "../_api/endpoints/island_image";
-import { UserActivityCollection } from "../_api/collections/user_activity";
 import { UserReactionCollection } from "../_api/collections/user_reaction";
 import { notificationTypes } from "../_constants/notification_types";
 import { UserProfileCollection } from "../_api/collections/user_profile";

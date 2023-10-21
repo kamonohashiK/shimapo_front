@@ -8,6 +8,8 @@ import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { useState } from "react";
 import { red } from "@mui/material/colors";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 
 interface DislikeButtonProps {
   disliked_by: string[];
@@ -21,13 +23,14 @@ interface DislikeButtonProps {
 
 export default function DislikeButton(props: DislikeButtonProps) {
   const [disliked, setDisliked] = useState<boolean>(props.disliked);
+  const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setQuestionList } = useIslandInfo();
 
   const onClick = async () => {
-    setDisliked(!disliked);
-    if (props.user_id != "") {
+    if (loggedIn && props.user_id != "") {
+      setDisliked(!disliked);
       if (
         await ToggleDislikeAnswer(
           props.island_id,

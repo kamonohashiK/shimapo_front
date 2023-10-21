@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import ValuateForm from "../answers/valuate_form";
-import { parse } from "uuid";
 import { useDispatch } from "react-redux";
 import { useDialog } from "@/app/_hooks/dialog";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { textHelper } from "@/app/_utils/text_helper";
 
 interface QuestionListItemsProps {
   userId: string;
@@ -24,17 +24,11 @@ interface QuestionListItemsProps {
   questions: any[];
 }
 
-// テキストの改行コードをbrタグに変換する+サニタイズ TODO: 共通化とエラー原因の解明
-/**
-const sanitize = (text: string) => {
-  const sanitizedText = text.replace(/\r?\n/g, "<br>");
-  return parse(sanitizedText);
-};
- */
-
 export const QuestionListItems = (props: QuestionListItemsProps) => {
   const { showDialog } = useDialog();
   const dispatch = useDispatch();
+  const { sanitize } = textHelper();
+
   return (
     <>
       {props.questions.map((item, index) => (
@@ -53,7 +47,7 @@ export const QuestionListItems = (props: QuestionListItemsProps) => {
             }}
           >
             <Typography variant="subtitle1">
-              {item.question}({item.answer_count})
+              {sanitize(item.question)}({item.answer_count})
             </Typography>
           </AccordionSummary>
           <Divider sx={{ my: 2 }} />
@@ -72,14 +66,14 @@ export const QuestionListItems = (props: QuestionListItemsProps) => {
                   >
                     <Avatar alt="回答者" src={answer.posted_user.image_url} />
                     <Typography variant="subtitle2">
-                      {answer.posted_user.name} さんの回答
+                      {sanitize(answer.posted_user.name)} さんの回答
                     </Typography>
                   </Stack>
                   <Typography variant="caption" sx={{ textAlign: "right" }}>
                     {answer.posted_at} に投稿
                   </Typography>
                   <Typography gutterBottom paragraph>
-                    {answer.answer}
+                    {sanitize(answer.answer)}
                   </Typography>
                   <Typography overflow={"auto"}>
                     {answer.option_url != "" ? (

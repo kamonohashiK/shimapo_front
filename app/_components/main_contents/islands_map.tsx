@@ -9,11 +9,6 @@ import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { Box, Stack } from "@mui/material";
 
-const container = {
-  width: "100%",
-  height: "100vh",
-};
-
 const focusedZoomLevel = 14;
 
 const islandPositions = islandSummaries.map((islandSummary) => {

@@ -3,11 +3,13 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface DialogState {
   isShown: boolean;
   type: string;
+  disabled: boolean;
 }
 
 const initialState: DialogState = {
   isShown: false,
   type: "",
+  disabled: false,
 };
 
 export const dialogSlice = createSlice({
@@ -21,9 +23,12 @@ export const dialogSlice = createSlice({
     hideDialog: (state) => {
       state.isShown = false;
     },
+    toggleDisabled: (state) => {
+      state.disabled = !state.disabled;
+    },
   },
 });
 
-export const { showDialog, hideDialog } = dialogSlice.actions;
+export const { showDialog, hideDialog, toggleDisabled } = dialogSlice.actions;
 
 export default dialogSlice.reducer;
