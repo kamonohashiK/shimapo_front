@@ -190,7 +190,11 @@ export default function ImageUploadForm() {
                     "rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)",
                 }}
                 actionIcon={
-                  <IconButton sx={{ color: "white" }} onClick={remove(index)}>
+                  <IconButton
+                    sx={{ color: "white" }}
+                    onClick={remove(index)}
+                    disabled={isUploading}
+                  >
                     <Cancel />
                   </IconButton>
                 }
