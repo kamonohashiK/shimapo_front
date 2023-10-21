@@ -8,6 +8,8 @@ import { useAlert } from "@/app/_hooks/alert";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { useState } from "react";
 import { lightGreen } from "@mui/material/colors";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 interface LikeButtonProps {
   liked_by: string[];
   island_id: string;
@@ -25,14 +27,15 @@ const countLiked = (array: any[]) => {
 
 export default function LikeButton(props: LikeButtonProps) {
   const [liked, setLiked] = useState<boolean>(props.liked);
+  const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
 
   const { showDialog } = useDialog();
   const { showAlert } = useAlert();
   const { setQuestionList } = useIslandInfo();
 
   const onClick = async () => {
-    setLiked(!liked);
-    if (props.user_id != "") {
+    if (loggedIn && props.user_id != "") {
+      setLiked(!liked);
       if (
         await ToggleLikeAnswer(
           props.island_id,
