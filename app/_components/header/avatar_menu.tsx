@@ -43,6 +43,12 @@ export default function AvatarMenu() {
       external: false,
       loginOnly: true,
     },
+    {
+      text: "利用規約",
+      href: "/legal",
+      external: false,
+      loginOnly: false,
+    },
     /**
     {
       text: "寄付をする",
