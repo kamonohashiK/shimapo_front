@@ -4,6 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 // FIXME: デカすぎるので分割したい
 interface PageState {
+  isMobile: boolean;
   isIslandInfo: boolean;
   textHeader: string;
   textBody: string;
@@ -36,6 +37,7 @@ interface QuestionState {
 }
 
 const initialState: PageState = {
+  isMobile: false,
   isIslandInfo: false,
   textHeader: appText.SIDEBAR_TITLE_TOP,
   textBody: appText.SIDEBAR_CONTENT_TOP,
@@ -56,6 +58,9 @@ export const pageSlice = createSlice({
   name: "page",
   initialState,
   reducers: {
+    setIsMobile: (state, action: PayloadAction<boolean>) => {
+      state.isMobile = action.payload;
+    },
     setIslandInfo: (state, action: PayloadAction<PageState>) => {
       state.isIslandInfo = true;
       state.uid = action.payload.uid;
@@ -90,6 +95,7 @@ export const pageSlice = createSlice({
 });
 
 export const {
+  setIsMobile,
   setIslandInfo,
   showSidebarText,
   reloadIslandInfo,
