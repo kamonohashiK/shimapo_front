@@ -4,7 +4,9 @@ import { styled } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { UnderDrawerText } from "./text";
+import { UnderDrawerText } from "./text/_";
+import { useAppSelector } from "@/app/_store/hooks";
+import UnderDrawerIslandInfo from "./island_info/_";
 
 const drawerBleeding = 56;
 
@@ -41,6 +43,8 @@ const Puller = styled(Box)(({ theme }) => ({
 export default function UnderDrawer(props: Props) {
   const { window } = props;
   const [open, setOpen] = React.useState(false);
+
+  const isIslandInfo = useAppSelector((state) => state.page.isIslandInfo);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -84,7 +88,7 @@ export default function UnderDrawer(props: Props) {
           }}
         >
           <Puller />
-          <UnderDrawerText />
+          {isIslandInfo ? <UnderDrawerIslandInfo /> : <UnderDrawerText />}
         </StyledBox>
       </SwipeableDrawer>
     </Root>
