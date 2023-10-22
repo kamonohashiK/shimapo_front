@@ -20,14 +20,23 @@ const islandPositions = islandSummaries.map((islandSummary) => {
   };
 });
 
-export default function IslandsMap(props: { apiKey: string | undefined }) {
+interface Props {
+  apiKey: string | undefined;
+  isMobile: boolean;
+}
+
+export default function IslandsMap(props: Props) {
   const apiKey = props.apiKey;
   const mapInfo = useSelector((state: RootState) => state.map);
   const { setMapInfo } = useMap();
   const { setInfo } = useIslandInfo();
+
+  const containerHeight = props.isMobile
+    ? "calc(100vh - 60px - 56px)" // 60px: header, 56px: under drawer
+    : "calc(100vh - 60px)"; // 60px: header
   const container = {
     width: "100%",
-    height: "calc(100vh - 60px)", // 60px is the height of the Box component
+    height: containerHeight,
   };
   const [stackHeight, setStackHeight] = useState<number>(0);
 
