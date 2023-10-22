@@ -55,7 +55,6 @@ export default function UnderDrawer(props: Props) {
 
   return (
     <Root>
-      <CssBaseline />
       <Global
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
@@ -64,9 +63,6 @@ export default function UnderDrawer(props: Props) {
           },
         }}
       />
-      <Box sx={{ textAlign: "center", pt: 1 }}>
-        <Button onClick={toggleDrawer(true)}>Open</Button>
-      </Box>
       <SwipeableDrawer
         container={container}
         anchor="bottom"
@@ -94,16 +90,6 @@ export default function UnderDrawer(props: Props) {
           <Typography sx={{ p: 2, color: "text.secondary" }}>
             51 results
           </Typography>
-        </StyledBox>
-        <StyledBox
-          sx={{
-            px: 2,
-            pb: 2,
-            height: "100%",
-            overflow: "auto",
-          }}
-        >
-          <Skeleton variant="rectangular" height="100%" />
         </StyledBox>
       </SwipeableDrawer>
     </Root>

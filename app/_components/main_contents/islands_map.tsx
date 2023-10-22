@@ -32,12 +32,8 @@ export default function IslandsMap(props: Props) {
   const { setInfo } = useIslandInfo();
 
   const containerHeight = props.isMobile
-    ? "calc(100vh - 60px - 56px)" // 60px: header, 56px: under drawer
-    : "calc(100vh - 60px)"; // 60px: header
-  const container = {
-    width: "100%",
-    height: containerHeight,
-  };
+    ? "calc(100vh - 60px - 56px)"
+    : "calc(100vh - 60px)"; // 60p : "calc(100vh - 60px)"; // 60px: header
   const [stackHeight, setStackHeight] = useState<number>(0);
 
   useEffect(() => {
@@ -72,9 +68,21 @@ export default function IslandsMap(props: Props) {
       <Box height={60} />
       <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
-          mapContainerStyle={container}
+          mapContainerStyle={{
+            width: "100%",
+            height: containerHeight,
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 0,
+          }}
           center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
           zoom={mapInfo.zoomLevel}
+          options={{
+            gestureHandling: props.isMobile ? "greedy" : "cooperative",
+          }}
         >
           {islandPositions.map((position) => {
             return (
