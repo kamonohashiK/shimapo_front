@@ -52,7 +52,6 @@ export default function UnderDrawerIslandInfo() {
   return (
     <Container maxWidth="sm">
       <UnderDrawerTop
-        imageUrl={islandInfo.mainImage}
         name={islandInfo.name}
         prefecture={islandInfo.prefecture}
         city={islandInfo.city}

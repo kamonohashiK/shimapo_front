@@ -1,91 +1,74 @@
 import * as React from "react";
-import { Global } from "@emotion/react";
-import { styled } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import {
+  Container,
+  Fab,
+  Stack,
+  SwipeableDrawer,
+  Typography,
+} from "@mui/material";
 import { UnderDrawerText } from "./text/_";
-import { useAppSelector } from "@/app/_store/hooks";
+import UnderDrawerTop from "./island_info/top";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 import UnderDrawerIslandInfo from "./island_info/_";
+import { setIsMap } from "@/app/_store/slices/mapSlice";
+import CloseIcon from "@mui/icons-material/Close";
 
-const drawerBleeding = 112;
-interface Props {
-  window?: () => Window;
-}
-
-const Root = styled("div")(({ theme }) => ({
-  height: "100%",
-  backgroundColor:
-    theme.palette.mode === "light"
-      ? grey[100]
-      : theme.palette.background.default,
-}));
-
-const StyledBox = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
-}));
-
-const Puller = styled(Box)(() => ({
-  width: 30,
-  height: 6,
-  backgroundColor: grey[300],
-  borderRadius: 3,
-  position: "absolute",
-  top: 8,
-  left: "calc(50% - 15px)",
-}));
-
-export default function UnderDrawer(props: Props) {
-  const { window } = props;
+export const UnderDrawer = () => {
   const [open, setOpen] = React.useState(false);
-
-  const isIslandInfo = useAppSelector((state) => state.page.isIslandInfo);
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
-
-  // This is used only for the example
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const islandInfo = useSelector((state: RootState) => state.page);
+  const iOS =
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   return (
-    <Root>
-      <Global
-        styles={{
-          ".MuiDrawer-root > .MuiPaper-root": {
-            height: `calc(60% - ${drawerBleeding}px)`,
-            overflow: "visible",
-          },
-        }}
-      />
-      <SwipeableDrawer
-        container={container}
-        anchor="bottom"
-        open={open}
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-        swipeAreaWidth={drawerBleeding}
-        disableSwipeToOpen={false}
-        ModalProps={{
-          keepMounted: true,
-        }}
+    <React.Fragment>
+      <Container
+        sx={{ color: "black", height: 112, overflow: "hidden" }}
+        onClick={() => setOpen(true)}
       >
-        <StyledBox
-          sx={{
-            position: "absolute",
-            top: -drawerBleeding,
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            visibility: "visible",
-            right: 0,
-            left: 0,
-          }}
+        {islandInfo.isIslandInfo ? (
+          <UnderDrawerTop
+            name={islandInfo.name}
+            prefecture={islandInfo.prefecture}
+            city={islandInfo.city}
+            kana={islandInfo.kana}
+            enName={islandInfo.enName}
+          />
+        ) : (
+          <UnderDrawerText />
+        )}
+        <SwipeableDrawer
+          anchor="bottom"
+          open={open}
+          onClose={() => setOpen(false)}
+          onOpen={() => setOpen(true)}
+          disableBackdropTransition={!iOS}
+          disableDiscovery={iOS}
         >
-          <Puller />
-          {isIslandInfo ? <UnderDrawerIslandInfo /> : <UnderDrawerText />}
-        </StyledBox>
-      </SwipeableDrawer>
-    </Root>
+          <Box role="presentation">
+            <Typography variant="subtitle2" textAlign="center" lineHeight={3}>
+              ※閉じるには下方向にスワイプ
+            </Typography>
+            {islandInfo.isIslandInfo ? (
+              <UnderDrawerIslandInfo />
+            ) : (
+              <UnderDrawerText />
+            )}
+          </Box>
+        </SwipeableDrawer>
+      </Container>
+    </React.Fragment>
   );
-}
+};

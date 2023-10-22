@@ -8,6 +8,7 @@ import { RootState } from "../../_store/store";
 import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { Box, Stack } from "@mui/material";
+import { UnderDrawer } from "../under_drawer/_";
 
 const focusedZoomLevel = 14;
 
@@ -98,6 +99,7 @@ export default function IslandsMap(props: Props) {
           })}
         </GoogleMap>
       </LoadScript>
+      {props.isMobile ? <UnderDrawer /> : <></>}
     </Stack>
   ) : (
     <></>

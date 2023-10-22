@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 
 interface Props {
-  imageUrl: string;
   name: string;
   prefecture: string;
   city: string;

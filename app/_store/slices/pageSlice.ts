@@ -37,7 +37,7 @@ interface QuestionState {
 }
 
 const initialState: PageState = {
-  isMobile: false,
+  isMobile: true,
   isIslandInfo: false,
   textHeader: appText.SIDEBAR_TITLE_TOP,
   textBody: appText.SIDEBAR_CONTENT_TOP,
