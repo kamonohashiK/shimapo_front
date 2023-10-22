@@ -7,6 +7,7 @@ import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { RootState } from "@/app/_store/store";
 import { useSelector } from "react-redux";
+import { zoomLevel } from "@/app/_constants/zoom_level";
 
 const Input = styled("input")(() => ({}));
 
@@ -18,7 +19,7 @@ export default function SearchBar() {
 
   const isMobile = useSelector((state: RootState) => state.page.isMobile);
 
-  const inputWidth = isMobile ? "36vh" : "50vh";
+  const inputWidth = isMobile ? "75vw" : "40vw";
   const inputPadding = "5px 10px";
 
   const {
@@ -47,7 +48,7 @@ export default function SearchBar() {
           uid: value.uid,
           lat: selectedIsland.lat,
           lng: selectedIsland.lng,
-          zoomLevel: 15,
+          zoomLevel: zoomLevel.FOCUSED,
         });
       }
     },

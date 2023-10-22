@@ -9,8 +9,7 @@ import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { Box, Stack } from "@mui/material";
 import { UnderDrawer } from "../under_drawer/_";
-
-const focusedZoomLevel = 14;
+import { zoomLevel } from "@/app/_constants/zoom_level";
 
 const islandPositions = islandSummaries.map((islandSummary) => {
   return {
@@ -60,7 +59,7 @@ export default function IslandsMap(props: Props) {
       uid: uid,
       lat: selectedIsland.lat,
       lng: selectedIsland.lng,
-      zoomLevel: focusedZoomLevel,
+      zoomLevel: zoomLevel.FOCUSED,
     });
   }
 
