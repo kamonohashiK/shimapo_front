@@ -2,7 +2,7 @@
 import { RootState } from "@/app/_store/store";
 import { Container, Box, Tab, Tabs, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-//import IslandImageList from "./thumbnail_list/_";
+import UnderDrawerThumbnailList from "./thumbnail_list/_";
 //import QuestionList from "./question_list/_";
 import { ReactNode, SyntheticEvent, useState } from "react";
 import UnderDrawerTop from "./top";
@@ -71,7 +71,7 @@ export default function UnderDrawerIslandInfo() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        {/**<IslandImageList />*/}
+        <UnderDrawerThumbnailList />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         {/**<QuestionList />*/}
