@@ -16,7 +16,7 @@ export const TopPagePC = (props: Props) => {
       </Grid>
       <Grid item xs={8}>
         {props.isMap ? (
-          <IslandsMap apiKey={props.googleMapApiKey} />
+          <IslandsMap apiKey={props.googleMapApiKey} isMobile={false} />
         ) : (
           <CustomImageList />
         )}
