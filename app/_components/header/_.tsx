@@ -21,7 +21,7 @@ export default function Header() {
         <Toolbar>
           <HeaderAlert />
           {!isMobile || pathname != "/" ? <TitleLogo /> : null}
-          {pathname == "/" ? <SearchBar isMobile={isMobile} /> : null}
+          {pathname == "/" ? <SearchBar /> : null}
           <AvatarMenu />
         </Toolbar>
       </AppBar>

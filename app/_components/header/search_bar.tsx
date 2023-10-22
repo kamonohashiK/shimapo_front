@@ -5,50 +5,21 @@ import { searchItems } from "../../_constants/search_items";
 import { islandSummaries } from "@/app/_constants/island_summaries";
 import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 
-interface Props {
-  isMobile: boolean;
-}
+const Input = styled("input")(() => ({}));
 
-export default function SearchBar(props: Props) {
+const Listbox = styled("ul")(() => ({}));
+
+export default function SearchBar() {
   const { setMapInfo } = useMap();
   const { setInfo } = useIslandInfo();
 
-  const inputWidth = props.isMobile ? "36.5vh" : "400px";
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
+
+  const inputWidth = isMobile ? "36vh" : "50vh";
   const inputPadding = "5px 10px";
-
-  const Input = styled("input")(() => ({
-    width: inputWidth,
-    height: 36,
-    padding: inputPadding,
-    backgroundColor: "#fff",
-    color: "#000",
-    borderRadius: 5,
-  }));
-
-  const Listbox = styled("ul")(() => ({
-    width: inputWidth,
-    margin: 0,
-    lineHeight: "2em",
-    padding: inputPadding,
-    zIndex: 1,
-    position: "absolute",
-    listStyle: "none",
-    color: "black",
-    backgroundColor: "#fff",
-    overflow: "auto",
-    maxHeight: 200,
-    border: "1px solid rgba(0,0,0,.25)",
-    "& li.Mui-focused": {
-      backgroundColor: "#4a8df6",
-      color: "white",
-      cursor: "pointer",
-    },
-    "& li:active": {
-      backgroundColor: "#2977f5",
-      color: "white",
-    },
-  }));
 
   const {
     getRootProps,
@@ -86,10 +57,44 @@ export default function SearchBar(props: Props) {
   return (
     <div>
       <div {...getRootProps()}>
-        <Input {...getInputProps()} placeholder="島名で検索" />
+        <Input
+          {...getInputProps()}
+          sx={{
+            width: inputWidth,
+            height: 36,
+            padding: inputPadding,
+            backgroundColor: "#fff",
+            color: "#000",
+          }}
+        />
       </div>
       {groupedOptions.length > 0 ? (
-        <Listbox {...getListboxProps()}>
+        <Listbox
+          {...getListboxProps()}
+          sx={{
+            width: inputWidth,
+            margin: 0,
+            lineHeight: "2em",
+            padding: inputPadding,
+            zIndex: 1,
+            position: "absolute",
+            listStyle: "none",
+            color: "black",
+            backgroundColor: "#fff",
+            overflow: "auto",
+            maxHeight: 200,
+            border: "1px solid rgba(0,0,0,.25)",
+            "& li.Mui-focused": {
+              backgroundColor: "#4a8df6",
+              color: "white",
+              cursor: "pointer",
+            },
+            "& li:active": {
+              backgroundColor: "#2977f5",
+              color: "white",
+            },
+          }}
+        >
           {(groupedOptions as typeof searchItems).map((option, index) => (
             <li {...getOptionProps({ option, index })} key={option.uid}>
               {option.label}
