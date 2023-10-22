@@ -110,21 +110,21 @@ export default function IslandsMap(props: Props) {
     const area = Areas;
 
     switch (true) {
-      case area["HOKKAIDO_TOHOKU"].includes(pref):
+      case area.HOKKAIDO_TOHOKU.includes(pref):
         return baseUrl("blue");
-      case area["KANTO"].includes(pref):
+      case area.KANTO.includes(pref):
         return baseUrl("ltblue");
-      case area["CHUBU"].includes(pref):
+      case area.CHUBU.includes(pref):
         return baseUrl("green");
-      case area["KINKI"].includes(pref):
+      case area.KINKI.includes(pref):
         return baseUrl("yellow");
-      case area["CHUGOKU"].includes(pref):
+      case area.CHUGOKU.includes(pref):
         return baseUrl("purple");
-      case area["SHIKOKU"].includes(pref):
+      case area.SHIKOKU.includes(pref):
         return baseUrl("pink");
-      case area["KYUSHU"].includes(pref):
+      case area.KYUSHU.includes(pref):
         return baseUrl("orange");
-      case area["OKINAWA"].includes(pref):
+      case area.OKINAWA.includes(pref):
         return baseUrl("red");
       default:
         return baseUrl("red");
