@@ -1,3 +1,4 @@
+import { useIslandInfo } from "@/app/_hooks/island_info";
 import { textHelper } from "@/app/_utils/text_helper";
 import {
   ListItem,
@@ -27,11 +28,16 @@ interface Props {
 
 export const AnswerQuestion = (props: Props) => {
   const { trimText } = textHelper();
+  const { setInfo } = useIslandInfo();
+
+  function onClick() {
+    setInfo(props.island.id);
+  }
 
   return (
     <>
       <ListItem alignItems="flex-start" key={props.index}>
-        <ListItemAvatar>
+        <ListItemAvatar onClick={onClick}>
           <Avatar alt="ユーザー画像" src={props.user.image_url} />
         </ListItemAvatar>
         <ListItemText

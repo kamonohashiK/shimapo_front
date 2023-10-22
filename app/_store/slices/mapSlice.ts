@@ -1,3 +1,4 @@
+import { zoomLevel } from "@/app/_constants/zoom_level";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -11,7 +12,7 @@ interface MapState {
 
 const initialState: MapState = {
   uid: "",
-  zoomLevel: 5,
+  zoomLevel: zoomLevel.DEFAULT,
   lat: 36.975178,
   lng: 135.619553,
   isMap: true,

@@ -32,6 +32,7 @@ export default function CommonDialog() {
       maxWidth={"md"}
       open={dialogState.isShown}
       onClose={() => hideDialog()}
+      sx={{ overflow: "auto" }}
     >
       <DialogTitle sx={{ m: 0, p: 2 }}></DialogTitle>
       <IconButton
@@ -43,6 +44,7 @@ export default function CommonDialog() {
           top: 8,
           color: (theme) => theme.palette.grey[500],
         }}
+        disabled={dialogState.disabled}
       >
         <CloseIcon />
       </IconButton>

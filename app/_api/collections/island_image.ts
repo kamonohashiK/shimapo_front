@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  increment,
   limit,
   orderBy,
   query,
@@ -14,7 +15,6 @@ import {
   where,
 } from "firebase/firestore";
 import { Collection } from "./collection";
-import { UserProfileCollection } from "./user_profile";
 
 export class IslandImageCollection extends Collection {
   public docRef: DocumentReference<DocumentData, DocumentData>;
@@ -46,27 +46,37 @@ export class IslandImageCollection extends Collection {
 
   // 島ごとの画像(拡大版)のメタデータを取得する
   async getLargeImages() {
-    const q = query(this.collectionRef, where("type", "==", "large"));
+    try {
+      const q = query(
+        this.collectionRef,
+        where("type", "==", "large"),
+        orderBy("posted_at", "desc"),
+        orderBy("liked_count", "desc")
+      );
 
-    const imageList = await Promise.all(
-      (
-        await getDocs(q)
-      ).docs.map(async (doc) => {
-        // posted_byの値から投稿したユーザーのIDを取得
-        const userRef = doc.data().posted_by;
-        const userDoc = await getDoc(userRef);
-        const userId = userDoc.id;
-        return {
-          id: doc.id,
-          url: doc.data().url,
-          liked_by: doc.data().liked_by ?? [],
-          posted_at: this.convertTimestamp(doc.data().posted_at),
-          posted_by: userId,
-        };
-      })
-    );
+      const imageList = await Promise.all(
+        (
+          await getDocs(q)
+        ).docs.map(async (doc) => {
+          // posted_byの値から投稿したユーザーのIDを取得
+          const userRef = doc.data().posted_by;
+          const userDoc = await getDoc(userRef);
+          const userId = userDoc.id;
+          return {
+            id: doc.id,
+            url: doc.data().url,
+            liked_count: doc.data().liked_count ?? 0,
+            liked_by: doc.data().liked_by ?? [],
+            posted_at: this.convertTimestamp(doc.data().posted_at),
+            posted_by: userId,
+          };
+        })
+      );
 
-    return imageList;
+      return imageList;
+    } catch (error) {
+      return [];
+    }
   }
 
   // 画像のメタデータを保存
@@ -82,6 +92,7 @@ export class IslandImageCollection extends Collection {
         type: type,
         posted_at: timeStamp,
         posted_by: userRef,
+        liked_count: 0,
         liked_by: [],
       });
     } catch {
@@ -112,11 +123,13 @@ export class IslandImageCollection extends Collection {
       if (likedBy.includes(userId)) {
         // 既に高評価している場合は削除
         await updateDoc(imageRef, {
+          liked_count: increment(-1),
           liked_by: likedBy.filter((id: string) => id !== userId),
         });
       } else {
         // まだ高評価していない場合は追加
         await updateDoc(imageRef, {
+          liked_count: increment(1),
           liked_by: [...likedBy, userId],
         });
       }

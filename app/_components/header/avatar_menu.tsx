@@ -32,10 +32,22 @@ export default function AvatarMenu() {
 
   const menuItems = [
     {
+      text: "地図を表示",
+      href: "/",
+      external: false,
+      loginOnly: false,
+    },
+    {
       text: "マイページ",
       href: "/mypage",
       external: false,
       loginOnly: true,
+    },
+    {
+      text: "利用規約",
+      href: "/legal",
+      external: false,
+      loginOnly: false,
     },
     /**
     {

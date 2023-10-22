@@ -11,6 +11,7 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import React from "react";
 import { blue } from "@mui/material/colors";
 import { textHelper } from "@/app/_utils/text_helper";
+import { useIslandInfo } from "@/app/_hooks/island_info";
 
 interface Props {
   index: number;
@@ -25,13 +26,18 @@ interface Props {
 
 export const PostQuestion = (props: Props) => {
   const { trimText } = textHelper();
+  const { setInfo } = useIslandInfo();
+
+  function onClick() {
+    setInfo(props.island.id);
+  }
 
   return (
     <>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar sx={{ bgcolor: blue[200] }}>
-            <IconButton>
+            <IconButton onClick={onClick}>
               <QuestionMarkIcon sx={{ color: blue[600] }} />
             </IconButton>
           </Avatar>

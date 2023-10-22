@@ -11,6 +11,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isProduction = process.env.NEXT_PUBLIC_ENV_NAME === "production";
+  if (!isProduction) {
+    console.log("This is development mode.");
+  }
+
   return (
     <html lang="ja">
       <head>
@@ -23,6 +28,7 @@ export default function RootLayout({
         <meta name="twitter:title" content={appText.META_TITLE} />
         <meta name="twitter:description" content={appText.META_DESCRIPTION} />
         <meta name="twitter:image" content="/ogp.png" />
+        {!isProduction && <meta name="robots" content="noindex" />}
       </head>
       <body>
         <Provider store={store}>

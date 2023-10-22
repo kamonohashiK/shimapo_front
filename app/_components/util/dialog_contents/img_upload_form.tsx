@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   IconButton,
   ImageList,
   ImageListItem,
@@ -32,22 +33,37 @@ export default function ImageUploadForm() {
   const [isUploading, setIsUploadinig] = React.useState<boolean>(false);
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
 
   const { showAlert } = useAlert();
-  const { hideDialog } = useDialog();
+  const { hideDialog, toggleDisabled } = useDialog();
   const { setThumbnailList } = useIslandInfo();
+
+  const UPPER_LIMIT = 10;
+  const COLS = isMobile ? 2 : 5;
+  const FORM_TEXT = isMobile
+    ? "タップして画像を選択"
+    : "画像をドラッグ&ドロップ or クリックして選択";
+  const PREVIEW_HEIGHT = isMobile ? "60px" : "100px";
+
+  // プレビュー画像のスタイル
+  const img = {
+    width: "auto",
+    height: PREVIEW_HEIGHT,
+    margin: "10px",
+  };
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      image: ["image/jpeg", "image/png"],
+      "image/*": [".jpeg", ".jpg", ".png"],
     },
-    onDrop: (acceptedFiles) => {
-      // TODO: acceptしているファイル以外がドロップされた場合の処理
-      if (acceptedFiles.length > 5) {
-        console.log("上限オーバー");
-        setError("5枚以上はアップロードできません。");
+    onDrop: (acceptedFiles, fileRejections) => {
+      if (acceptedFiles.length > UPPER_LIMIT) {
+        setError(`${UPPER_LIMIT}枚以上はアップロードできません。`);
         setCanSubmit(false);
+      } else if (fileRejections.length > 0) {
+        setError(`画像ファイル以外はアップロードできません。`);
       } else {
         setFiles(
           acceptedFiles.map((file) =>
@@ -67,6 +83,7 @@ export default function ImageUploadForm() {
     try {
       setCanSubmit(false);
       setIsUploadinig(true);
+      toggleDisabled();
 
       // アクティビティ用に最初の画像のサムネイルを保持する変数
       let firstThumbnailUrl: string = "";
@@ -100,7 +117,6 @@ export default function ImageUploadForm() {
               }
             })
           );
-          // TODO: 保存が失敗した場合の処理
           // ユーザーの画像投稿数を更新
           await updatePostedImages(userId);
           // アクティビティを保存
@@ -120,6 +136,7 @@ export default function ImageUploadForm() {
       showAlert("画像のアップロードに失敗しました。", "error");
     } finally {
       hideDialog();
+      toggleDisabled();
       setThumbnailList(islandId);
     }
   }
@@ -140,7 +157,7 @@ export default function ImageUploadForm() {
         {isDragActive ? (
           // ドラッグ中の状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -148,12 +165,12 @@ export default function ImageUploadForm() {
               opacity: 0.8,
             }}
           >
-            画像をドラッグ&ドロップするか、クリックして選択してください。
+            {FORM_TEXT}
           </Button>
         ) : (
           // アクションを起こす前のデフォルトの状態
           <Button
-            disabled={canSubmit}
+            disabled={canSubmit || isUploading}
             component="label"
             variant="contained"
             startIcon={<CloudUploadIcon />}
@@ -163,16 +180,16 @@ export default function ImageUploadForm() {
               },
             }}
           >
-            画像をドラッグ&ドロップするか、クリックして選択してください。
+            {FORM_TEXT}
           </Button>
         )}
       </div>
       <Typography color="error">
         {" "}
-        {error ? error : "※画像ファイルのみ・上限5枚"}
+        {error ? error : `※画像ファイルのみ・上限${UPPER_LIMIT}枚`}
       </Typography>
       {files.length > 0 ? (
-        <ImageList cols={5}>
+        <ImageList cols={COLS}>
           {files.map((file, index) => (
             <ImageListItem key={index}>
               <img
@@ -188,7 +205,11 @@ export default function ImageUploadForm() {
                     "rgba(0,0,0,0.1) 70%, rgba(0,0,0,0) 100%)",
                 }}
                 actionIcon={
-                  <IconButton sx={{ color: "white" }} onClick={remove(index)}>
+                  <IconButton
+                    sx={{ color: "white" }}
+                    onClick={remove(index)}
+                    disabled={isUploading}
+                  >
                     <Cancel />
                   </IconButton>
                 }
@@ -202,16 +223,12 @@ export default function ImageUploadForm() {
         variant="outlined"
         disabled={!canSubmit || isUploading}
         onClick={upload}
+        startIcon={
+          isUploading ? <CircularProgress color="info" size={20} /> : undefined
+        }
       >
-        アップロード
+        {isUploading ? "アップロード中..." : "アップロード"}
       </Button>
     </Stack>
   );
 }
-
-// プレビュー画像のスタイル
-const img = {
-  width: "auto",
-  height: "100px",
-  margin: "10px",
-};

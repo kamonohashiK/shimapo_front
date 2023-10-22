@@ -1,4 +1,3 @@
-import { UserProfile } from "@/app/_components/mypage/user_profile/_";
 import { IslandQuestionCollection } from "../collections/island_question";
 import { UserProfileCollection } from "../collections/user_profile";
 import { UserActivityCollection } from "../collections/user_activity";

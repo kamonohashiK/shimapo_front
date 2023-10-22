@@ -1,9 +1,9 @@
+import { useIslandInfo } from "@/app/_hooks/island_info";
 import {
   ListItem,
   ListItemAvatar,
   Avatar,
   ListItemText,
-  Typography,
   Divider,
 } from "@mui/material";
 import React from "react";
@@ -25,13 +25,19 @@ interface Props {
 }
 
 export const LikeImage = (props: Props) => {
+  const { setInfo } = useIslandInfo();
+
+  function onClick() {
+    setInfo(props.island.id);
+  }
+
   return (
     <>
       <ListItem alignItems="flex-start" key={props.index}>
-        <ListItemAvatar>
+        <ListItemAvatar onClick={onClick}>
           <Avatar alt="ユーザー画像" src={props.user.image_url} />
         </ListItemAvatar>
-        <ListItemAvatar>
+        <ListItemAvatar onClick={onClick}>
           <Avatar variant="rounded" src={props.content} alt="サムネイル" />
         </ListItemAvatar>
         <ListItemText

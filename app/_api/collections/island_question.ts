@@ -26,7 +26,7 @@ export class IslandQuestionCollection extends Collection {
 
   // 島ごとの質問を取得する
   async getQuestions() {
-    const q = query(this.collectionRef, orderBy("posted_at", "desc"));
+    const q = query(this.collectionRef, orderBy("posted_at", "asc"));
     const questions = await getDocs(q);
     return questions;
   }

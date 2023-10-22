@@ -13,6 +13,10 @@ import { FavoriteButton } from "./favorite_button";
 export default function CustomImageList() {
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
+
+  const COLS = isMobile ? 1 : 2;
+
   const [imageList, setImageList] = React.useState<
     {
       id: string;
@@ -65,7 +69,7 @@ export default function CustomImageList() {
           backgroundColor: "black",
         }}
         rowHeight={320}
-        cols={2}
+        cols={COLS}
       >
         {imageList.map((item, index) => {
           return (

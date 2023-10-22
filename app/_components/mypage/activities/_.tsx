@@ -17,25 +17,29 @@ export default function Activities() {
       thumbnail_url: any;
     }[]
   >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const userId = useSelector((state: RootState) => state.user.userId);
   const { getUserActivitiesById } = useUserProfile();
 
   useEffect(() => {
     const fetchActivities = async () => {
-      const items = await getUserActivitiesById(userId);
-      if (items.result && items.activities !== undefined) {
-        setActivityListItems(items.activities);
-      }
+      setIsLoading(true);
+      await getUserActivitiesById(userId).then((res) => {
+        if (res.result && res.activities !== undefined) {
+          setActivityListItems(res.activities);
+        }
+        setIsLoading(false);
+      });
     };
     fetchActivities();
   }, [userId]);
 
   return (
     <>
-      {activityListItems != null ? (
-        <ActivityList activityListItems={activityListItems} />
-      ) : (
+      {isLoading ? (
         <ProgressCircle />
+      ) : (
+        <ActivityList activityListItems={activityListItems} />
       )}
     </>
   );

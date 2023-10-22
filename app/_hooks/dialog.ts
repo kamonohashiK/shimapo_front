@@ -1,6 +1,7 @@
 import {
   showDialog as showDialogAction,
   hideDialog as hideDialogAction,
+  toggleDisabled as toggleDisabledAction,
 } from "@/app/_store/slices/dialogSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_store/store";
@@ -10,12 +11,18 @@ export const useDialog = () => {
   const dialog = useSelector((state: RootState) => state.dialog);
 
   const showDialog = (dialogType: string) => {
-    dispatch(showDialogAction({ isShown: true, type: dialogType }));
+    dispatch(
+      showDialogAction({ isShown: true, type: dialogType, disabled: false })
+    );
   };
 
   const hideDialog = () => {
     dispatch(hideDialogAction());
   };
 
-  return { dialog, showDialog, hideDialog };
+  const toggleDisabled = () => {
+    dispatch(toggleDisabledAction());
+  };
+
+  return { dialog, showDialog, hideDialog, toggleDisabled };
 };

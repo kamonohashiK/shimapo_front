@@ -9,6 +9,7 @@ import {
   query,
   where,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
 import { Collection } from "./collection";
 import { IslandCollection } from "./island";
@@ -32,7 +33,8 @@ export class UserReactionCollection extends Collection {
 
       const q = query(
         this.collectionRef,
-        where("posted_at", ">=", Timestamp.fromDate(oneMonthAgo))
+        where("posted_at", ">=", Timestamp.fromDate(oneMonthAgo)),
+        orderBy("posted_at", "desc")
       );
       const activities = await Promise.all(
         (
@@ -48,6 +50,7 @@ export class UserReactionCollection extends Collection {
             return {
               id: doc.id,
               island: {
+                id: doc.data().island.id,
                 name: islandData.name,
                 location: islandData.location,
               },
