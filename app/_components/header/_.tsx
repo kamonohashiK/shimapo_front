@@ -8,16 +8,19 @@ import { usePathname } from "next/navigation";
 import TitleLogo from "./title_logo";
 import AvatarMenu from "./avatar_menu";
 import HeaderAlert from "./alert";
+import { RootState } from "@/app/_store/store";
+import { useSelector } from "react-redux";
 
 export default function Header() {
   const pathname = usePathname();
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
         <Toolbar>
           <HeaderAlert />
-          <TitleLogo />
+          {!isMobile || pathname != "/" ? <TitleLogo /> : null}
           {pathname == "/" ? <SearchBar /> : null}
           <AvatarMenu />
         </Toolbar>

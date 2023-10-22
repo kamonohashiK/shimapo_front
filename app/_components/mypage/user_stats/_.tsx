@@ -9,6 +9,7 @@ export const UserStats = () => {
   const [statsData, setStatsData] = useState<any[]>([]);
   const userId = useSelector((state: RootState) => state.user.userId);
   const { getUserProfileById } = useUserProfile();
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
 
   // マウント時にプロフィールを取得
   useEffect(() => {
@@ -32,7 +33,7 @@ export const UserStats = () => {
   }, [userId]);
 
   return statsData.length > 0 ? (
-    <UserStatsList statsData={statsData} />
+    <UserStatsList isMobile={isMobile} statsData={statsData} />
   ) : (
     <ProgressCircle />
   );

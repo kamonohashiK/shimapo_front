@@ -1,24 +1,18 @@
-import { PrivacyPolicy } from "@/app/_components/legal/privacy_policy";
-import { TermsOfUse } from "@/app/_components/legal/terms_of_use";
-import Sidebar from "@/app/_components/sidebar/_";
-import { Container, Divider, Grid, Typography } from "@mui/material";
+"use client";
+import { LegalPageMobile } from "@/app/_components/page/mobile/legal";
+import { LegalPagePC } from "@/app/_components/page/pc/legal";
+import { useIslandInfo } from "@/app/_hooks/island_info";
+import { RootState } from "@/app/_store/store";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export default function LegalPage() {
-  return (
-    <Container sx={{ maxHeight: "100vh" }}>
-      <Grid container direction="row" spacing={2}>
-        <Grid item xs={4}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={8} id="content">
-          <Container fixed>
-            <TermsOfUse />
-            <Divider sx={{ margin: 2 }} />
-            <PrivacyPolicy />
-            <Typography paragraph>©️ 2023 Kouki Kadoya</Typography>
-          </Container>
-        </Grid>
-      </Grid>
-    </Container>
-  );
+  const { setIsMobile } = useIslandInfo();
+
+  useEffect(() => {
+    // 横幅が600px以下の場合はモバイルとみなす TODO: ここも全ページで使いまわしたい
+    setIsMobile(window.innerWidth < 600);
+  });
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
+  return <>{isMobile ? <LegalPageMobile /> : <LegalPagePC />}</>;
 }

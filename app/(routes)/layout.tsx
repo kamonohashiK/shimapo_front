@@ -12,6 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const isProduction = process.env.NEXT_PUBLIC_ENV_NAME === "production";
+  if (!isProduction) {
+    console.log("This is development mode.");
+  }
+
   return (
     <html lang="ja">
       <head>

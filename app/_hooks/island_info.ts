@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_store/store";
 import {
+  setIsMobile as setIsMobileAction,
   setIslandInfo,
   setQuestionList as setQuestionListAction,
   setThumbnailList as setThumbnailListAction,
@@ -23,6 +24,7 @@ export const useIslandInfo = () => {
     if (data.result) {
       dispatch(
         setIslandInfo({
+          isMobile: false,
           uid: islandId,
           textHeader: "",
           textBody: "",
@@ -42,6 +44,7 @@ export const useIslandInfo = () => {
     } else {
       dispatch(
         setIslandInfo({
+          isMobile: false,
           uid: "",
           textHeader: "データ取得に失敗しました。",
           textBody: "しばらく時間を置いてからお試しください。",
@@ -81,5 +84,16 @@ export const useIslandInfo = () => {
     }
   };
 
-  return { islandInfo, setInfo, setThumbnailList, setQuestionList };
+  // モバイルかどうかをストアに保存
+  const setIsMobile = (isMobile: boolean) => {
+    dispatch(setIsMobileAction(isMobile));
+  };
+
+  return {
+    islandInfo,
+    setInfo,
+    setThumbnailList,
+    setQuestionList,
+    setIsMobile,
+  };
 };

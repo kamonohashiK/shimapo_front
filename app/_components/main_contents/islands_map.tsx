@@ -8,8 +8,8 @@ import { RootState } from "../../_store/store";
 import { useMap } from "@/app/_hooks/map";
 import { useIslandInfo } from "@/app/_hooks/island_info";
 import { Box, Stack } from "@mui/material";
-
-const focusedZoomLevel = 14;
+import { UnderDrawer } from "../under_drawer/_";
+import { zoomLevel } from "@/app/_constants/zoom_level";
 
 const islandPositions = islandSummaries.map((islandSummary) => {
   return {
@@ -20,15 +20,20 @@ const islandPositions = islandSummaries.map((islandSummary) => {
   };
 });
 
-export default function IslandsMap(props: { apiKey: string | undefined }) {
+interface Props {
+  apiKey: string | undefined;
+  isMobile: boolean;
+}
+
+export default function IslandsMap(props: Props) {
   const apiKey = props.apiKey;
   const mapInfo = useSelector((state: RootState) => state.map);
   const { setMapInfo } = useMap();
   const { setInfo } = useIslandInfo();
-  const container = {
-    width: "100%",
-    height: "calc(100vh - 60px)", // 60px is the height of the Box component
-  };
+
+  const containerHeight = props.isMobile
+    ? "calc(100vh - 60px - 112px)"
+    : "calc(100vh - 60px)"; // 60p : "calc(100vh - 60px)"; // 60px: header
   const [stackHeight, setStackHeight] = useState<number>(0);
 
   useEffect(() => {
@@ -54,7 +59,7 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
       uid: uid,
       lat: selectedIsland.lat,
       lng: selectedIsland.lng,
-      zoomLevel: focusedZoomLevel,
+      zoomLevel: zoomLevel.FOCUSED,
     });
   }
 
@@ -63,9 +68,21 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
       <Box height={60} />
       <LoadScript googleMapsApiKey={apiKey}>
         <GoogleMap
-          mapContainerStyle={container}
+          mapContainerStyle={{
+            width: "100%",
+            height: containerHeight,
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 0,
+          }}
           center={{ lat: mapInfo.lat, lng: mapInfo.lng }}
           zoom={mapInfo.zoomLevel}
+          options={{
+            gestureHandling: props.isMobile ? "greedy" : "cooperative",
+          }}
         >
           {islandPositions.map((position) => {
             return (
@@ -81,6 +98,7 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
           })}
         </GoogleMap>
       </LoadScript>
+      {props.isMobile ? <UnderDrawer /> : <></>}
     </Stack>
   ) : (
     <></>
@@ -91,21 +109,21 @@ export default function IslandsMap(props: { apiKey: string | undefined }) {
     const area = Areas;
 
     switch (true) {
-      case area["HOKKAIDO_TOHOKU"].includes(pref):
+      case area.HOKKAIDO_TOHOKU.includes(pref):
         return baseUrl("blue");
-      case area["KANTO"].includes(pref):
+      case area.KANTO.includes(pref):
         return baseUrl("ltblue");
-      case area["CHUBU"].includes(pref):
+      case area.CHUBU.includes(pref):
         return baseUrl("green");
-      case area["KINKI"].includes(pref):
+      case area.KINKI.includes(pref):
         return baseUrl("yellow");
-      case area["CHUGOKU"].includes(pref):
+      case area.CHUGOKU.includes(pref):
         return baseUrl("purple");
-      case area["SHIKOKU"].includes(pref):
+      case area.SHIKOKU.includes(pref):
         return baseUrl("pink");
-      case area["KYUSHU"].includes(pref):
+      case area.KYUSHU.includes(pref):
         return baseUrl("orange");
-      case area["OKINAWA"].includes(pref):
+      case area.OKINAWA.includes(pref):
         return baseUrl("red");
       default:
         return baseUrl("red");
