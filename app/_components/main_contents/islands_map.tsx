@@ -32,7 +32,7 @@ export default function IslandsMap(props: Props) {
   const { setInfo } = useIslandInfo();
 
   const containerHeight = props.isMobile
-    ? "calc(100vh - 60px - 56px)"
+    ? "calc(100vh - 60px - 112px)"
     : "calc(100vh - 60px)"; // 60p : "calc(100vh - 60px)"; // 60px: header
   const [stackHeight, setStackHeight] = useState<number>(0);
 

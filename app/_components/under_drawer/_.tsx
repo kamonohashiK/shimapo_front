@@ -8,13 +8,8 @@ import { UnderDrawerText } from "./text/_";
 import { useAppSelector } from "@/app/_store/hooks";
 import UnderDrawerIslandInfo from "./island_info/_";
 
-const drawerBleeding = 56;
-
+const drawerBleeding = 112;
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
 }
 
@@ -30,10 +25,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "light" ? "#fff" : grey[800],
 }));
 
-const Puller = styled(Box)(({ theme }) => ({
+const Puller = styled(Box)(() => ({
   width: 30,
   height: 6,
-  backgroundColor: theme.palette.mode === "light" ? grey[300] : grey[900],
+  backgroundColor: grey[300],
   borderRadius: 3,
   position: "absolute",
   top: 8,
@@ -59,7 +54,7 @@ export default function UnderDrawer(props: Props) {
       <Global
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
-            height: `calc(50% - ${drawerBleeding}px)`,
+            height: `calc(60% - ${drawerBleeding}px)`,
             overflow: "visible",
           },
         }}
