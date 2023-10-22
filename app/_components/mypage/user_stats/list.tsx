@@ -2,10 +2,11 @@ import { Stack, Box } from "@mui/material";
 import { UserStatsItem } from "./item";
 
 interface UserStatsListProps {
+  isMobile: boolean;
   statsData: any[];
 }
 
-export const UserStatsList = ({ statsData }: UserStatsListProps) => {
+export const UserStatsList = (props: UserStatsListProps) => {
   return (
     <Stack
       direction="row"
@@ -13,15 +14,15 @@ export const UserStatsList = ({ statsData }: UserStatsListProps) => {
       margin={3}
       sx={{ width: "100%", justifyContent: "space-between" }}
     >
-      <Box sx={{ width: "10px" }} />
-      {statsData.map((data, index) => {
+      {props.isMobile ? null : <Box sx={{ width: "10px" }} />}
+      {props.statsData.map((data, index) => {
         return (
           <UserStatsItem
             key={index}
             title={data.title}
             value={data.value}
             index={index}
-            itemSize={statsData.length}
+            itemSize={props.statsData.length}
           />
         );
       })}
