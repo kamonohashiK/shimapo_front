@@ -69,7 +69,7 @@ export default function NewQuestionForm() {
   return (
     <Stack spacing={2} margin={3}>
       <Typography paragraph>質問を入力してください。</Typography>
-      <FormControl sx={{ m: 1, width: "50ch" }}>
+      <FormControl sx={{ m: 1, width: "100%" }}>
         <TextField
           label="40文字以内で入力"
           multiline

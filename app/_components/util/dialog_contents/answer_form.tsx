@@ -106,7 +106,7 @@ export default function AnswerForm() {
         {islandName}:{focusedQuestion}
       </Typography>
       <Typography paragraph>回答を入力してください。</Typography>
-      <FormControl sx={{ m: 1, width: "50ch" }}>
+      <FormControl sx={{ m: 1, width: "100%" }}>
         <TextField
           required
           label={upperLimit + "文字以内で入力"}
@@ -118,7 +118,7 @@ export default function AnswerForm() {
           helperText={errorText}
         />
       </FormControl>
-      <FormControl sx={{ m: 1, width: "50ch" }}>
+      <FormControl sx={{ m: 1, width: "100%" }}>
         <TextField
           label="参考URL"
           value={url}
