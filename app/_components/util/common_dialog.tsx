@@ -32,6 +32,7 @@ export default function CommonDialog() {
       maxWidth={"md"}
       open={dialogState.isShown}
       onClose={() => hideDialog()}
+      sx={{ overflow: "auto" }}
     >
       <DialogTitle sx={{ m: 0, p: 2 }}></DialogTitle>
       <IconButton

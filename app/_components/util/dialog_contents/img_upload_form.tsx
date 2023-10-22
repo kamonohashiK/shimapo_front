@@ -33,12 +33,25 @@ export default function ImageUploadForm() {
   const [isUploading, setIsUploadinig] = React.useState<boolean>(false);
   const islandId = useSelector((state: RootState) => state.page.uid);
   const userId = useSelector((state: RootState) => state.user.userId);
+  const isMobile = useSelector((state: RootState) => state.page.isMobile);
 
   const { showAlert } = useAlert();
   const { hideDialog, toggleDisabled } = useDialog();
   const { setThumbnailList } = useIslandInfo();
 
   const UPPER_LIMIT = 10;
+  const COLS = isMobile ? 2 : 5;
+  const FORM_TEXT = isMobile
+    ? "タップして画像を選択"
+    : "画像をドラッグ&ドロップ or クリックして選択";
+  const PREVIEW_HEIGHT = isMobile ? "60px" : "100px";
+
+  // プレビュー画像のスタイル
+  const img = {
+    width: "auto",
+    height: PREVIEW_HEIGHT,
+    margin: "10px",
+  };
 
   // react-dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -152,7 +165,7 @@ export default function ImageUploadForm() {
               opacity: 0.8,
             }}
           >
-            画像をドラッグ&ドロップするか、クリックして選択してください。
+            {FORM_TEXT}
           </Button>
         ) : (
           // アクションを起こす前のデフォルトの状態
@@ -167,7 +180,7 @@ export default function ImageUploadForm() {
               },
             }}
           >
-            画像をドラッグ&ドロップするか、クリックして選択してください。
+            {FORM_TEXT}
           </Button>
         )}
       </div>
@@ -176,7 +189,7 @@ export default function ImageUploadForm() {
         {error ? error : `※画像ファイルのみ・上限${UPPER_LIMIT}枚`}
       </Typography>
       {files.length > 0 ? (
-        <ImageList cols={5}>
+        <ImageList cols={COLS}>
           {files.map((file, index) => (
             <ImageListItem key={index}>
               <img
@@ -219,10 +232,3 @@ export default function ImageUploadForm() {
     </Stack>
   );
 }
-
-// プレビュー画像のスタイル
-const img = {
-  width: "auto",
-  height: "100px",
-  margin: "10px",
-};
