@@ -23,11 +23,19 @@ export default function RootLayout({
         <meta name="description" content={appText.META_DESCRIPTION} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{appText.META_TITLE}</title>
+        <meta property="og:title" content={appText.META_TITLE} />
+        <meta property="og:description" content={appText.META_DESCRIPTION} />
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_SELF_URL} />
+        <meta property="og:site_name" content={appText.META_TITLE} />
+        <meta
+          property="og:image"
+          content={process.env.NEXT_PUBLIC_SELF_URL + "/ogp.png"}
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@platypus_k86" />
         <meta name="twitter:title" content={appText.META_TITLE} />
         <meta name="twitter:description" content={appText.META_DESCRIPTION} />
-        <meta name="twitter:image" content="/ogp.png" />
+        <meta name="twitter:image" content={process.env.NEXT_PUBLIC_SELF_URL + "/ogp.png"}/>
         {!isProduction && <meta name="robots" content="noindex" />}
       </head>
       <body>
