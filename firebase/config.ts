@@ -1,6 +1,7 @@
 //firebase/config.js
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -17,3 +18,7 @@ let firebase_app =
 
 export default firebase_app;
 export const db = getFirestore(firebase_app);
+
+const analytics = isSupported().then((yes) =>
+  yes ? getAnalytics(firebase_app) : null
+);
