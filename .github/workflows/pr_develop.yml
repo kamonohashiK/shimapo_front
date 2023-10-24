@@ -3,6 +3,12 @@ on:
   pull_request:
     branches:
       - develop
+
+env:
+  SLACK_USERNAME: DeployBot
+  SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,3 +47,22 @@ jobs:
           projectId: shimapo-test
         env:
           FIREBASE_CLI_EXPERIMENTS: webframeworks
+
+      # Slack通知
+      # 成功
+      - name: Slack Notification on Success
+        uses: rtCamp/action-slack-notify@v2
+        if: ${{ success() }}
+        env:
+          SLACK_TITLE: Deploy / Success
+          SLACK_COLOR: good
+          SLACK_MESSAGE: PRチェック完了/開発環境のプレビューチャネルへデプロイしました。
+
+      # 失敗
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@v2
+        if: ${{ failure() }}
+        env:
+          SLACK_TITLE: Deploy / Failure
+          SLACK_COLOR: danger
+          SLACK_MESSAGE: PRチェック失敗/開発環境のプレビューチャネルへのデプロイに失敗しました。
