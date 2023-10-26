@@ -1,43 +1,110 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>shimapo_front</title><meta name="description" content="Documentation for shimapo_front"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Collection | shimapo_front</title><meta name="description" content="Documentation for shimapo_front"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
-<div class="table-cell" id="tsd-search" data-base=".">
+<div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
 <div class="field">
 <div id="tsd-toolbar-links"></div></div>
 <ul class="results">
 <li class="state loading">Preparing search index...</li>
-<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">shimapo_front</a></div>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">shimapo_front</a></div>
 <div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-menu"></use></svg></a></div></div></header>
 <div class="container container-main">
 <div class="col-content">
 <div class="tsd-page-title">
-<h2>shimapo_front</h2></div>
-<div class="tsd-panel tsd-typography"><p>This is a <a href="https://nextjs.org/">Next.js</a> project bootstrapped with <a href="https://github.com/vercel/next.js/tree/canary/packages/create-next-app"><code>create-next-app</code></a>.</p>
-<a id="md:getting-started" class="tsd-anchor"></a><h2><a href="#md:getting-started">Getting Started</a></h2><p>このプロジェクトでは、随所でHTTPSによる通信を必要とするため、ローカル環境でもSSL証明書を発行しています。開発を始める前に以下の手順に従ってSSL証明書を作成してください。</p>
-<a id="md:1-mkcert-をインストール-mac環境の場合" class="tsd-anchor"></a><h3><a href="#md:1-mkcert-をインストール-mac環境の場合">1. mkcert をインストール ※Mac環境の場合</a></h3><p><a href="https://github.com/FiloSottile/mkcert">https://github.com/FiloSottile/mkcert</a></p>
-<p>※ Mac以外のOSを使用している場合は、同様の動作をするツールを適宜探してみてください。</p>
-<p>※ brewを使用している場合: インストールを行う</p>
-<pre><code class="language-bash"><span class="hl-0">brew</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">mkcert</span>
-</code><button>Copy</button></pre>
-<p>プロジェクトのルートディレクトリにて、以下のコマンドを実行</p>
-<pre><code class="language-bash"><span class="hl-0">mkcert</span><span class="hl-1"> </span><span class="hl-2">localhost</span>
-</code><button>Copy</button></pre>
-<p>localhost.pem及びlocalhost-key.pemが作成されるのをご確認ください。</p>
-<a id="md:2-開発サーバの立ち上げ" class="tsd-anchor"></a><h3><a href="#md:2-開発サーバの立ち上げ">2. 開発サーバの立ち上げ</a></h3><p>HTTPSで開発サーバを立ち上げるには、以下のコマンドを実行してください。</p>
-<pre><code class="language-bash"><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-2">dev:proxy</span>
-</code><button>Copy</button></pre>
-<a id="md:gitについての注意点" class="tsd-anchor"></a><h2><a href="#md:gitについての注意点">Gitについての注意点</a></h2><p>このプロジェクトでは、mainブランチ及びdevelopブランチへの直接コミットを禁止しています。変更を行う際は、必ずトピックブランチを作成し、developブランチへのプルリクエストを提出するようにしてください。</p>
-<p>また、ローカルレベルで各ブランチへの誤コミットを防止するため、コミット前に対象のブランチ名をチェックするスクリプトを用意しています。</p>
-<p>ルートディレクトリで以下のコマンドを実行し、実行権限を与えておいてください。</p>
-<pre><code class="language-bash"><span class="hl-0">chmod</span><span class="hl-1"> </span><span class="hl-2">a+x</span><span class="hl-1"> </span><span class="hl-2">.git/hooks/pre-commit</span>
-</code><button>Copy</button></pre>
-<a id="md:learn-more" class="tsd-anchor"></a><h2><a href="#md:learn-more">Learn More</a></h2><p>To learn more about Next.js, take a look at the following resources:</p>
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">shimapo_front</a></li>
+<li><a href="Collection.html">Collection</a></li></ul>
+<h1>Class Collection</h1></div>
+<section class="tsd-panel tsd-hierarchy">
+<h4>Hierarchy</h4>
+<ul class="tsd-hierarchy">
+<li><span class="target">Collection</span>
+<ul class="tsd-hierarchy">
+<li><a href="IslandCollection.html" class="tsd-signature-type tsd-kind-class">IslandCollection</a></li>
+<li><a href="IslandImageCollection.html" class="tsd-signature-type tsd-kind-class">IslandImageCollection</a></li>
+<li><a href="IslandQuestionCollection.html" class="tsd-signature-type tsd-kind-class">IslandQuestionCollection</a></li>
+<li><a href="QuestionAnswerCollection.html" class="tsd-signature-type tsd-kind-class">QuestionAnswerCollection</a></li>
+<li><a href="UserActivityCollection.html" class="tsd-signature-type tsd-kind-class">UserActivityCollection</a></li>
+<li><a href="UserProfileCollection.html" class="tsd-signature-type tsd-kind-class">UserProfileCollection</a></li>
+<li><a href="UserReactionCollection.html" class="tsd-signature-type tsd-kind-class">UserReactionCollection</a></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li><a href="https://nextjs.org/docs">Next.js Documentation</a> - learn about Next.js features and API.</li>
-<li><a href="https://nextjs.org/learn">Learn Next.js</a> - an interactive Next.js tutorial.</li>
-</ul>
-<p>You can check out <a href="https://github.com/vercel/next.js/">the Next.js GitHub repository</a> - your feedback and contributions are welcome!</p>
-</div></div>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L4">app/_api/collections/collection.ts:4</a></li></ul></aside>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
+<h5 class="tsd-index-heading uppercase" role="button" aria-expanded="false" tabIndex=0><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-chevronSmall"></use></svg> Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Constructors</h3>
+<div class="tsd-index-list"><a href="Collection.html#constructor" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-512"></use></svg><span>constructor</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Properties</h3>
+<div class="tsd-index-list"><a href="Collection.html#firestore" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>firestore</span></a>
+</div></section>
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading">Methods</h3>
+<div class="tsd-index-list"><a href="Collection.html#convertTimestamp" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>convert<wbr/>Timestamp</span></a>
+<a href="Collection.html#getTimestamp" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp</span></a>
+<a href="Collection.html#getTimestampOneMonthAgo" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Ago</span></a>
+<a href="Collection.html#getTimestampOneMonthLater" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Later</span></a>
+</div></section></div></details></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Constructors</h2>
+<section class="tsd-panel tsd-member"><a id="constructor" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_Collection"><span class="tsd-kind-constructor-signature">new <wbr/>Collection</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="Collection.html" class="tsd-signature-type tsd-kind-class">Collection</a><a href="#constructor.new_Collection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <a href="Collection.html" class="tsd-signature-type tsd-kind-class">Collection</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L7">app/_api/collections/collection.ts:7</a></li></ul></aside></li></ul></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Properties</h2>
+<section class="tsd-panel tsd-member"><a id="firestore" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>firestore</span><a href="#firestore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">firestore</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type ">Firestore</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L5">app/_api/collections/collection.ts:5</a></li></ul></aside></section></section>
+<section class="tsd-panel-group tsd-member-group">
+<h2>Methods</h2>
+<section class="tsd-panel tsd-member"><a id="convertTimestamp" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>convert<wbr/>Timestamp</span><a href="#convertTimestamp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="convertTimestamp.convertTimestamp-1"><span class="tsd-kind-call-signature">convert<wbr/>Timestamp</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">t</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><a href="#convertTimestamp.convertTimestamp-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">t</span>: <span class="tsd-signature-type">any</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L12">app/_api/collections/collection.ts:12</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="getTimestamp" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Timestamp</span><a href="#getTimestamp" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="getTimestamp.getTimestamp-1"><span class="tsd-kind-call-signature">get<wbr/>Timestamp</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Timestamp</span><a href="#getTimestamp.getTimestamp-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Timestamp</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L21">app/_api/collections/collection.ts:21</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="getTimestampOneMonthAgo" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Ago</span><a href="#getTimestampOneMonthAgo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="getTimestampOneMonthAgo.getTimestampOneMonthAgo-1"><span class="tsd-kind-call-signature">get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Ago</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Date</span><a href="#getTimestampOneMonthAgo.getTimestampOneMonthAgo-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Date</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L26">app/_api/collections/collection.ts:26</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="getTimestampOneMonthLater" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Later</span><a href="#getTimestampOneMonthLater" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="getTimestampOneMonthLater.getTimestampOneMonthLater-1"><span class="tsd-kind-call-signature">get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Later</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Date</span><a href="#getTimestampOneMonthLater.getTimestampOneMonthLater-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Date</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_api/collections/collection.ts#L33">app/_api/collections/collection.ts:33</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -57,41 +124,36 @@
 <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <ul>
-<li>
-<ul>
-<li><a href="#md:getting-started"><span>Getting <wbr/>Started</span></a></li>
-<li>
-<ul>
-<li><a href="#md:1-mkcert-をインストール-mac環境の場合"><span>1. mkcert をインストール ※<wbr/>Mac環境の場合</span></a></li>
-<li>
-<ul>
-<li><a href="#md:2-開発サーバの立ち上げ"><span>2. 開発サーバの立ち上げ</span></a></li></ul></li>
-<li><a href="#md:gitについての注意点"><span>Gitについての注意点</span></a></li>
-<li><a href="#md:learn-more"><span>Learn <wbr/>More</span></a></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#constructor" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-512"></use></svg><span>constructor</span></a></li>
+<li><a href="#firestore" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>firestore</span></a></li>
+<li><a href="#convertTimestamp" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>convert<wbr/>Timestamp</span></a></li>
+<li><a href="#getTimestamp" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp</span></a></li>
+<li><a href="#getTimestampOneMonthAgo" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Ago</span></a></li>
+<li><a href="#getTimestampOneMonthLater" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Timestamp<wbr/>One<wbr/>Month<wbr/>Later</span></a></li></ul></div></details></div>
 <div class="site-menu">
-<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>shimapo_front</span></a>
-<ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base=".">
-<li><a href="classes/AuthProfile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>AuthProfile</a></li>
-<li><a href="classes/Collection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>Collection</a></li>
-<li><a href="classes/FirebaseAuth.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>FirebaseAuth</a></li>
-<li><a href="classes/IslandCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandCollection</a></li>
-<li><a href="classes/IslandImageCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandImageCollection</a></li>
-<li><a href="classes/IslandQuestionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandQuestionCollection</a></li>
-<li><a href="classes/QuestionAnswerCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>QuestionAnswerCollection</a></li>
-<li><a href="classes/UserActivityCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserActivityCollection</a></li>
-<li><a href="classes/UserProfileCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserProfileCollection</a></li>
-<li><a href="classes/UserReactionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserReactionCollection</a></li>
-<li><a href="types/AppDispatch.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>AppDispatch</a></li>
-<li><a href="types/RootState.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>RootState</a></li>
-<li><a href="types/UserProfileProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>UserProfileProps</a></li>
-<li><a href="modules.html#default" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg>default</a></li>
-<li><a href="variables/Areas.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>Areas</a></li>
-<li><a href="variables/alertSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>alertSlice</a></li>
-<li><a href="variables/appText.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>appText</a></li>
-<li><a href="variables/dialogSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogSlice</a></li>
-<li><a href="variables/dialogTypes.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogTypes</a></li>
-<li><a href="variables/islandSummaries.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>islandSummaries</a></li>
-<li><a href="variables/mapSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>mapSlice</a></li>
+<nav class="tsd-navigation"><a href="../modules.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>shimapo_front</span></a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="..">
+<li><a href="AuthProfile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>AuthProfile</a></li>
+<li><a href="Collection.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>Collection</a></li>
+<li><a href="FirebaseAuth.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>FirebaseAuth</a></li>
+<li><a href="IslandCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandCollection</a></li>
+<li><a href="IslandImageCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandImageCollection</a></li>
+<li><a href="IslandQuestionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandQuestionCollection</a></li>
+<li><a href="QuestionAnswerCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>QuestionAnswerCollection</a></li>
+<li><a href="UserActivityCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserActivityCollection</a></li>
+<li><a href="UserProfileCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserProfileCollection</a></li>
+<li><a href="UserReactionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserReactionCollection</a></li>
+<li><a href="../types/AppDispatch.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>AppDispatch</a></li>
+<li><a href="../types/RootState.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>RootState</a></li>
+<li><a href="../types/UserProfileProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>UserProfileProps</a></li>
+<li><a href="../modules.html#default" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg>default</a></li>
+<li><a href="../variables/Areas.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>Areas</a></li>
+<li><a href="../variables/alertSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>alertSlice</a></li>
+<li><a href="../variables/appText.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>appText</a></li>
+<li><a href="../variables/dialogSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogSlice</a></li>
+<li><a href="../variables/dialogTypes.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogTypes</a></li>
+<li><a href="../variables/islandSummaries.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>islandSummaries</a></li>
+<li><a href="../variables/mapSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>mapSlice</a></li>
 <li>Loading...</li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>

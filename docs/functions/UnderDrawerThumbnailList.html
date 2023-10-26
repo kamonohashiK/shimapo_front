@@ -1,43 +1,27 @@
-<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>shimapo_front</title><meta name="description" content="Documentation for shimapo_front"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>UnderDrawerThumbnailList | shimapo_front</title><meta name="description" content="Documentation for shimapo_front"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
 <div class="tsd-toolbar-contents container">
-<div class="table-cell" id="tsd-search" data-base=".">
+<div class="table-cell" id="tsd-search" data-base="..">
 <div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div>
 <div class="field">
 <div id="tsd-toolbar-links"></div></div>
 <ul class="results">
 <li class="state loading">Preparing search index...</li>
-<li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">shimapo_front</a></div>
+<li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">shimapo_front</a></div>
 <div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="#icon-menu"></use></svg></a></div></div></header>
 <div class="container container-main">
 <div class="col-content">
 <div class="tsd-page-title">
-<h2>shimapo_front</h2></div>
-<div class="tsd-panel tsd-typography"><p>This is a <a href="https://nextjs.org/">Next.js</a> project bootstrapped with <a href="https://github.com/vercel/next.js/tree/canary/packages/create-next-app"><code>create-next-app</code></a>.</p>
-<a id="md:getting-started" class="tsd-anchor"></a><h2><a href="#md:getting-started">Getting Started</a></h2><p>このプロジェクトでは、随所でHTTPSによる通信を必要とするため、ローカル環境でもSSL証明書を発行しています。開発を始める前に以下の手順に従ってSSL証明書を作成してください。</p>
-<a id="md:1-mkcert-をインストール-mac環境の場合" class="tsd-anchor"></a><h3><a href="#md:1-mkcert-をインストール-mac環境の場合">1. mkcert をインストール ※Mac環境の場合</a></h3><p><a href="https://github.com/FiloSottile/mkcert">https://github.com/FiloSottile/mkcert</a></p>
-<p>※ Mac以外のOSを使用している場合は、同様の動作をするツールを適宜探してみてください。</p>
-<p>※ brewを使用している場合: インストールを行う</p>
-<pre><code class="language-bash"><span class="hl-0">brew</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">mkcert</span>
-</code><button>Copy</button></pre>
-<p>プロジェクトのルートディレクトリにて、以下のコマンドを実行</p>
-<pre><code class="language-bash"><span class="hl-0">mkcert</span><span class="hl-1"> </span><span class="hl-2">localhost</span>
-</code><button>Copy</button></pre>
-<p>localhost.pem及びlocalhost-key.pemが作成されるのをご確認ください。</p>
-<a id="md:2-開発サーバの立ち上げ" class="tsd-anchor"></a><h3><a href="#md:2-開発サーバの立ち上げ">2. 開発サーバの立ち上げ</a></h3><p>HTTPSで開発サーバを立ち上げるには、以下のコマンドを実行してください。</p>
-<pre><code class="language-bash"><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-2">dev:proxy</span>
-</code><button>Copy</button></pre>
-<a id="md:gitについての注意点" class="tsd-anchor"></a><h2><a href="#md:gitについての注意点">Gitについての注意点</a></h2><p>このプロジェクトでは、mainブランチ及びdevelopブランチへの直接コミットを禁止しています。変更を行う際は、必ずトピックブランチを作成し、developブランチへのプルリクエストを提出するようにしてください。</p>
-<p>また、ローカルレベルで各ブランチへの誤コミットを防止するため、コミット前に対象のブランチ名をチェックするスクリプトを用意しています。</p>
-<p>ルートディレクトリで以下のコマンドを実行し、実行権限を与えておいてください。</p>
-<pre><code class="language-bash"><span class="hl-0">chmod</span><span class="hl-1"> </span><span class="hl-2">a+x</span><span class="hl-1"> </span><span class="hl-2">.git/hooks/pre-commit</span>
-</code><button>Copy</button></pre>
-<a id="md:learn-more" class="tsd-anchor"></a><h2><a href="#md:learn-more">Learn More</a></h2><p>To learn more about Next.js, take a look at the following resources:</p>
+<ul class="tsd-breadcrumb">
+<li><a href="../modules.html">shimapo_front</a></li>
+<li><a href="UnderDrawerThumbnailList.html">UnderDrawerThumbnailList</a></li></ul>
+<h1>Function UnderDrawerThumbnailList</h1></div>
+<section class="tsd-panel">
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="UnderDrawerThumbnailList"><span class="tsd-kind-call-signature">Under<wbr/>Drawer<wbr/>Thumbnail<wbr/>List</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type ">Element</span><a href="#UnderDrawerThumbnailList" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Element</span></h4><aside class="tsd-sources">
 <ul>
-<li><a href="https://nextjs.org/docs">Next.js Documentation</a> - learn about Next.js features and API.</li>
-<li><a href="https://nextjs.org/learn">Learn Next.js</a> - an interactive Next.js tutorial.</li>
-</ul>
-<p>You can check out <a href="https://github.com/vercel/next.js/">the Next.js GitHub repository</a> - your feedback and contributions are welcome!</p>
-</div></div>
+<li>Defined in <a href="https://github.com/kamonohashiK/shimapo_front/blob/0d6a4b8/app/_components/under_drawer/island_info/thumbnail_list/_.tsx#L8">app/_components/under_drawer/island_info/thumbnail_list/_.tsx:8</a></li></ul></aside></li></ul></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -52,46 +36,31 @@
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
 <li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div>
 <div class="tsd-theme-toggle">
-<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
-<details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary">
-<h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="#icon-chevronDown"></use></svg>On This Page</h3></summary>
-<div class="tsd-accordion-details">
-<ul>
-<li>
-<ul>
-<li><a href="#md:getting-started"><span>Getting <wbr/>Started</span></a></li>
-<li>
-<ul>
-<li><a href="#md:1-mkcert-をインストール-mac環境の場合"><span>1. mkcert をインストール ※<wbr/>Mac環境の場合</span></a></li>
-<li>
-<ul>
-<li><a href="#md:2-開発サーバの立ち上げ"><span>2. 開発サーバの立ち上げ</span></a></li></ul></li>
-<li><a href="#md:gitについての注意点"><span>Gitについての注意点</span></a></li>
-<li><a href="#md:learn-more"><span>Learn <wbr/>More</span></a></li></ul></li></ul></li></ul></div></details></div>
+<h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div></div>
 <div class="site-menu">
-<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>shimapo_front</span></a>
-<ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base=".">
-<li><a href="classes/AuthProfile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>AuthProfile</a></li>
-<li><a href="classes/Collection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>Collection</a></li>
-<li><a href="classes/FirebaseAuth.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>FirebaseAuth</a></li>
-<li><a href="classes/IslandCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandCollection</a></li>
-<li><a href="classes/IslandImageCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandImageCollection</a></li>
-<li><a href="classes/IslandQuestionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandQuestionCollection</a></li>
-<li><a href="classes/QuestionAnswerCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>QuestionAnswerCollection</a></li>
-<li><a href="classes/UserActivityCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserActivityCollection</a></li>
-<li><a href="classes/UserProfileCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserProfileCollection</a></li>
-<li><a href="classes/UserReactionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserReactionCollection</a></li>
-<li><a href="types/AppDispatch.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>AppDispatch</a></li>
-<li><a href="types/RootState.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>RootState</a></li>
-<li><a href="types/UserProfileProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>UserProfileProps</a></li>
-<li><a href="modules.html#default" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg>default</a></li>
-<li><a href="variables/Areas.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>Areas</a></li>
-<li><a href="variables/alertSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>alertSlice</a></li>
-<li><a href="variables/appText.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>appText</a></li>
-<li><a href="variables/dialogSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogSlice</a></li>
-<li><a href="variables/dialogTypes.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogTypes</a></li>
-<li><a href="variables/islandSummaries.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>islandSummaries</a></li>
-<li><a href="variables/mapSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>mapSlice</a></li>
+<nav class="tsd-navigation"><a href="../modules.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1"></use></svg><span>shimapo_front</span></a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="..">
+<li><a href="../classes/AuthProfile.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>AuthProfile</a></li>
+<li><a href="../classes/Collection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>Collection</a></li>
+<li><a href="../classes/FirebaseAuth.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>FirebaseAuth</a></li>
+<li><a href="../classes/IslandCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandCollection</a></li>
+<li><a href="../classes/IslandImageCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandImageCollection</a></li>
+<li><a href="../classes/IslandQuestionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>IslandQuestionCollection</a></li>
+<li><a href="../classes/QuestionAnswerCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>QuestionAnswerCollection</a></li>
+<li><a href="../classes/UserActivityCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserActivityCollection</a></li>
+<li><a href="../classes/UserProfileCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserProfileCollection</a></li>
+<li><a href="../classes/UserReactionCollection.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-128"></use></svg>UserReactionCollection</a></li>
+<li><a href="../types/AppDispatch.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>AppDispatch</a></li>
+<li><a href="../types/RootState.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>RootState</a></li>
+<li><a href="../types/UserProfileProps.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>UserProfileProps</a></li>
+<li><a href="../modules.html#default" class="tsd-is-external"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg>default</a></li>
+<li><a href="../variables/Areas.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>Areas</a></li>
+<li><a href="../variables/alertSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>alertSlice</a></li>
+<li><a href="../variables/appText.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>appText</a></li>
+<li><a href="../variables/dialogSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogSlice</a></li>
+<li><a href="../variables/dialogTypes.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>dialogTypes</a></li>
+<li><a href="../variables/islandSummaries.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>islandSummaries</a></li>
+<li><a href="../variables/mapSlice.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>mapSlice</a></li>
 <li>Loading...</li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" rel="noopener" target="_blank">TypeDoc</a></p></div>
