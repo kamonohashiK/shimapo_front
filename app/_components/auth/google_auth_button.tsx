@@ -7,10 +7,20 @@ import { CreateUserProfile } from "@/app/_api/endpoints/user_profile";
 import { useAlert } from "@/app/_hooks/alert";
 import { useDialog } from "@/app/_hooks/dialog";
 
+/**
+ * Googleアカウントでログインするボタン
+ * @description Googleアカウントでログインするボタン
+ * @returns {JSX.Element} Googleアカウントでログインするボタン
+ */
 export default function GoogleAuthButton() {
   const { showAlert } = useAlert();
   const { hideDialog } = useDialog();
 
+  /**
+   * Googleアカウントでのサインイン
+   * @description Googleアカウントでのログインを実行
+   * @returns {void}
+   */
   function SignInWithGoogle() {
     try {
       const auth = getAuth(firebase_app);
