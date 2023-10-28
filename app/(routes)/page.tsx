@@ -46,19 +46,6 @@ export default function Home() {
       })
     );
 
-    const hoge = true;
-    // #131 あからさまなクソコードをあえて書く
-    if (hoge === true) {
-      console.log("hoge is true");
-      // さらにクソコードを書く
-      const fuga = false;
-      if (fuga) {
-        console.log("fuga is true");
-      } else {
-        console.log("fuga is false");
-      }
-    }
-
     // コンポーネントがアンマウントされたときにunsubscribeする
     return () => unsubscribe();
   }, []);
