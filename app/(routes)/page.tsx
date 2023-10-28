@@ -46,6 +46,12 @@ export default function Home() {
       })
     );
 
+    const hoge = true;
+    // #131 あからさまなクソコードをあえて書く
+    if (hoge === true) {
+      console.log("hoge is true");
+    }
+
     // コンポーネントがアンマウントされたときにunsubscribeする
     return () => unsubscribe();
   }, []);
