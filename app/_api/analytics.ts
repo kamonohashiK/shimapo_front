@@ -23,4 +23,18 @@ export class FirebaseAnalytics {
     const params = isError ? { islandId, error: error_message } : { islandId };
     this.log(event, params);
   }
+
+  // 画像のメタデータを取得した際のイベント
+  logGetImageMetadata(
+    islandId: string,
+    sort: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "get_image_metadata_error" : "get_image_metadata";
+    const params = isError
+      ? { islandId, sort, error: error_message }
+      : { islandId, sort };
+    this.log(event, params);
+  }
 }
