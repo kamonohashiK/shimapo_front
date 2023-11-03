@@ -8,17 +8,14 @@ export async function getIslandInfo(islandId: string) {
     // 島の情報をDBから取得
     const island = new IslandCollection(islandId);
     const islandData = await island.getData();
-    analytics.log("get_island_info", { islandId: islandId });
+    analytics.logGetIslandInfo(islandId);
 
     return {
       result: true,
       islandInfo: islandData,
     };
-  } catch (error) {
-    analytics.log("get_island_info_error", {
-      islandId: islandId,
-      error: error,
-    });
+  } catch (error: any) {
+    analytics.logGetIslandInfo(islandId, true, error.message);
     return { result: false };
   }
 }
