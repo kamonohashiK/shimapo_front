@@ -51,4 +51,26 @@ export class FirebaseAnalytics {
       : { islandId, sort };
     this.log(event, params);
   }
+
+  // 質問を取得した際のイベント
+  logGetQuestions(
+    islandId: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "get_questions_error" : "get_questions";
+    const params = isError ? { islandId, error: error_message } : { islandId };
+    this.log(event, params);
+  }
+
+  // 質問を投稿した際のイベント
+  logCreateQuestion(
+    islandId: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "create_question_error" : "create_question";
+    const params = isError ? { islandId, error: error_message } : { islandId };
+    this.log(event, params);
+  }
 }
