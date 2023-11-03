@@ -1,9 +1,10 @@
 import { FirebaseAnalytics } from "../analytics";
 import { IslandCollection } from "../collections/island";
 
+const analytics = new FirebaseAnalytics();
+
 // 島の情報を取得
 export async function getIslandInfo(islandId: string) {
-  const analytics = new FirebaseAnalytics();
   try {
     // 島の情報をDBから取得
     const island = new IslandCollection(islandId);
@@ -15,7 +16,9 @@ export async function getIslandInfo(islandId: string) {
       islandInfo: islandData,
     };
   } catch (error: any) {
-    analytics.logGetIslandInfo(islandId, true, error.message);
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logGetIslandInfo(islandId, true, errorMessage);
+
     return { result: false };
   }
 }

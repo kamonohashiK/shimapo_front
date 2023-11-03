@@ -19,13 +19,8 @@ export class FirebaseAnalytics {
     isError: boolean = false,
     error_message: string = ""
   ) {
-    if (isError) {
-      this.log("get_island_info_error", {
-        islandId: islandId,
-        error: error_message,
-      });
-    } else {
-      this.log("get_island_info", { islandId: islandId });
-    }
+    const event = isError ? "get_island_info_error" : "get_island_info";
+    const params = isError ? { islandId, error: error_message } : { islandId };
+    this.log(event, params);
   }
 }
