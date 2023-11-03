@@ -37,4 +37,18 @@ export class FirebaseAnalytics {
       : { islandId, sort };
     this.log(event, params);
   }
+
+  // 画像のメタデータを保存した際のイベント
+  logSaveImageMetadata(
+    islandId: string,
+    sort: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "save_image_metadata_error" : "save_image_metadata";
+    const params = isError
+      ? { islandId, sort, error: error_message }
+      : { islandId, sort };
+    this.log(event, params);
+  }
 }

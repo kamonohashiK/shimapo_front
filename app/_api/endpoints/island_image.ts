@@ -47,9 +47,13 @@ export async function saveImageUrl(
     // imagesコレクションに画像のメタデータを保存
     const islandImage = new IslandImageCollection(islandId);
     await islandImage.saveImageMetadata(url, type, userId);
+    analytics.logSaveImageMetadata(islandId, type);
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logSaveImageMetadata(islandId, type, true, errorMessage);
+
     return false;
   }
 }
