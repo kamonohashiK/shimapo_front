@@ -4,6 +4,9 @@ import { QuestionAnswerCollection } from "../collections/question_answer";
 import { UserActivityCollection } from "../collections/user_activity";
 import { UserProfileCollection } from "../collections/user_profile";
 import { UserReactionCollection } from "../collections/user_reaction";
+import { FirebaseAnalytics } from "../analytics";
+
+const analytics = new FirebaseAnalytics();
 
 // 回答を新規作成
 export async function createAnswer(
@@ -16,6 +19,8 @@ export async function createAnswer(
   try {
     // 元の質問文を取得
     const q = new QuestionAnswerCollection(islandId, questionId);
+    analytics.logAnswerQuestion(islandId);
+
     await q.getQuestion().then(async (questionData) => {
       const questionText = questionData.data().question;
       const questionerId = questionData.data().posted_by.id;
@@ -39,8 +44,12 @@ export async function createAnswer(
         ),
       ]);
     });
+
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logAnswerQuestion(islandId, true, errorMessage);
+
     return false;
   }
 }
@@ -52,7 +61,10 @@ export async function getAnswers(islandId: string, questionId: string) {
     const answers = await ans.getAnswers();
 
     return answers;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logGetAnswers(islandId, true, errorMessage);
+
     return [];
   }
 }
@@ -111,7 +123,6 @@ async function createLikeReaction(
   answerId: string
 ) {
   try {
-    console.log("createLikeReaction");
     const qa = new QuestionAnswerCollection(islandId, questionId);
     // いいねをつけた回答の回答者に通知を送る
     const answer = await qa.getAnswer(answerId);
