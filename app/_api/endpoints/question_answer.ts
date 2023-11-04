@@ -137,6 +137,7 @@ async function createLikeReaction(
   answerId: string
 ) {
   try {
+    analytics.logCreateReaction(islandId);
     const qa = new QuestionAnswerCollection(islandId, questionId);
     // いいねをつけた回答の回答者に通知を送る
     const answer = await qa.getAnswer(answerId);
@@ -154,7 +155,9 @@ async function createLikeReaction(
       notificationTypes.LIKE_ANSWER,
       content
     );
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logCreateReaction(islandId, true, errorMessage);
     throw new Error("リアクションの作成に失敗しました");
   }
 }

@@ -110,4 +110,15 @@ export class FirebaseAnalytics {
       : { islandId, questionId, liked };
     this.log(event, params);
   }
+
+  // リアクション作成時のイベント
+  logCreateReaction(
+    islandId: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "create_reaction_error" : "create_reaction";
+    const params = isError ? { islandId, error: error_message } : { islandId };
+    this.log(event, params);
+  }
 }
