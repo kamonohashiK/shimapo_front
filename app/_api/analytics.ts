@@ -95,4 +95,19 @@ export class FirebaseAnalytics {
     const params = isError ? { islandId, error: error_message } : { islandId };
     this.log(event, params);
   }
+
+  // 回答に評価をつけた際のイベント
+  logEvaluateAnswer(
+    islandId: string,
+    questionId: string,
+    liked: boolean,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "evaluate_question_error" : "evaluate_question";
+    const params = isError
+      ? { islandId, questionId, liked, error: error_message }
+      : { islandId, questionId, liked };
+    this.log(event, params);
+  }
 }

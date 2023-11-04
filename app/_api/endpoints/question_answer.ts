@@ -77,6 +77,7 @@ export async function ToggleLikeAnswer(
   userId: string
 ) {
   try {
+    analytics.logEvaluateAnswer(islandId, questionId, true);
     const qa = new QuestionAnswerCollection(islandId, questionId);
     const p = new UserProfileCollection(userId);
     await qa
@@ -93,7 +94,10 @@ export async function ToggleLikeAnswer(
       });
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logEvaluateAnswer(islandId, questionId, true, true, errorMessage);
+
     return false;
   }
 }
@@ -106,11 +110,21 @@ export async function ToggleDislikeAnswer(
   userId: string
 ) {
   try {
+    analytics.logEvaluateAnswer(islandId, questionId, false);
     const qa = new QuestionAnswerCollection(islandId, questionId);
     await qa.updateLowEvaluation(answerId, userId);
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logEvaluateAnswer(
+      islandId,
+      questionId,
+      false,
+      true,
+      errorMessage
+    );
+
     return false;
   }
 }
