@@ -132,4 +132,15 @@ export class FirebaseAnalytics {
     const params = isError ? { userId, error: error_message } : { userId };
     this.log(event, params);
   }
+
+  // リアクションを取得した際のイベント
+  logGetReactions(
+    userId: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "get_reactions_error" : "get_reactions";
+    const params = isError ? { userId, error: error_message } : { userId };
+    this.log(event, params);
+  }
 }
