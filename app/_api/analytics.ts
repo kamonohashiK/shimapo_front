@@ -121,4 +121,15 @@ export class FirebaseAnalytics {
     const params = isError ? { islandId, error: error_message } : { islandId };
     this.log(event, params);
   }
+
+  // アクティビティを取得した際のイベント
+  logGetActivities(
+    userId: string,
+    isError: boolean = false,
+    error_message: string = ""
+  ) {
+    const event = isError ? "get_activities_error" : "get_activities";
+    const params = isError ? { userId, error: error_message } : { userId };
+    this.log(event, params);
+  }
 }
