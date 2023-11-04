@@ -2,15 +2,22 @@ import { IslandQuestionCollection } from "../collections/island_question";
 import { UserProfileCollection } from "../collections/user_profile";
 import { UserActivityCollection } from "../collections/user_activity";
 import { notificationTypes } from "@/app/_constants/notification_types";
+import { FirebaseAnalytics } from "../analytics";
+
+const analytics = new FirebaseAnalytics();
 
 // 島に関する質問と回答を取得 (質問関連のアクション後のリロード想定で)
 export async function getQuestions(islandId: string) {
   try {
     const islandQuestion = new IslandQuestionCollection(islandId);
+    analytics.logGetQuestions(islandId);
     const questionList = await islandQuestion.getQuestionsWithAnswers();
 
     return await Promise.all(questionList);
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logGetQuestions(islandId, true, errorMessage);
+
     return [];
   }
 }
@@ -25,6 +32,7 @@ export async function createQuestion(
     const q = new IslandQuestionCollection(islandId);
     const p = new UserProfileCollection(userId);
     const a = new UserActivityCollection(userId);
+    analytics.logCreateQuestion(islandId);
 
     Promise.all([
       q.SaveQuestion(userId, question),
@@ -33,7 +41,10 @@ export async function createQuestion(
     ]);
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logCreateQuestion(islandId, true, errorMessage);
+
     return false;
   }
 }

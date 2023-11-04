@@ -1,14 +1,21 @@
 // IslandImage関連のデータを取得するAPI
+import { FirebaseAnalytics } from "../analytics";
 import { IslandImageCollection } from "../collections/island_image";
+
+const analytics = new FirebaseAnalytics();
 
 // imagesコレクションから画像(サムネイル)のメタデータを取得
 export async function getThumbnails(islandId: string) {
   try {
     const islandImage = new IslandImageCollection(islandId);
     const imageList = await islandImage.getThumbnails();
+    analytics.logGetImageMetadata(islandId, "thumbnail");
 
     return imageList;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logGetImageMetadata(islandId, "thumbnail", true, errorMessage);
+
     return [];
   }
 }
@@ -18,9 +25,13 @@ export async function getLargeImages(islandId: string) {
   try {
     const islandImage = new IslandImageCollection(islandId);
     const imageList = await islandImage.getLargeImages();
+    analytics.logGetImageMetadata(islandId, "large");
 
     return imageList;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logGetImageMetadata(islandId, "large", true, errorMessage);
+
     return [];
   }
 }
@@ -36,9 +47,13 @@ export async function saveImageUrl(
     // imagesコレクションに画像のメタデータを保存
     const islandImage = new IslandImageCollection(islandId);
     await islandImage.saveImageMetadata(url, type, userId);
+    analytics.logSaveImageMetadata(islandId, type);
 
     return true;
-  } catch (error) {
+  } catch (error: any) {
+    const errorMessage = error.message ? error.message : "unknown error";
+    analytics.logSaveImageMetadata(islandId, type, true, errorMessage);
+
     return false;
   }
 }
