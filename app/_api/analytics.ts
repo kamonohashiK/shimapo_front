@@ -1,16 +1,12 @@
-import { getAnalytics, logEvent } from "firebase/analytics";
+import { getAnalytics, logEvent, isSupported } from "firebase/analytics";
 
 // Firebase Analyticsを使用するクラス
 export class FirebaseAnalytics {
-  analytics;
-
-  constructor() {
-    this.analytics = getAnalytics();
-  }
-
   // ログイベントを送信する
   log(event: string, params: any = {}) {
-    logEvent(this.analytics, event, params);
+    const analytics = isSupported().then((yes) =>
+      yes ? logEvent(getAnalytics(), event, params) : null
+    );
   }
 
   // 島の情報にアクセスした際のイベント
