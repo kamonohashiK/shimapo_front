@@ -125,9 +125,9 @@ export const searchItems = [
     target: "御蔵島 みくらしま Mikurashima 東京都 御蔵島村",
   },
   {
-    uid: "TKY_HCJ_HACHIJOSHIMA",
+    uid: "TKY_HCJ_HACHIJOJIMA",
     label: "八丈島(東京都八丈町)",
-    target: "八丈島 はちじょうしま Hachijoshima 東京都 八丈町",
+    target: "八丈島 はちじょうじま Hachijojima 東京都 八丈町",
   },
   {
     uid: "TKY_AOG_AOGASHIMA",
@@ -310,9 +310,9 @@ export const searchItems = [
     target: "西ノ島 にしのしま Nishinoshima 島根県 西ノ島町",
   },
   {
-    uid: "SMN_CB_CHIBURISHIMA",
+    uid: "SMN_CB_CHIBURIJIMA",
     label: "知夫里島(島根県知夫村)",
-    target: "知夫里島 ちぶりしま Chiburishima 島根県 知夫村",
+    target: "知夫里島 ちぶりじま Chiburijima 島根県 知夫村",
   },
   {
     uid: "SMN_MTE_DAIKONJIMA",
@@ -420,9 +420,9 @@ export const searchItems = [
     target: "六島 むしま Mushima 岡山県 笠岡市",
   },
   {
-    uid: "HRS_FKY_HASIRIJIMA",
+    uid: "HRS_FKY_HASHIRIJIMA",
     label: "走島(広島県福山市)",
-    target: "走島 はしりじま Hasirijima 広島県 福山市",
+    target: "走島 はしりじま Hashirijima 広島県 福山市",
   },
   {
     uid: "HRS_FKY_TASHIMA",
@@ -520,9 +520,9 @@ export const searchItems = [
     target: "豊島 とよしま Toyoshima 広島県 呉市",
   },
   {
-    uid: "HRS_KR_ITSUKIJIMA",
+    uid: "HRS_KR_ITSUKISHIMA",
     label: "斎島(広島県呉市)",
-    target: "斎島 いつきしま Itsukijima 広島県 呉市",
+    target: "斎島 いつきしま Itsukishima 広島県 呉市",
   },
   {
     uid: "HRS_HGS_OHSHIBAJIMA",
@@ -545,9 +545,9 @@ export const searchItems = [
     target: "情島 なさけじま Nasakejima 広島県 呉市",
   },
   {
-    uid: "HRS_HRS_NINOSIMA",
+    uid: "HRS_HRS_NINOSHIMA",
     label: "似島(広島県広島市)",
-    target: "似島 にのしま Ninosima 広島県 広島市",
+    target: "似島 にのしま Ninoshima 広島県 広島市",
   },
   {
     uid: "HRS_HRS_KANAWAJIMA",
@@ -796,9 +796,9 @@ export const searchItems = [
     target: "向島 むかえじま Mukaejima 香川県 直島町",
   },
   {
-    uid: "KGW_NOS_BYOBUSHIMA",
+    uid: "KGW_NOS_BYOBUJIMA",
     label: "屏風島(香川県直島町)",
-    target: "屏風島 びょうぶしま Byobushima 香川県 直島町",
+    target: "屏風島 びょうぶじま Byobujima 香川県 直島町",
   },
   {
     uid: "KGW_TKM_OHSHIMA",
@@ -976,9 +976,9 @@ export const searchItems = [
     target: "馬島 うましま Umashima 愛媛県 今治市",
   },
   {
-    uid: "EHM_IMB_HIKJIMA",
+    uid: "EHM_IMB_HIKIJIMA",
     label: "比岐島(愛媛県今治市)",
-    target: "比岐島 ひきじま Hikjima 愛媛県 今治市",
+    target: "比岐島 ひきじま Hikijima 愛媛県 今治市",
   },
   {
     uid: "EHM_NIH_OHSHIMA",
@@ -1111,9 +1111,9 @@ export const searchItems = [
     target: "地島 じのしま Jinoshima 福岡県 宗像市",
   },
   {
-    uid: "FKO_MNK_AOSHIMA",
+    uid: "FKO_MNK_OHSHIMA",
     label: "大島(福岡県宗像市)",
-    target: "大島 おおしま Aoshima 福岡県 宗像市",
+    target: "大島 おおしま Ohshima 福岡県 宗像市",
   },
   {
     uid: "FKO_SNG_AINOSHIMA",
@@ -1211,9 +1211,9 @@ export const searchItems = [
     target: "沖ノ島 おきのしま Okinoshima 長崎県 対馬市",
   },
   {
-    uid: "NGS_TSM_SHIMOYAMAJIMA",
+    uid: "NGS_TSM_SHIMAYAMAJIMA",
     label: "島山島(長崎県対馬市)",
-    target: "島山島 しまやまじま Shimoyamajima 長崎県 対馬市",
+    target: "島山島 しまやまじま Shimayamajima 長崎県 対馬市",
   },
   {
     uid: "NGS_IK_IKINOSHIMA",
@@ -1276,9 +1276,9 @@ export const searchItems = [
     target: "度島 たくしま Takushima 長崎県 平戸市",
   },
   {
-    uid: "NGS_HRD_HIRADOSHIMA",
+    uid: "NGS_HRD_HIRADOJIMA",
     label: "平戸島(長崎県平戸市)",
-    target: "平戸島 ひらどしま Hiradoshima 長崎県 平戸市",
+    target: "平戸島 ひらどじま Hiradojima 長崎県 平戸市",
   },
   {
     uid: "NGS_HRD_TAKASHIMA",
@@ -1596,9 +1596,10 @@ export const searchItems = [
     target: "中島 なかじま Nakajima 熊本県 上天草市",
   },
   {
-    uid: "KMM__AMAKUSAKAMSHIMA",
+    uid: "KMM__AMAKUSAKAMISHIMA",
     label: "天草上島(熊本県上天草市・天草市)",
-    target: "天草上島 あまくさかみしま Amakusakamshima 熊本県 上天草市・天草市",
+    target:
+      "天草上島 あまくさかみしま Amakusakamishima 熊本県 上天草市・天草市",
   },
   {
     uid: "KMM_KMA_HINOSHIMA",
