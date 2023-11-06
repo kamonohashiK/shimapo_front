@@ -1051,10 +1051,10 @@ export const islandSummaries: IslandSummary[] = [
     city: "呉市",
   },
   {
-    uid: "HRS_KR_ITSUKIJIMA",
+    uid: "HRS_KR_ITSUKISHIMA",
     name: "斎島",
     kana: "いつきしま",
-    en_name: "Itsukijima",
+    en_name: "Itsukishima",
     lat: 34.116892,
     lng: 132.791859,
     prefecture: "広島県",

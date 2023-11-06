@@ -520,9 +520,9 @@ export const searchItems = [
     target: "豊島 とよしま Toyoshima 広島県 呉市",
   },
   {
-    uid: "HRS_KR_ITSUKIJIMA",
+    uid: "HRS_KR_ITSUKISHIMA",
     label: "斎島(広島県呉市)",
-    target: "斎島 いつきしま Itsukijima 広島県 呉市",
+    target: "斎島 いつきしま Itsukishima 広島県 呉市",
   },
   {
     uid: "HRS_HGS_OHSHIBAJIMA",
