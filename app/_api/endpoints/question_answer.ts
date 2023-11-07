@@ -5,7 +5,6 @@ import { UserActivityCollection } from "../collections/user_activity";
 import { UserProfileCollection } from "../collections/user_profile";
 import { UserReactionCollection } from "../collections/user_reaction";
 import { FirebaseAnalytics } from "../analytics";
-import { Queue } from "@mui/icons-material";
 import { QueueCollection } from "../collections/queue";
 import { queues } from "@/app/_constants/queues";
 
