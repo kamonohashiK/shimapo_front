@@ -5,6 +5,9 @@ import { UserActivityCollection } from "../collections/user_activity";
 import { UserProfileCollection } from "../collections/user_profile";
 import { UserReactionCollection } from "../collections/user_reaction";
 import { FirebaseAnalytics } from "../analytics";
+import { Queue } from "@mui/icons-material";
+import { QueueCollection } from "../collections/queue";
+import { queues } from "@/app/_constants/queues";
 
 const analytics = new FirebaseAnalytics();
 
@@ -31,6 +34,7 @@ export async function createAnswer(
       const p = new UserProfileCollection(userId);
       const act = new UserActivityCollection(userId);
       const reaction = new UserReactionCollection(questionerId);
+      const queue = new QueueCollection();
 
       await Promise.all([
         ans.saveAnswer(answer, optionUrl, userId),
@@ -42,6 +46,10 @@ export async function createAnswer(
           notificationTypes.ANSWER_QUESTION,
           content
         ),
+        queue.saveQueue(queues.ANSWER, {
+          island_id: islandId,
+          question_id: questionId,
+        }),
       ]);
     });
 
