@@ -3,6 +3,8 @@ import { UserProfileCollection } from "../collections/user_profile";
 import { UserActivityCollection } from "../collections/user_activity";
 import { notificationTypes } from "@/app/_constants/notification_types";
 import { FirebaseAnalytics } from "../analytics";
+import { QueueCollection } from "../collections/queue";
+import { queues } from "@/app/_constants/queues";
 
 const analytics = new FirebaseAnalytics();
 
@@ -32,12 +34,16 @@ export async function createQuestion(
     const q = new IslandQuestionCollection(islandId);
     const p = new UserProfileCollection(userId);
     const a = new UserActivityCollection(userId);
+    const queue = new QueueCollection();
     analytics.logCreateQuestion(islandId);
 
-    Promise.all([
+    await Promise.all([
       q.SaveQuestion(userId, question),
       p.updatePostedQuestions(),
       a.SaveActivity(islandId, notificationTypes.QUESTION, question, ""),
+      queue.saveQueue(queues.QUESTION, {
+        island_id: islandId,
+      }),
     ]);
 
     return true;
