@@ -29,7 +29,7 @@ export default function CommonDialog() {
 
   return (
     <Dialog
-      maxWidth={"md"}
+      fullWidth
       open={dialogState.isShown}
       onClose={() => hideDialog()}
       sx={{ overflow: "auto" }}
