@@ -37,7 +37,7 @@ export async function createQuestion(
     const queue = new QueueCollection();
     analytics.logCreateQuestion(islandId);
 
-    Promise.all([
+    await Promise.all([
       q.SaveQuestion(userId, question),
       p.updatePostedQuestions(),
       a.SaveActivity(islandId, notificationTypes.QUESTION, question, ""),
